@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.daily_school.daily_school"
-        minSdk 24
+        minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -29,6 +29,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    // dataBinding 설정
+    buildFeatures{
+        dataBinding = true
     }
 }
 
