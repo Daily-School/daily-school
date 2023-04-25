@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">daily_school</string>
+    <string name="login_text">지금 가입하고<b> 편리한 학교생활</b>을 누려보세요.</string>
 </resources>
