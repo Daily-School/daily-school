@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import com.daily_school.daily_school.databinding.ActivityMainBinding
 import com.daily_school.daily_school.ui.LoginActivity
 import com.kakao.sdk.user.UserApiClient
+import com.navercorp.nid.NaverIdLoginSDK
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
@@ -34,6 +35,10 @@ class MainActivity : AppCompatActivity() {
                     Log.i(TAG, "로그아웃 성공. SDK에서 토큰 삭제됨")
                 }
             }
+        }
+
+        binding.mainNaverBtn.setOnClickListener {
+            NaverIdLoginSDK.logout()
         }
 
     }
