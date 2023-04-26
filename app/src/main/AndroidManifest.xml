@@ -13,6 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Daily_school"
         tools:targetApi="31">
+
+        <!-- OnboardingActivity 추가 -->
+        <activity
+            android:name=".ui.OnboardingActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".ui.NextActivity"
             android:exported="false" />
