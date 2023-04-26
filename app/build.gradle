@@ -50,5 +50,7 @@ dependencies {
 
     // kakao dependency 추가
     implementation 'com.kakao.sdk:v2-user:2.13.0'
+    // naver dependency 추가
+    implementation 'com.navercorp.nid:oauth:5.5.0'
 
 }
