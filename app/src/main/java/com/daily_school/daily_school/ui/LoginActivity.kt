@@ -36,32 +36,38 @@ class LoginActivity : AppCompatActivity(){
 
         Log.d(TAG, "keyhash : ${Utility.getKeyHash(this)}")
 
+        // 카카오 로그인 초기 설정
         KakaoSdk.init(this, KakaoRef.APP_KEY)
         if (AuthApiClient.instance.hasToken()) {
             UserApiClient.instance.accessTokenInfo { _, error ->
                 if (error == null) {
-                    nextActivity()
+                    schoolInfoActivity()
                 }
             }
         }
 
+        // 네이버 로그인 초기 설정
         NaverIdLoginSDK.initialize(this,
             NaverRef.naverClientId,
             NaverRef.naverClientSecret,
             NaverRef.naverClientName
         )
 
+        // 카카오 로그인 함수 호출
         kakaoLogin()
+        // 네이버 로그인 함수 호출
         naverLogin()
 
     }
 
-    private fun nextActivity(){
-        startActivity(Intent(this, NextActivity::class.java))
+    private fun schoolInfoActivity(){
+        startActivity(Intent(this, SchoolInfoActivity::class.java))
         finish()
     }
 
+    // 카카오 로그인 함수
     private fun kakaoLogin(){
+        // 카카오 로그인 버튼을 눌렀을 때
         binding.loginKakaoBtn.setOnClickListener {
             // 카카오톡으로 로그인 할 수 없어 카카오계정으로 로그인할 경우 사용됨
             val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
@@ -69,7 +75,7 @@ class LoginActivity : AppCompatActivity(){
                     Log.e(TAG, "카카오계정으로 로그인 실패", error)
                 } else if (token != null) {
                     Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
-                    nextActivity()
+                    schoolInfoActivity()
                 }
             }
 
@@ -87,9 +93,11 @@ class LoginActivity : AppCompatActivity(){
 
                         // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인 시도
                         UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
-                    } else if (token != null) {
+                    }
+                    // 카카오톡으로 로그인 성공하면 SchoolInfoActivity로 이동
+                    else if (token != null) {
                         Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
-                        nextActivity()
+                        schoolInfoActivity()
                     }
                 }
             } else {
@@ -98,18 +106,21 @@ class LoginActivity : AppCompatActivity(){
         }
     }
 
+    // 네이버 로그인 함수
     private fun naverLogin(){
-
+        // 네이버 로그인 버튼을 눌렀을 때
         binding.loginNaverBtn.setOnClickListener {
             val oauthLoginCallback = object : OAuthLoginCallback {
                 override fun onSuccess() {
                     // 네이버 로그인 인증이 성공했을 때 수행할 코드 추가
-                    nextActivity()
+                    schoolInfoActivity()
                 }
+                // 로그인 실패 했을 때
                 override fun onFailure(httpStatus: Int, message: String) {
                     val errorCode = NaverIdLoginSDK.getLastErrorCode().code
                     val errorDescription = NaverIdLoginSDK.getLastErrorDescription()
                 }
+                // 로그인 에러가 떴을 때
                 override fun onError(errorCode: Int, message: String) {
                     onFailure(errorCode, message)
                 }
