@@ -53,4 +53,7 @@ dependencies {
     // naver dependency 추가
     implementation 'com.navercorp.nid:oauth:5.5.0'
 
+    // material design dependency 추가
+    implementation "com.google.android.material:material:1.9.0"
+
 }
