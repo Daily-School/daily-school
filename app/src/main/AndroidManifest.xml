@@ -13,25 +13,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Daily_school"
         tools:targetApi="31">
-
         <!-- OnboardingActivity 추가 -->
         <activity
             android:name=".ui.OnboardingActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!--        schoolInfoActivity 추가-->
+        </activity> <!-- schoolInfoActivity 추가 -->
         <activity
             android:name=".ui.SchoolInfoActivity"
             android:exported="false" />
         <activity
             android:name=".ui.NextActivity"
-            android:exported="false" />
-        <!-- 카카오 sdk 설정 -->
+            android:exported="false" /> <!-- 카카오 sdk 설정 -->
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
@@ -46,9 +43,7 @@
                     android:host="oauth"
                     android:scheme="e0bce995a4b6a49cd0afa8804b335f7f" />
             </intent-filter>
-        </activity>
-
-        <!--    LoginActivity 추가-->
+        </activity> <!-- LoginActivity 추가 -->
         <activity
             android:name=".ui.LoginActivity"
             android:exported="false" />
