@@ -80,8 +80,6 @@ class SchoolInfoActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                val bgShape = binding.schoolInfoGradeSpinner.background
-
 
             }
 
