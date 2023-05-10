@@ -1,4 +1,35 @@
 <resources>
     <string name="app_name">daily_school</string>
     <string name="login_text">지금 가입하고<b> 편리한 학교생활</b>을 누려보세요.</string>
+
+    <!--    스피너 학년 배열-->
+    <string-array name="spinner_grade">
+        <item>1학년</item>
+        <item>2학년</item>
+        <item>3학년</item>
+        <item>4학년</item>
+        <item>5학년</item>
+        <item>6학년</item>
+        <item>학교를 선택해 주세요.</item>
+    </string-array>
+
+    <!--    스피너 반 배열반-->
+    <string-array name="spinner_class">
+        <item>1반</item>
+        <item>2반</item>
+        <item>3반</item>
+        <item>4반</item>
+        <item>5반</item>
+        <item>6반</item>
+        <item>7반</item>
+        <item>8반</item>
+        <item>9반</item>
+        <item>10반</item>
+        <item>11반</item>
+        <item>12반</item>
+        <item>13반</item>
+        <item>14반</item>
+        <item>15반</item>
+        <item>학년을 선택해 주세요.</item>
+    </string-array>
 </resources>
