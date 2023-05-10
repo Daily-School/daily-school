@@ -82,18 +82,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/schoolInfoNameEdit" />
 
-    <!--    학년 선택 에딧 텍스트-->
-    <EditText
-        android:id="@+id/schoolInfoGradeEdit"
+    <!--    학년 선택 스피너-->
+    <Spinner
+        android:id="@+id/schoolInfoGradeSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="학년을 선택해 주세요."
-        android:backgroundTint="#C0C0C0"
-        android:fontFamily="@font/pretendard"
-        android:textColor="#9E9E9E"
-        android:textColorHint="#C0C0C0"
-        android:textSize="18sp"
-        android:drawableRight="@drawable/ic_school_info_x"
+        android:background="@drawable/bg_spinner_gray7"
+        android:overlapAnchor="false"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         app:layout_constraintTop_toBottomOf="@+id/schoolInfoGradeTxt" />
@@ -111,20 +106,16 @@
         android:layout_marginTop="28dp"
         android:layout_marginLeft="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/schoolInfoGradeEdit" />
+        app:layout_constraintTop_toBottomOf="@+id/schoolInfoGradeSpinner" />
 
     <!--    반 선택 에딧 텍스트-->
-    <EditText
-        android:id="@+id/schoolInfoClassEdit"
+    <Spinner
+        android:id="@+id/schoolInfoClassSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="반을 선택해 주세요"
-        android:backgroundTint="#C0C0C0"
-        android:fontFamily="@font/pretendard"
-        android:textColor="#9E9E9E"
-        android:textColorHint="#C0C0C0"
-        android:textSize="18sp"
-        android:drawableRight="@drawable/ic_school_info_x"
+        android:background="@drawable/bg_spinner_gray7"
+        android:overlapAnchor="false"
+        android:textAlignment="textStart"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         app:layout_constraintTop_toBottomOf="@+id/schoolInfoClassTxt" />
@@ -133,7 +124,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/radius_blue_transparency_30"
+        android:background="@drawable/radius_blue_button_transparency_30"
         android:text="선택완료"
         android:fontFamily="@font/pretendard"
         android:textSize="20sp"
