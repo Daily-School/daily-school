@@ -6,5 +6,5 @@
     <dimen name="login_margin_bottom">76dp</dimen>
 
     <!--    activity_schoolInfo layout-->
-    <dimen name="schoolInfo_margin_bottom">100dp</dimen>
+    <dimen name="schoolInfo_margin_bottom">15dp</dimen>
 </resources>
