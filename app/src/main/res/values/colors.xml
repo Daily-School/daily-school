@@ -15,4 +15,7 @@
     <color name="gray_6">#FFBDBDBD</color>
     <color name="gray_7">#FFE0E0E0</color>
     <color name="gray_8">#FFFAFAFA</color>
+    <color name="focus_text">#005AFF</color>
+    <color name="disable_text">#D7D7D7</color>
 </resources>
+

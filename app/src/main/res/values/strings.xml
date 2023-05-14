@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">daily_school</string>
     <string name="login_text">지금 가입하고<b> 편리한 학교생활</b>을 누려보세요.</string>
+    
+    <string name="bottom_menu_home_text">홈</string>
+    <string name="bottom_menu_schedule_text">시간표</string>
+    <string name="bottom_menu_meal_plan_text">급식표</string>
+    <string name="bottom_menu_plan_text">일정표</string>
+    <string name="bottom_menu_profile_text">마이</string>
 
     <!--    스피너 학년 배열-->
     <string-array name="spinner_grade">

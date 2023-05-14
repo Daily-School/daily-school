@@ -101,7 +101,7 @@ class SchoolInfoActivity : AppCompatActivity() {
 
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                binding.schoolInfoClassSpinner.setBackgroundResource(R.drawable.bg_spinner_blue)
+                //binding.schoolInfoClassSpinner.setBackgroundResource(R.drawable.bg_spinner_blue)
             }
         }
 

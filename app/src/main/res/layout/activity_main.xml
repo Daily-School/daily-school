@@ -28,6 +28,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <FrameLayout
+            android:id="@+id/frame_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_gravity="start"
+            android:background="@color/white"
+            app:menu="@menu/bottom_navigation_menu"
+            app:itemIconTint="@drawable/bottom_menu_color"
+            app:itemTextColor="@drawable/bottom_menu_color"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
     </LinearLayout>
 
 </layout>

@@ -23,8 +23,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- schoolInfoActivity 추가 -->
+
+        <!-- 각 스크린 Activity 추가 -->
         <activity
             android:name=".ui.SchoolInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ScheduleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.MealActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.PlanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ProfileActivity"
             android:exported="false" />
         <activity
             android:name=".ui.NextActivity"

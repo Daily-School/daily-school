@@ -7,7 +7,7 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+//import androidx.fragment.app.viewModels
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.FragmentSchoolNameBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
