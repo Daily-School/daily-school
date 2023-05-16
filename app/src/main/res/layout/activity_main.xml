@@ -1,50 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.LoginActivity">
+        tools:context=".ui.MainActivity">
 
-        <Button
-            android:id="@+id/mainBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="login" />
-
-        <Button
-            android:id="@+id/mainKakaoBtn"
-            android:text="kakao Signout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <Button
-            android:id="@+id/mainNaverBtn"
-            android:text="naver Signout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <FrameLayout
-            android:id="@+id/frame_container"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/bottom_navigation_bar" />
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigationView"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_gravity="start"
-            android:background="@color/white"
-            app:menu="@menu/bottom_navigation_menu"
-            app:itemIconTint="@drawable/bottom_menu_color"
-            app:itemTextColor="@drawable/bottom_menu_color"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
