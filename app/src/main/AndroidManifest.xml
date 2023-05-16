@@ -29,24 +29,6 @@
             android:name=".ui.SchoolInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.HomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.ScheduleActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.MealActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.PlanActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.ProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.NextActivity"
-            android:exported="false" /> <!-- 카카오 sdk 설정 -->
-        <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
             <intent-filter>
@@ -63,15 +45,10 @@
         </activity> <!-- LoginActivity 추가 -->
         <activity
             android:name=".ui.LoginActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false">
         </activity>
     </application>
 
