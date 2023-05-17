@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">daily_school</string>
     <string name="login_text">지금 가입하고<b> 편리한 학교생활</b>을 누려보세요.</string>
-    
+
     <string name="bottom_menu_home_text">홈</string>
     <string name="bottom_menu_schedule_text">시간표</string>
     <string name="bottom_menu_meal_plan_text">급식표</string>
@@ -38,4 +38,6 @@
         <item>15반</item>
         <item>학년을 선택해 주세요.</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
