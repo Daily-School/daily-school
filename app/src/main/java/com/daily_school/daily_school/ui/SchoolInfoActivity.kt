@@ -1,10 +1,12 @@
 package com.daily_school.daily_school.ui
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
+import com.daily_school.daily_school.MainActivity
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.ActivitySchoolInfoBinding
 
@@ -35,6 +37,12 @@ class SchoolInfoActivity : AppCompatActivity() {
 
         // 스피너 핸들러 셋업 함수
         setupSpinnerHandler()
+
+        binding.schoolInfoSelectBtn.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+
+        }
     }
 
     // 학교 검색 fragment 호출 함수
