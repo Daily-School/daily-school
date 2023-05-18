@@ -25,7 +25,8 @@
             app:menu="@menu/bottom_navigation_menu"
             app:itemIconTint="@drawable/bottom_menu_color"
             app:itemTextColor="@drawable/bottom_menu_color"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:labelVisibilityMode="labeled"/>
 
     </LinearLayout>
 
