@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.AccountActivity">
+
+
+        <!--   프로필 프래그먼트로 이동하는 아이콘-->
+        <ImageView
+            android:id="@+id/accountIcToProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="58dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/ic_account_management_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <!--   계정 메인 텍스트뷰-->
+        <TextView
+            android:id="@+id/accountMainTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="58dp"
+            android:layout_marginLeft="140dp"
+            android:fontFamily="@font/pretendard"
+            android:text="계정 관리"
+            android:textColor="@color/gray_1"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--   첫번째 선-->
+        <LinearLayout
+            android:id="@+id/accountFirstLine"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/gray_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/accountMainTextView"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+
+        <!--   회색 경계선 사각형-->
+        <ImageView
+            android:id="@+id/accountGrayBorder"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/border_gray10"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/accountFirstLine" />
+
+
+        <!--   로그인 안내 텍스트뷰     -->
+        <TextView
+            android:id="@+id/accountCurrentAccountTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:layout_marginLeft="16dp"
+            android:fontFamily="@font/pretendard"
+            android:text="현재 로그인된 계정"
+            android:textColor="@color/gray_5"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/accountGrayBorder"
+            app:layout_constraintTop_toTopOf="@+id/accountGrayBorder" />
+
+
+        <!--   현재 로그인 계정 텍스트뷰-->
+        <TextView
+            android:id="@+id/accountCurrentAccountDynamicTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="16dp"
+            android:fontFamily="@font/pretendard"
+            android:text="abc@kakao.com"
+            android:textColor="@color/gray_1"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/accountGrayBorder"
+            app:layout_constraintTop_toBottomOf="@+id/accountCurrentAccountTextView" />
+
+
+        <!--   회원 탈퇴 텍스트뷰-->
+        <TextView
+            android:id="@+id/accountDeleteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="31dp"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/pretendard"
+            android:text="회원 탈퇴"
+            android:textColor="@color/gray_1"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/accountGrayBorder" />
+
+
+        <!--   회원 탈퇴 이동 아이콘-->
+        <ImageView
+            android:id="@+id/accountIcToDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_profile_right"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/accountGrayBorder" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
