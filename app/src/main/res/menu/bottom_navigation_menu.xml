@@ -2,31 +2,31 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/bottom_menu_home_d"
         android:enabled="true"
         android:title="@string/bottom_menu_home_text" />
 
     <item
-        android:id="@+id/navigation_schedule"
+        android:id="@+id/scheduleFragment"
         android:icon="@drawable/bottom_menu_schedule_d"
         android:enabled="true"
         android:title="@string/bottom_menu_schedule_text" />
 
     <item
-        android:id="@+id/navigation_meal_plan"
+        android:id="@+id/mealFragment"
         android:icon="@drawable/bottom_menu_meal_plan_d"
         android:enabled="true"
         android:title="@string/bottom_menu_meal_plan_text" />
 
     <item
-        android:id="@+id/navigation_plan"
+        android:id="@+id/planFragment"
         android:icon="@drawable/bottom_menu_plan_d"
         android:enabled="true"
         android:title="@string/bottom_menu_plan_text" />
 
     <item
-        android:id="@+id/navigation_profile"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/bottom_menu_profile_d"
         android:enabled="true"
         android:title="@string/bottom_menu_profile_text" />

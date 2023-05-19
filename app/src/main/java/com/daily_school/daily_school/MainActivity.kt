@@ -26,41 +26,41 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setItemIconTintList(null)
         binding.bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.navigation_home -> {
+                R.id.homeFragment -> {
                     item.setIcon(R.drawable.bottom_menu_home_f)
-                    setOtherItemsIcon(R.id.navigation_home)
+                    setOtherItemsIcon(R.id.homeFragment)
 
                     changeFragment(HomeFragment());
 
                     true
                 }
-                R.id.navigation_schedule -> {
+                R.id.scheduleFragment -> {
                     item.setIcon(R.drawable.bottom_menu_schedule_f)
-                    setOtherItemsIcon(R.id.navigation_schedule)
+                    setOtherItemsIcon(R.id.scheduleFragment)
 
                     changeFragment(ScheduleFragment());
 
                     true
                 }
-                R.id.navigation_meal_plan -> {
+                R.id.mealFragment -> {
                     item.setIcon(R.drawable.bottom_menu_meal_plan_f)
-                    setOtherItemsIcon(R.id.navigation_meal_plan)
+                    setOtherItemsIcon(R.id.mealFragment)
 
                     changeFragment(MealFragment());
 
                     true
                 }
-                R.id.navigation_plan -> {
+                R.id.planFragment -> {
                     item.setIcon(R.drawable.bottom_menu_plan_f)
-                    setOtherItemsIcon(R.id.navigation_plan)
+                    setOtherItemsIcon(R.id.planFragment)
 
                     changeFragment(PlanFragment());
 
                     true
                 }
-                R.id.navigation_profile -> {
+                R.id.profileFragment -> {
                     item.setIcon(R.drawable.bottom_menu_profile_f)
-                    setOtherItemsIcon(R.id.navigation_profile)
+                    setOtherItemsIcon(R.id.profileFragment)
 
                     changeFragment(ProfileFragment());
 
@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.bottomNavigationView.selectedItemId = R.id.navigation_home
+        binding.bottomNavigationView.selectedItemId = R.id.homeFragment
     }
 
     private fun setOtherItemsIcon(selectedItemId: Int) {
@@ -80,11 +80,11 @@ class MainActivity : AppCompatActivity() {
             if (menuItem.itemId != selectedItemId) {
                 // 선택되지 않은 아이템 아이콘 변경
                 when (menuItem.itemId) {
-                    R.id.navigation_home -> menuItem.setIcon(R.drawable.bottom_menu_home_d)
-                    R.id.navigation_schedule -> menuItem.setIcon(R.drawable.bottom_menu_schedule_d)
-                    R.id.navigation_meal_plan -> menuItem.setIcon(R.drawable.bottom_menu_meal_plan_d)
-                    R.id.navigation_plan -> menuItem.setIcon(R.drawable.bottom_menu_plan_d)
-                    R.id.navigation_profile -> menuItem.setIcon(R.drawable.bottom_menu_profile_d)
+                    R.id.homeFragment -> menuItem.setIcon(R.drawable.bottom_menu_home_d)
+                    R.id.scheduleFragment -> menuItem.setIcon(R.drawable.bottom_menu_schedule_d)
+                    R.id.mealFragment -> menuItem.setIcon(R.drawable.bottom_menu_meal_plan_d)
+                    R.id.planFragment -> menuItem.setIcon(R.drawable.bottom_menu_plan_d)
+                    R.id.profileFragment -> menuItem.setIcon(R.drawable.bottom_menu_profile_d)
                 }
             }
         }
