@@ -167,6 +167,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profileSecondLine" />
 
+
+            <!--   자주 묻는 질문 텍스트뷰-->
             <TextView
                 android:id="@+id/profileQuestionTextView"
                 android:layout_width="wrap_content"
@@ -180,6 +182,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profileAccountTextView" />
 
+            <!--   자주 묻는 질문 아이콘-->
             <ImageView
                 android:id="@+id/profileIcToQuestion"
                 android:layout_width="wrap_content"
@@ -190,6 +193,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profileIcToAccount" />
 
+            <!--   로그아웃 텍스트뷰-->
             <TextView
                 android:id="@+id/profileLogoutTextView"
                 android:layout_width="wrap_content"
@@ -203,6 +207,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profileQuestionTextView" />
 
+            <!--   로그아웃 아이콘-->
             <ImageView
                 android:id="@+id/profileIcToLogout"
                 android:layout_width="wrap_content"
