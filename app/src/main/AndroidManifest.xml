@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Daily_school"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.AccountActivity"
+            android:exported="false" />
         <!-- OnboardingActivity 추가 -->
         <activity
             android:name=".ui.OnboardingActivity"
@@ -23,7 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- schoolInfoActivity 추가 -->
-
         <!-- 각 스크린 Activity 추가 -->
         <activity
             android:name=".ui.SchoolInfoActivity"
