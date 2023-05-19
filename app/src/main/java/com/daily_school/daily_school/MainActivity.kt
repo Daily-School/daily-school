@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.daily_school.daily_school.databinding.ActivityMainBinding
 import com.daily_school.daily_school.ui.*
 import com.daily_school.daily_school.ui.page.*
@@ -20,57 +22,66 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val bottomNavigationView = binding.bottomNavigationView
+        val navController = findNavController(R.id.fragmentContainer)
+
+        bottomNavigationView.setupWithNavController(navController)
+
+
+//        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         // 바텀 메뉴 클릭 이벤트
-        binding.bottomNavigationView.setItemIconTintList(null)
-        binding.bottomNavigationView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.homeFragment -> {
-                    item.setIcon(R.drawable.bottom_menu_home_f)
-                    setOtherItemsIcon(R.id.homeFragment)
-
-                    changeFragment(HomeFragment());
-
-                    true
-                }
-                R.id.scheduleFragment -> {
-                    item.setIcon(R.drawable.bottom_menu_schedule_f)
-                    setOtherItemsIcon(R.id.scheduleFragment)
-
-                    changeFragment(ScheduleFragment());
-
-                    true
-                }
-                R.id.mealFragment -> {
-                    item.setIcon(R.drawable.bottom_menu_meal_plan_f)
-                    setOtherItemsIcon(R.id.mealFragment)
-
-                    changeFragment(MealFragment());
-
-                    true
-                }
-                R.id.planFragment -> {
-                    item.setIcon(R.drawable.bottom_menu_plan_f)
-                    setOtherItemsIcon(R.id.planFragment)
-
-                    changeFragment(PlanFragment());
-
-                    true
-                }
-                R.id.profileFragment -> {
-                    item.setIcon(R.drawable.bottom_menu_profile_f)
-                    setOtherItemsIcon(R.id.profileFragment)
-
-                    changeFragment(ProfileFragment());
-
-                    true
-                }
-                else -> false
-            }
-        }
-
-        binding.bottomNavigationView.selectedItemId = R.id.homeFragment
+//        binding.bottomNavigationView.setItemIconTintList(null)
+//        binding.bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+//            when (item.itemId) {
+//                R.id.homeFragment -> {
+//                    item.setIcon(R.drawable.bottom_menu_home_f)
+//                    setOtherItemsIcon(R.id.homeFragment)
+//
+//                    changeFragment(HomeFragment());
+//
+//                    true
+//                }
+//                R.id.scheduleFragment -> {
+//                    item.setIcon(R.drawable.bottom_menu_schedule_f)
+//                    setOtherItemsIcon(R.id.scheduleFragment)
+//
+//                    changeFragment(ScheduleFragment());
+//
+//                    true
+//                }
+//                R.id.mealFragment -> {
+//                    item.setIcon(R.drawable.bottom_menu_meal_plan_f)
+//                    setOtherItemsIcon(R.id.mealFragment)
+//
+//                    changeFragment(MealFragment());
+//
+//                    true
+//                }
+//                R.id.planFragment -> {
+//                    item.setIcon(R.drawable.bottom_menu_plan_f)
+//                    setOtherItemsIcon(R.id.planFragment)
+//
+//                    changeFragment(PlanFragment());
+//
+//                    true
+//                }
+//                R.id.profileFragment -> {
+//                    item.setIcon(R.drawable.bottom_menu_profile_f)
+//                    setOtherItemsIcon(R.id.profileFragment)
+//
+//                    changeFragment(ProfileFragment());
+//
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
+//
+//        binding.bottomNavigationView.selectedItemId = R.id.homeFragment
     }
 
     private fun setOtherItemsIcon(selectedItemId: Int) {
