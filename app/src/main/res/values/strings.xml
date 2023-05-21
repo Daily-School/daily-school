@@ -38,6 +38,4 @@
         <item>15반</item>
         <item>학년을 선택해 주세요.</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
