@@ -5,56 +5,52 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.viewpager2.widget.ViewPager2
 import com.daily_school.daily_school.R
+import com.daily_school.daily_school.databinding.FragmentMealBinding
+import com.daily_school.daily_school.ui.meal.launch.MealLaunchFragmentAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MealFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MealFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var binding : FragmentMealBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_meal, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_meal, container, false)
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MealFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MealFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        val pagerAdapter = MealLaunchFragmentAdapter(requireActivity())
+
+        val tabTitles = listOf<String>("점심", "아침", "저녁")
+
+        pagerAdapter.addFragment(MealLaunchFragment())
+        pagerAdapter.addFragment(MealBreakfastFragment())
+        pagerAdapter.addFragment(MealDinnerFragment())
+
+        binding.mealViewPager.adapter = pagerAdapter
+
+        binding.mealViewPager.registerOnPageChangeCallback(object  : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
             }
+        })
+        TabLayoutMediator(binding.tabLayout, binding.mealViewPager){ tab, position ->
+            tab.text = tabTitles[position]
+        }.attach()
     }
+
 }
