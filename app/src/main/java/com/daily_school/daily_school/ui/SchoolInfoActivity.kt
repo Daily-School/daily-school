@@ -41,7 +41,7 @@ class SchoolInfoActivity : AppCompatActivity() {
         binding.schoolInfoSelectBtn.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-
+            finish()
         }
     }
 
