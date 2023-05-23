@@ -46,13 +46,6 @@ class LoginActivity : AppCompatActivity(){
             }
         }
 
-        // 네이버 로그인 초기 설정
-        NaverIdLoginSDK.initialize(this,
-            NaverRef.naverClientId,
-            NaverRef.naverClientSecret,
-            NaverRef.naverClientName
-        )
-
         // 카카오 로그인 함수 호출
         kakaoLogin()
         // 네이버 로그인 함수 호출
