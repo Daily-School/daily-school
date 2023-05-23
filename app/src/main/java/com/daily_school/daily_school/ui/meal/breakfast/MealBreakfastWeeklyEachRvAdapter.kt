@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.daily_school.daily_school.databinding.MealBreakfastWeekEachRvItemBinding
 import com.daily_school.daily_school.databinding.MealWeekEachRvItemBinding
 
+// 이번주 급식 날짜별 데이터 모델을 연결하는 Adapter
 class MealBreakfastWeeklyEachRvAdapter (private val items : MutableList<MealBreakfastWeeklyEachModel>) : RecyclerView.Adapter<MealBreakfastWeeklyEachRvAdapter.ViewHolder>() {
 
     class ViewHolder(binding : MealBreakfastWeekEachRvItemBinding) : RecyclerView.ViewHolder(binding.root){

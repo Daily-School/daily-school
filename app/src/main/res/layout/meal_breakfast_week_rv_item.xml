@@ -12,6 +12,7 @@
         android:layout_marginBottom="12dp"
         android:background="@drawable/border_blue_transparency_30">
 
+        <!--   이번주 급식 개별 날짜 텍스트뷰-->
         <TextView
             android:id="@+id/breakfastWeekDayTextView"
             android:layout_width="wrap_content"
@@ -26,6 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!--   이번주 급식 다이어로그로 가는 아이콘-->
         <ImageView
             android:id="@+id/breakfastWeekIcToMealDialog"
             android:layout_width="wrap_content"
@@ -36,6 +38,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!--    급식이 제공되지 않을 때 나오는 아이콘-->
         <ImageView
             android:id="@+id/breakfastWeekNotionIc"
             android:layout_width="wrap_content"
@@ -47,6 +50,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!--    급식이 나오지 않을 때 나오는 텍스트뷰-->
         <TextView
             android:id="@+id/breakfastWeekMealInfoTextView"
             android:layout_width="wrap_content"
@@ -62,6 +66,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/breakfastWeekNotionIc" />
 
+        <!--   이번주 날짜별 급식 리사이클러뷰-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/breakfastMealWeekEachInfoRv"
             android:layout_width="0dp"

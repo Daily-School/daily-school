@@ -32,10 +32,13 @@ class MealFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        // ViewPager 연결
         val pagerAdapter = MealLaunchFragmentAdapter(requireActivity())
 
+        // TabLayout에 사용될 list
         val tabTitles = listOf<String>("점심", "아침", "저녁")
 
+        // ViewPager에 필요한 Fragment 추가
         pagerAdapter.addFragment(MealLaunchFragment())
         pagerAdapter.addFragment(MealBreakfastFragment())
         pagerAdapter.addFragment(MealDinnerFragment())

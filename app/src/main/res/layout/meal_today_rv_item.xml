@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="25dp">
 
+        <!--   점표시 아이콘-->
         <ImageView
             android:id="@+id/launchMealTodayPointIc"
             android:layout_width="wrap_content"
@@ -20,6 +21,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!--   오늘 급식 텍스트뷰-->
         <TextView
             android:id="@+id/launchMealTodayInfoTextView"
             android:layout_width="wrap_content"

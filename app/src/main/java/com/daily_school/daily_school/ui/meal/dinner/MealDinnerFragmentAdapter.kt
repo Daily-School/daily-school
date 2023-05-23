@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
+// ViewPager와 연결되는 Adapter
 class MealDinnerFragmentAdapter (fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity){
 
     var fragments : ArrayList<Fragment> = ArrayList()
@@ -21,7 +22,7 @@ class MealDinnerFragmentAdapter (fragmentActivity: FragmentActivity) : FragmentS
         notifyItemInserted(fragments.size - 1)
     }
 
-    fun removerFragment(){
+    fun removeFragment(){
         fragments.removeLast()
         notifyItemRemoved(fragments.size)
     }

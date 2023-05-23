@@ -49,6 +49,7 @@ class MealBreakfastFragment : Fragment() {
         todayItems.add(MealBreakfastTodayModel("미트볼"))
         todayItems.add(MealBreakfastTodayModel("새우튀김"))
 
+        // 데이터가 있으면 리사이클러뷰의 상태를 visible로 변환
         if (todayItems.isNotEmpty()){
             binding.mealBreakfastNotionIc.visibility = View.INVISIBLE
             binding.mealBreakfastNotionTextView.visibility = View.INVISIBLE

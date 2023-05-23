@@ -34,8 +34,6 @@ class MealDinnerFragment : Fragment() {
         weeklyMeal()
 
         return binding.root
-
-        return binding.root
     }
 
     // 오늘의 급식 함수
@@ -50,6 +48,7 @@ class MealDinnerFragment : Fragment() {
         todayItems.add(MealDinnerTodayModel("깍두기"))
         todayItems.add(MealDinnerTodayModel("메론"))
 
+        // 데이터가 있으면 리사이클러뷰의 상태를 visible로 변환
         if (todayItems.isNotEmpty()){
             binding.mealDinnerNotionIc.visibility = View.INVISIBLE
             binding.mealDinnerNotionTextView.visibility = View.INVISIBLE

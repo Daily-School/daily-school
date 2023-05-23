@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.daily_school.daily_school.databinding.MealDinnerTodayRvItemBinding
 
+// 오늘 식단을 연결하는 Adapter
 class MealDinnerTodayRvAdapter (private val items: ArrayList<MealDinnerTodayModel>) : RecyclerView.Adapter<MealDinnerTodayRvAdapter.ViewHolder>(){
 
     class ViewHolder(binding : MealDinnerTodayRvItemBinding) : RecyclerView.ViewHolder(binding.root){

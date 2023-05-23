@@ -55,6 +55,8 @@
 
             </LinearLayout>
 
+
+            <!--   탭 레이아웃-->
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
@@ -87,6 +89,8 @@
                     android:textSize="16sp"/>
 
 
+
+            <!--   급식표 뷰페이저-->
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/mealViewPager"
                 android:layout_width="0dp"

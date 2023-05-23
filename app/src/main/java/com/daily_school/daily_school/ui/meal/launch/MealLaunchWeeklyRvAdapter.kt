@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.daily_school.daily_school.databinding.MealWeekRvItemBinding
 
+// 이번주 급식 날짜와 안에 리사이클러뷰를 연결하는 Adapter
 class MealLaunchWeeklyRvAdapter(val context: Context, private val items : MutableList<MealLaunchWeeklyModel>) : RecyclerView.Adapter<MealLaunchWeeklyRvAdapter.ViewHolder>() {
 
     class ViewHolder(binding : MealWeekRvItemBinding) : RecyclerView.ViewHolder(binding.root){
@@ -37,12 +38,14 @@ class MealLaunchWeeklyRvAdapter(val context: Context, private val items : Mutabl
 
         holder.launchWeekDate.text = item.date
 
+        // itemCount가 0이 아니면 리사이클러뷰를 visible 상태로 바꿈
         if (itemCount != 0){
             holder.launchWeekNotionIc.visibility = View.INVISIBLE
             holder.launchWeekMealInfoTextView.visibility = View.INVISIBLE
             holder.launchMealWeekEachInfoRv.visibility = View.VISIBLE
         }
 
+        // 이번주 날짜별 급식 리사이클러뷰를 연결하는 Adapter
         holder.launchMealWeekEachInfoRv.adapter = MealLaunchWeeklyEachRvAdapter(item.innerList)
         holder.launchMealWeekEachInfoRv.layoutManager = GridLayoutManager(context, 1)
 
