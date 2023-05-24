@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.FragmentProfileBinding
 import com.daily_school.daily_school.ui.AccountActivity
+import com.daily_school.daily_school.ui.SchoolInfoActivity
 
 class ProfileFragment : Fragment() {
 
@@ -29,6 +30,9 @@ class ProfileFragment : Fragment() {
         // AccountActivity 화면 이동 함수 호출
         profileToAccountActivity()
 
+        // SchoolInfoActivity 화면 이동 함수 호출
+        profileToSchoolInfo()
+
         return binding.root
     }
 
@@ -36,6 +40,14 @@ class ProfileFragment : Fragment() {
     private fun profileToAccountActivity(){
         binding.profileIcToAccount.setOnClickListener {
             var intent = Intent(context, AccountActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    // SchoolInfoActivity 화면 이동 함수
+    private fun profileToSchoolInfo(){
+        binding.profileIcToProfile.setOnClickListener {
+            var intent = Intent(context, SchoolInfoActivity::class.java)
             startActivity(intent)
         }
     }
