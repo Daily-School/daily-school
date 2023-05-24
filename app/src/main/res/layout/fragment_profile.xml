@@ -57,90 +57,99 @@
             </LinearLayout>
 
 
-            <!--   인사말 텍스트뷰-->
-            <TextView
-                android:id="@+id/profileHelloTextView"
+
+
+
+            <!--    회색 사각형 화면-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/profileGrayRectangle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/pretendard"
-                android:text="홍길동님, 안녕하세요?"
-                android:textColor="@color/gray_1"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profileFirstLine" />
-
-
-            <!--   파랑색 사각형 화면-->
-            <ImageView
-                android:id="@+id/profileBlueRectangle"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/radius_blue_rectangle"
-                app:layout_constraintTop_toBottomOf="@+id/profileHelloTextView" />
-
-
-            <!--    두 번째 선-->
-            <LinearLayout
-                android:id="@+id/profileSecondLine"
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:layout_marginTop="30dp"
+                android:layout_height="190dp"
                 android:background="@color/gray_8"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profileBlueRectangle"
-                android:orientation="vertical">
+                app:layout_constraintTop_toBottomOf="@+id/profileFirstLine">
 
-            </LinearLayout>
+                <!--   인사말 텍스트뷰-->
+                <TextView
+                    android:id="@+id/profileHelloTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/pretendard"
+                    android:text="홍길동님, 안녕하세요?"
+                    android:textColor="@color/gray_1"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/profileGrayRectangle" />
 
-
-            <!--   현재 학교 텍스트뷰-->
-            <TextView
-                android:id="@+id/profileCurrentSchoolTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:layout_marginLeft="16dp"
-                android:fontFamily="@font/pretendard"
-                android:text="현재 학교"
-                android:textColor="@color/gray_1"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@+id/profileBlueRectangle"
-                app:layout_constraintTop_toTopOf="@+id/profileBlueRectangle" />
-
-
-            <!--    현재 학교 동적 텍스트뷰-->
-            <TextView
-                android:id="@+id/profileCurrentSchoolDynamicTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="38dp"
-                android:fontFamily="@font/pretendard"
-                android:text="데일중학교 1학년 1반"
-                android:textColor="@color/main_color"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/profileBlueRectangle"
-                app:layout_constraintTop_toTopOf="@+id/profileBlueRectangle" />
+                <!--    하얀색 사각형 화면-->
+                <ImageView
+                    android:id="@+id/profileWhiteRectangle"
+                    android:layout_width="match_parent"
+                    android:layout_height="95dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/radius_white_rectangle_draw"
+                    app:layout_constraintTop_toBottomOf="@+id/profileHelloTextView" />
 
 
-            <!--   수정 화면으로 가는 아이콘-->
-            <ImageView
-                android:id="@+id/profileIcToProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="29dp"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/ic_profile_right"
-                app:layout_constraintEnd_toEndOf="@+id/profileBlueRectangle"
-                app:layout_constraintTop_toTopOf="@+id/profileBlueRectangle" />
+                <!--     현재 학교를 감싸는 파란색 사각형 화면-->
+                <ImageView
+                    android:id="@+id/profileBlueRectangle"
+                    android:layout_width="61dp"
+                    android:layout_height="22dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="18dp"
+                    android:src="@drawable/radius_blue_rectangle"
+                    app:layout_constraintStart_toStartOf="@+id/profileWhiteRectangle"
+                    app:layout_constraintTop_toTopOf="@+id/profileWhiteRectangle" />
 
+                <!--   현재 학교 텍스트뷰-->
+                <TextView
+                    android:id="@+id/profileCurrentSchoolTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard"
+                    android:text="현재 학교"
+                    android:textColor="@color/main_color"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/profileBlueRectangle"
+                    app:layout_constraintEnd_toEndOf="@+id/profileBlueRectangle"
+                    app:layout_constraintStart_toStartOf="@+id/profileBlueRectangle"
+                    app:layout_constraintTop_toTopOf="@+id/profileBlueRectangle" />
+
+
+                <!--    현재 학교 동적 텍스트뷰-->
+                <TextView
+                    android:id="@+id/profileCurrentSchoolDynamicTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="13dp"
+                    android:fontFamily="@font/pretendard"
+                    android:text="데일중학교 1학년 1반"
+                    android:textColor="@color/gray_1"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/profileWhiteRectangle"
+                    app:layout_constraintTop_toBottomOf="@+id/profileBlueRectangle" />
+
+
+                <!--   수정 화면으로 가는 아이콘-->
+                <ImageView
+                    android:id="@+id/profileIcToProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="13dp"
+                    android:src="@drawable/ic_profile_right"
+                    app:layout_constraintEnd_toEndOf="@+id/profileWhiteRectangle"
+                    app:layout_constraintTop_toBottomOf="@+id/profileBlueRectangle" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!--   계정 관리 텍스트뷰-->
             <TextView
@@ -154,7 +163,7 @@
                 android:textColor="@color/gray_1"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profileSecondLine" />
+                app:layout_constraintTop_toBottomOf="@+id/profileGrayRectangle" />
 
             <!--   계정 관리 아이콘-->
             <ImageView
@@ -165,7 +174,7 @@
                 android:layout_marginRight="21dp"
                 android:src="@drawable/ic_profile_right"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profileSecondLine" />
+                app:layout_constraintTop_toBottomOf="@+id/profileGrayRectangle" />
 
 
             <!--   자주 묻는 질문 텍스트뷰-->
