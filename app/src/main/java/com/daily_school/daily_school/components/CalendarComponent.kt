@@ -54,16 +54,6 @@ open class CalendarComponent @JvmOverloads constructor(
 
             val textView = TextView(context)
             textView.text = date
-
-            // 토요일은
-            if (firstDayOfWeek % 7 == 0) {
-                textView.setTextColor(ContextCompat.getColor(context, R.color.saturday_color))
-            }
-            // 일요일은
-            else if (firstDayOfWeek % 7 == 1) {
-                textView.setTextColor(ContextCompat.getColor(context, R.color.sunday_color))
-            }
-
             dates.add(date)
         }
 
@@ -105,7 +95,6 @@ class CalendarAdapter(context: Context, dates: List<String>) : BaseAdapter() {
 
         textView.text = date
         textView.textSize = 16f
-        //textView.setPadding(0, dpToPx(8), 0, dpToPx(8))
         textView.setTypeface(null, Typeface.BOLD)
 
         // 토요일
@@ -118,6 +107,9 @@ class CalendarAdapter(context: Context, dates: List<String>) : BaseAdapter() {
         } else {
             textView.setTextColor(ContextCompat.getColor(mContext, R.color.black))
         }
+
+        // 빈 일자인 경우 클릭 불가능하도록 처리
+        textView.isEnabled = !date.isEmpty()
 
         return textView
     }
