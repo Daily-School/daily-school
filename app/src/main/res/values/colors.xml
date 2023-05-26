@@ -18,5 +18,7 @@
     <color name="gray_8">#FFFAFAFA</color>
     <color name="focus_text">#005AFF</color>
     <color name="disable_text">#D7D7D7</color>
+    <color name="sunday_color">#FF0000</color>
+    <color name="saturday_color">#005AFF</color>
 </resources>
 
