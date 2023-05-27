@@ -20,5 +20,9 @@
     <color name="disable_text">#D7D7D7</color>
     <color name="sunday_color">#FF0000</color>
     <color name="saturday_color">#005AFF</color>
+    <color name="red_color">#FF0000</color>
+    <color name="orange_color">#FF9900</color>
+    <color name="light_green_color">#47DE00</color>
+    <color name="pink_color">#FF51EE</color>
 </resources>
 

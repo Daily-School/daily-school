@@ -8,6 +8,17 @@
     <string name="bottom_menu_plan_text">일정표</string>
     <string name="bottom_menu_profile_text">마이</string>
 
+    <string name="add_todo_main_text">추가하기</string>
+    <string name="add_todo_plan_name_text">일정 제목</string>
+    <string name="add_todo_plan_hint_text">제목을 입력해 주세요.</string>
+    <string name="add_todo_repeat_text">반복</string>
+    <string name="add_todo_color_choose_text">색상 선택</string>
+    <string name="add_todo_repeat_none_text">안 해요</string>
+    <string name="add_todo_repeat_day_text">매일</string>
+    <string name="add_todo_repeat_week_text">매주</string>
+    <string name="add_todo_repeat_month_text">매월</string>
+    <string name="add_todo_repeat_year_text">매년</string>
+
     <!--    스피너 학년 배열-->
     <string-array name="spinner_grade">
         <item>1학년</item>

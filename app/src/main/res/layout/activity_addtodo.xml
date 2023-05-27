@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".ui.AddTodoActivity">
+
+        <!-- 일정표 프래그먼트로 이동하는 아이콘-->
+        <ImageView
+            android:id="@+id/addTodoIcToPlan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="58dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/ic_account_management_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <!-- 추가하기 텍스트-->
+        <TextView
+            android:id="@+id/AddTodoMainTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="58dp"
+            android:layout_marginLeft="140dp"
+            android:fontFamily="@font/pretendard"
+            android:text="@string/add_todo_main_text"
+            android:textColor="@color/gray_1"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--   첫번째 선-->
+        <LinearLayout
+            android:id="@+id/addTodoFirstLine"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/gray_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/AddTodoMainTextView"
+            android:orientation="vertical">
+        </LinearLayout>
+
+        <!-- 일정 제목 텍스트-->
+        <TextView
+            android:id="@+id/addTodoPlanName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:layout_marginLeft="20dp"
+            android:text="@string/add_todo_plan_name_text"
+            android:textColor="@color/gray_4"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/addTodoFirstLine"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- 일정 추가 에딧 텍스트-->
+        <EditText
+            android:id="@+id/addTodoPlanNameEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_todo_plan_hint_text"
+            android:backgroundTint="@color/main_color"
+            android:fontFamily="@font/pretendard"
+            android:textColor="#9E9E9E"
+            android:textColorHint="#C0C0C0"
+            android:textSize="20sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/addTodoPlanName" />
+
+        <!-- 반복 영역 달력 이미지 -->
+        <ImageView
+            android:id="@+id/addTodoCalendarImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/ic_addtodo_calendar"
+            app:layout_constraintTop_toBottomOf="@id/addTodoPlanNameEdit"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- 반복 텍스트뷰 -->
+        <TextView
+            android:id="@+id/addTodoText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            android:layout_marginLeft="10dp"
+            android:text="@string/add_todo_repeat_text"
+            android:textSize="18sp"
+            android:textColor="@color/gray_1"
+            android:fontFamily="@font/pretendard"
+            app:layout_constraintTop_toBottomOf="@id/addTodoPlanNameEdit"
+            app:layout_constraintStart_toEndOf="@id/addTodoCalendarImage" />
+
+        <!-- 안해요 영역 -->
+        <ImageView
+            android:id="@+id/addTodoRepeatNoneButton"
+            android:layout_width="98dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/button_ellipse"
+            app:layout_constraintTop_toBottomOf="@id/addTodoCalendarImage"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- 안해요 텍스트뷰-->
+        <TextView
+            android:id="@+id/addTodoRepeatNoneText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard"
+            android:text="@string/add_todo_repeat_none_text"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/addTodoRepeatNoneButton"
+            app:layout_constraintEnd_toEndOf="@+id/addTodoRepeatNoneButton"
+            app:layout_constraintStart_toStartOf="@+id/addTodoRepeatNoneButton"
+            app:layout_constraintTop_toTopOf="@+id/addTodoRepeatNoneButton" />
+
+        <!-- 매일 영역 -->
+        <ImageView
+            android:id="@+id/addTodoRepeatDayButton"
+            android:layout_width="83dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/button_ellipse"
+            app:layout_constraintTop_toBottomOf="@id/addTodoCalendarImage"
+            app:layout_constraintStart_toEndOf="@id/addTodoRepeatNoneButton"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintLeft_toRightOf="@id/addTodoRepeatNoneButton"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <!-- 매일 텍스트뷰-->
+        <TextView
+            android:id="@+id/addTodoRepeatDayText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard"
+            android:text="@string/add_todo_repeat_day_text"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/addTodoRepeatDayButton"
+            app:layout_constraintEnd_toEndOf="@+id/addTodoRepeatDayButton"
+            app:layout_constraintStart_toStartOf="@+id/addTodoRepeatDayButton"
+            app:layout_constraintTop_toTopOf="@+id/addTodoRepeatDayButton" />
+
+        <!-- 매주 영역 -->
+        <ImageView
+            android:id="@+id/addTodoRepeatWeekButton"
+            android:layout_width="83dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/button_ellipse"
+            app:layout_constraintTop_toBottomOf="@id/addTodoCalendarImage"
+            app:layout_constraintStart_toEndOf="@id/addTodoRepeatDayButton"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintLeft_toRightOf="@id/addTodoRepeatDayButton"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <!-- 매주 텍스트뷰-->
+        <TextView
+            android:id="@+id/addTodoRepeatWeekText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard"
+            android:text="@string/add_todo_repeat_week_text"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/addTodoRepeatWeekButton"
+            app:layout_constraintEnd_toEndOf="@+id/addTodoRepeatWeekButton"
+            app:layout_constraintStart_toStartOf="@+id/addTodoRepeatWeekButton"
+            app:layout_constraintTop_toTopOf="@+id/addTodoRepeatWeekButton" />
+
+        <!-- 매월 영역 -->
+        <ImageView
+            android:id="@+id/addTodoRepeatMonthButton"
+            android:layout_width="83dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/button_ellipse"
+            app:layout_constraintTop_toBottomOf="@id/addTodoRepeatNoneButton"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- 매월 텍스트뷰-->
+        <TextView
+            android:id="@+id/addTodoRepeatMonthText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard"
+            android:text="@string/add_todo_repeat_month_text"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/addTodoRepeatMonthButton"
+            app:layout_constraintEnd_toEndOf="@+id/addTodoRepeatMonthButton"
+            app:layout_constraintStart_toStartOf="@+id/addTodoRepeatMonthButton"
+            app:layout_constraintTop_toTopOf="@+id/addTodoRepeatMonthButton" />
+
+        <!-- 매년 영역 -->
+        <ImageView
+            android:id="@+id/addTodoRepeatYearButton"
+            android:layout_width="83dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginLeft="34dp"
+            android:src="@drawable/button_ellipse"
+            app:layout_constraintTop_toBottomOf="@id/addTodoRepeatNoneButton"
+            app:layout_constraintStart_toEndOf="@id/addTodoRepeatMonthButton"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintLeft_toRightOf="@id/addTodoRepeatMonthButton"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <!-- 매년 텍스트뷰-->
+        <TextView
+            android:id="@+id/addTodoRepeatYearText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard"
+            android:text="@string/add_todo_repeat_year_text"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/addTodoRepeatYearButton"
+            app:layout_constraintEnd_toEndOf="@+id/addTodoRepeatYearButton"
+            app:layout_constraintStart_toStartOf="@+id/addTodoRepeatYearButton"
+            app:layout_constraintTop_toTopOf="@+id/addTodoRepeatYearButton" />
+
+        <!-- 색상 선택 영역 선택 이미지 -->
+        <ImageView
+            android:id="@+id/addTodoColorChooseImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/ic_addtodo_choose"
+            app:layout_constraintTop_toBottomOf="@id/addTodoRepeatYearButton"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- 색상 선택 텍스트뷰 -->
+        <TextView
+            android:id="@+id/addTodoColorChooseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:layout_marginLeft="10dp"
+            android:text="@string/add_todo_color_choose_text"
+            android:textSize="18sp"
+            android:textColor="@color/gray_1"
+            android:fontFamily="@font/pretendard"
+            app:layout_constraintTop_toBottomOf="@id/addTodoRepeatYearButton"
+            app:layout_constraintStart_toEndOf="@id/addTodoColorChooseImage" />
+
+        <!-- 색상 선택 영역 -->
+        <LinearLayout
+            android:id="@+id/colorSelectionLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            app:layout_constraintTop_toBottomOf="@id/addTodoColorChooseImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- 색상 선택 검은색 선택 영역 -->
+            <FrameLayout
+                android:id="@+id/addTodoBlackColorLayout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="14dp">
+
+                <!-- 색상 선택 검은색 선택 이미지 -->
+                <ImageView
+                    android:id="@+id/addTodoBlackColorImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/button_circle" />
+
+                <ImageView
+                    android:id="@+id/addTodoBlackColorCheckImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_addtodo_check" />
+            </FrameLayout>
+
+            <!-- 색상 선택 파란색 선택 영역 -->
+            <FrameLayout
+                android:id="@+id/addTodoBlueColorLayout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="14dp">
+
+                <!-- 색상 선택 파란색 선택 이미지 -->
+                <ImageView
+                    android:id="@+id/addTodoBlueColorImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/button_circle" />
+
+                <ImageView
+                    android:id="@+id/addTodoBlueColorCheckImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_addtodo_check" />
+            </FrameLayout>
+
+            <!-- 색상 선택 빨간색 선택 영역 -->
+            <FrameLayout
+                android:id="@+id/addTodoRedColorLayout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="14dp">
+
+                <!-- 색상 선택 파란색 선택 이미지 -->
+                <ImageView
+                    android:id="@+id/addTodoRedColorImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/button_circle" />
+
+                <ImageView
+                    android:id="@+id/addTodoRedColorCheckImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_addtodo_check" />
+            </FrameLayout>
+
+            <!-- 색상 선택 주황색 선택 영역 -->
+            <FrameLayout
+                android:id="@+id/addTodoOrangeColorLayout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="14dp">
+
+                <!-- 색상 선택 파란색 선택 이미지 -->
+                <ImageView
+                    android:id="@+id/addTodoOrangeColorImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/button_circle" />
+
+                <ImageView
+                    android:id="@+id/addTodoOrangeColorCheckImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_addtodo_check" />
+            </FrameLayout>
+
+            <!-- 색상 선택 연두색 선택 영역 -->
+            <FrameLayout
+                android:id="@+id/addTodoLightGreenColorLayout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="14dp">
+
+                <!-- 색상 선택 파란색 선택 이미지 -->
+                <ImageView
+                    android:id="@+id/addTodoLightGreenColorImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/button_circle" />
+
+                <ImageView
+                    android:id="@+id/addTodoLightGreenColorCheckImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_addtodo_check" />
+            </FrameLayout>
+
+            <!-- 색상 선택 분홍색 선택 영역 -->
+            <FrameLayout
+                android:id="@+id/addTodoPinkColorLayout"
+                android:layout_width="50dp"
+                android:layout_height="50dp">
+
+                <!-- 색상 선택 파란색 선택 이미지 -->
+                <ImageView
+                    android:id="@+id/addTodoPinkColorImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/button_circle" />
+
+                <ImageView
+                    android:id="@+id/addTodoPinkColorCheckImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_addtodo_check" />
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+        <!--    선택 완료 버튼-->
+        <Button
+            android:id="@+id/addTodoSelectButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/radius_blue_button_transparency_30"
+            android:text="선택완료"
+            android:fontFamily="@font/pretendard"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="@dimen/schoolInfo_margin_bottom"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

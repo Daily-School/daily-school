@@ -16,6 +16,9 @@
         <activity
             android:name=".ui.AccountActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.AddTodoActivity"
+            android:exported="false" />
         <!-- OnboardingActivity 추가 -->
         <activity
             android:name=".ui.OnboardingActivity"
