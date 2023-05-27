@@ -42,7 +42,9 @@ class AddTodoActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s?.isNotBlank() == true) {
                     binding.addTodoSelectButton.setBackgroundResource(R.drawable.radius_blue_button)
-                } else {
+                    binding.addTodoPlanNameEdit.setTextColor(ContextCompat.getColorStateList(this@AddTodoActivity, R.color.black))
+                }
+                else {
                     binding.addTodoSelectButton.setBackgroundResource(R.drawable.radius_blue_button_transparency_30)
                 }
             }
