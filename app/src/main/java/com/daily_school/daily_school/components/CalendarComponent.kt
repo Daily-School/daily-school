@@ -3,6 +3,7 @@ package com.daily_school.daily_school.components
 import android.content.Context
 import android.graphics.Typeface
 import android.util.AttributeSet
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,18 @@ open class CalendarComponent @JvmOverloads constructor(
         val adapter = CalendarAdapter(context, dates)
         val gridView: GridView = findViewById(R.id.gridCalendar)
         gridView.adapter = adapter
+
+        gridView.onItemClickListener = AdapterView.OnItemClickListener { _, view, position, _ ->
+            val selectedTextView = view as TextView
+            val selectedDateText = selectedTextView.text.toString()
+
+            if (selectedDateText.isNotEmpty()) {
+                val selectedDate = selectedDateText.toInt()
+
+                adapter.selectedDate = selectedDate
+                adapter.notifyDataSetChanged()
+            }
+        }
     }
 
     private fun getMonthDates(): ArrayList<String> {
@@ -65,6 +78,7 @@ class CalendarAdapter(context: Context, dates: List<String>) : BaseAdapter() {
 
     private val mContext: Context = context
     private val mDates: List<String> = dates
+    internal var selectedDate: Int = -1
     private val setSize: (Int) -> Int = { dp ->
         (dp * mContext.resources.displayMetrics.density).toInt()
     }
@@ -110,6 +124,15 @@ class CalendarAdapter(context: Context, dates: List<String>) : BaseAdapter() {
 
         // 빈 일자인 경우 클릭 불가능하도록 처리
         textView.isEnabled = !date.isEmpty()
+
+        // 일자가 선택되었을 때
+        if (position == selectedDate) {
+            textView.setBackgroundResource(R.drawable.button_circle)
+            textView.setTextColor(ContextCompat.getColor(mContext, R.color.white))
+        }
+        else {
+            textView.background = null
+        }
 
         return textView
     }

@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".ui.AddTodoActivity">
+        tools:context=".ui.plan.AddTodoActivity">
 
         <!-- 일정표 프래그먼트로 이동하는 아이콘-->
         <ImageView

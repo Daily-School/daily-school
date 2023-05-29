@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.FragmentPlanBinding
-import com.daily_school.daily_school.ui.AddTodoActivity
+import com.daily_school.daily_school.ui.plan.AddTodoActivity
 
 class PlanFragment : Fragment() {
     private lateinit var binding : FragmentPlanBinding
@@ -22,6 +22,7 @@ class PlanFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_plan, container, false)
+
 
         // Add 버튼 클릭 이벤트
         binding.addIcon.setOnClickListener {

@@ -1,13 +1,9 @@
-package com.daily_school.daily_school.ui
+package com.daily_school.daily_school.ui.plan
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +11,6 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.ActivityAddtodoBinding
-import com.daily_school.daily_school.ui.page.PlanFragment
 
 class AddTodoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddtodoBinding
