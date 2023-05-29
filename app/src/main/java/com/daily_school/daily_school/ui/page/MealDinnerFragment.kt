@@ -11,6 +11,7 @@ import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.FragmentMealDinnerBinding
 import com.daily_school.daily_school.ui.meal.breakfast.*
 import com.daily_school.daily_school.ui.meal.dinner.*
+import com.daily_school.daily_school.ui.meal.launch.MealLaunchTodayDialogFragment
 
 class MealDinnerFragment : Fragment() {
 
@@ -33,7 +34,16 @@ class MealDinnerFragment : Fragment() {
         // 이번주 급식 함수 호출
         weeklyMeal()
 
+        showFragment()
+
         return binding.root
+    }
+
+    private fun showFragment(){
+        binding.mealDinnerIcToMealDialog.setOnClickListener {
+            val bottomSheet = MealDinnerTodayDialogFragment()
+            bottomSheet.show(requireActivity().supportFragmentManager, bottomSheet.tag)
+        }
     }
 
     // 오늘의 급식 함수

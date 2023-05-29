@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.FragmentMealLaunchBinding
+import com.daily_school.daily_school.ui.meal.breakfast.MealBreakfastTodayDialogFragment
 import com.daily_school.daily_school.ui.meal.launch.*
 
 class MealLaunchFragment : Fragment() {
@@ -33,7 +34,16 @@ class MealLaunchFragment : Fragment() {
         // 이번주 급식 함수 호출
         weeklyMeal()
 
+        showFragment()
+
         return binding.root
+    }
+
+    private fun showFragment(){
+        binding.mealLaunchIcToMealDialog.setOnClickListener {
+            val bottomSheet = MealLaunchTodayDialogFragment()
+            bottomSheet.show(requireActivity().supportFragmentManager, bottomSheet.tag)
+        }
     }
 
     // 오늘의 급식 함수

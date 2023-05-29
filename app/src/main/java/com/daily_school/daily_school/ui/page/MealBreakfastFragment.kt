@@ -1,6 +1,7 @@
 package com.daily_school.daily_school.ui.page
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,7 +35,16 @@ class MealBreakfastFragment : Fragment() {
         // 이번주 급식 함수 호출
         weeklyMeal()
 
+        showFragment()
+
         return binding.root
+    }
+
+    private fun showFragment(){
+        binding.mealBreakfastIcToMealDialog.setOnClickListener {
+            val bottomSheet = MealBreakfastTodayDialogFragment()
+            bottomSheet.show(requireActivity().supportFragmentManager, bottomSheet.tag)
+        }
     }
 
     // 오늘의 급식 함수
