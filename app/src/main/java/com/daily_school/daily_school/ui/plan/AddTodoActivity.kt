@@ -72,6 +72,7 @@ class AddTodoActivity : AppCompatActivity() {
 
         // 색상 선택 이미지
         binding.addTodoBlackColorImage.imageTintList = ContextCompat.getColorStateList(this, R.color.black)
+        binding.addTodoBlueColorImage.imageTintList = ContextCompat.getColorStateList(this, R.color.main_color)
         binding.addTodoRedColorImage.imageTintList = ContextCompat.getColorStateList(this, R.color.red_color)
         binding.addTodoOrangeColorImage.imageTintList = ContextCompat.getColorStateList(this, R.color.orange_color)
         binding.addTodoLightGreenColorImage.imageTintList = ContextCompat.getColorStateList(this, R.color.light_green_color)
@@ -79,6 +80,7 @@ class AddTodoActivity : AppCompatActivity() {
 
         // 색상 선택 이미지 클릭 리스너 설정
         binding.addTodoBlackColorImage.setOnClickListener { selectColor(binding.addTodoBlackColorCheckImage) }
+        binding.addTodoBlueColorImage.setOnClickListener { selectColor(binding.addTodoBlueColorCheckImage) }
         binding.addTodoRedColorImage.setOnClickListener { selectColor(binding.addTodoRedColorCheckImage) }
         binding.addTodoOrangeColorImage.setOnClickListener { selectColor(binding.addTodoOrangeColorCheckImage) }
         binding.addTodoLightGreenColorImage.setOnClickListener { selectColor(binding.addTodoLightGreenColorCheckImage) }
@@ -107,6 +109,7 @@ class AddTodoActivity : AppCompatActivity() {
     // 색상 이미지 선택 함수
     private fun selectColor(selectedCheckImage: View) {
         binding.addTodoBlackColorCheckImage.visibility = View.GONE
+        binding.addTodoBlueColorCheckImage.visibility = View.GONE
         binding.addTodoRedColorCheckImage.visibility = View.GONE
         binding.addTodoOrangeColorCheckImage.visibility = View.GONE
         binding.addTodoLightGreenColorCheckImage.visibility = View.GONE
