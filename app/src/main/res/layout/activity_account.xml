@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".ui.AccountActivity">
+        tools:context=".ui.profile.AccountActivity">
 
 
         <!--   프로필 프래그먼트로 이동하는 아이콘-->

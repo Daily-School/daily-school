@@ -1,12 +1,10 @@
 package com.daily_school.daily_school.ui
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.ActivityAccountBinding
-import com.daily_school.daily_school.ui.page.ProfileFragment
 
 class AccountActivity : AppCompatActivity() {
 
