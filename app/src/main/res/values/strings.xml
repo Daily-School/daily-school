@@ -19,6 +19,16 @@
     <string name="add_todo_repeat_month_text">매월</string>
     <string name="add_todo_repeat_year_text">매년</string>
 
+    <!-- 자주 묻는 질문 질문 내용 String-->
+    <string name="question_rv_1">학교 변경은 어떻게 하나요?</string>
+    <string name="question_rv_2">로그인 된 계정 확인은 어떻게 하나요?</string>
+    <string name="question_rv_3">회원 탈퇴는 어떻게 하나요?</string>
+
+    <!-- 자주 묻는 질문 질문 내용에 대한 대답 String-->
+    <string name="question_detail_1">1. 학교 정보가 나와있는 상단바에서 설정 아이콘을\n클릭하여 변경이 가능합니다.\n2. \'마이\' 메뉴를 클릭하여 현재 학교 정보에서\n더보기 버튼을 클릭하여 변경이 가능합니다.</string>
+    <string name="question_detail_2">마이페이지 > 계정관리에서 로그인된 계정 확인이\n가능합니다.</string>
+    <string name="question_detail_3">마이페이지 > 계정관리에서 회원 탈퇴가 가능합니다.\n단, 탈퇴 시 계정 복구가 불가능합니다.</string>
+
     <!--    스피너 학년 배열-->
     <string-array name="spinner_grade">
         <item>1학년</item>
@@ -49,4 +59,5 @@
         <item>15반</item>
         <item>학년을 선택해 주세요.</item>
     </string-array>
+
 </resources>
