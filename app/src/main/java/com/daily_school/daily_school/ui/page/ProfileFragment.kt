@@ -11,6 +11,7 @@ import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.FragmentProfileBinding
 import com.daily_school.daily_school.ui.AccountActivity
 import com.daily_school.daily_school.ui.SchoolInfoActivity
+import com.daily_school.daily_school.ui.profile.QuestionActivity
 
 class ProfileFragment : Fragment() {
 
@@ -33,6 +34,9 @@ class ProfileFragment : Fragment() {
         // SchoolInfoActivity 화면 이동 함수 호출
         profileToSchoolInfo()
 
+        // QuestionActivity 화면 이동 함수 호출
+        profileToQuestionActivity()
+
         return binding.root
     }
 
@@ -40,6 +44,14 @@ class ProfileFragment : Fragment() {
     private fun profileToAccountActivity(){
         binding.profileIcToAccount.setOnClickListener {
             var intent = Intent(context, AccountActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    // QuestionActivity 화면 이동 함수
+    private fun profileToQuestionActivity(){
+        binding.profileIcToQuestion.setOnClickListener {
+            var intent = Intent(context, QuestionActivity::class.java)
             startActivity(intent)
         }
     }
