@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
     <!-- 인터넷 사용 권한 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,7 +12,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Daily_school"
-        tools:targetApi="31">
+        tools:targetApi="31" >
+
+        <!-- 자주 묻는 질문 Activity-->
+        <activity
+            android:name=".ui.profile.QuestionActivity"
+            android:exported="false" />
+
+        <!-- 계정 관리 Activity-->
         <activity
             android:name=".ui.AccountActivity"
             android:exported="false" />
@@ -22,7 +29,7 @@
         <!-- OnboardingActivity 추가 -->
         <activity
             android:name=".ui.OnboardingActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,7 +43,7 @@
         <!-- 카카오 sdk 설정 -->
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -48,13 +55,14 @@
                     android:host="oauth"
                     android:scheme="e0bce995a4b6a49cd0afa8804b335f7f" />
             </intent-filter>
-        </activity> <!-- LoginActivity 추가 -->
+        </activity>
+        <!-- LoginActivity 추가 -->
         <activity
             android:name=".ui.LoginActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true" >
         </activity>
     </application>
 
