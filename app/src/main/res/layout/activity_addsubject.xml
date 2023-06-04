@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".ui.schedule.AddSubjectActivity">
+
+        <!-- 시간표 프래그먼트로 이동하는 아이콘-->
+        <ImageView
+            android:id="@+id/addSubjectIcToPlan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="58dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/ic_account_management_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <!-- 과목 추가하기 텍스트-->
+        <TextView
+            android:id="@+id/AddSubjectMainTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="58dp"
+            android:layout_marginLeft="140dp"
+            android:fontFamily="@font/pretendard"
+            android:text="@string/add_subject_main_text"
+            android:textColor="@color/gray_1"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 첫번째 선-->
+        <LinearLayout
+            android:id="@+id/addSubjectFirstLine"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/gray_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/AddSubjectMainTextView"
+            android:orientation="vertical">
+        </LinearLayout>
+
+        <!-- 과목명 입력 텍스트-->
+        <TextView
+            android:id="@+id/addSubjectName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:layout_marginLeft="20dp"
+            android:text="@string/add_subject_input_text"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:fontFamily="@font/pretendard_extrabold"
+            app:layout_constraintTop_toBottomOf="@id/addSubjectFirstLine"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- 과목명 입력 에딧 텍스트-->
+        <EditText
+            android:id="@+id/addSubjectNameEdit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/add_subject_hint_text"
+            android:fontFamily="@font/pretendard"
+            android:textColor="#9E9E9E"
+            android:textColorHint="#C0C0C0"
+            android:textSize="20sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="12dp"
+            android:paddingLeft="15dp"
+            android:background="@drawable/edittext_border"
+            app:layout_constraintTop_toBottomOf="@+id/addSubjectName" />
+
+        <!-- 배경색 지정 텍스트-->
+        <TextView
+            android:id="@+id/addSubjectInputName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:layout_marginLeft="20dp"
+            android:text="@string/add_subject_background_text"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:fontFamily="@font/pretendard_extrabold"
+            app:layout_constraintTop_toBottomOf="@id/addSubjectNameEdit"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Spinner
+            android:id="@+id/schoolInfoClassSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_spinner_gray7"
+            android:overlapAnchor="false"
+            android:textAlignment="textStart"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/addSubjectInputName" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

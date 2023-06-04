@@ -8,6 +8,11 @@
     <string name="bottom_menu_plan_text">일정표</string>
     <string name="bottom_menu_profile_text">마이</string>
 
+    <string name="add_subject_main_text">과목 추가하기</string>
+    <string name="add_subject_input_text">과목명 입력</string>
+    <string name="add_subject_hint_text">과목명을 입력해주세요.</string>
+    <string name="add_subject_background_text">배경색 지정</string>
+
     <string name="add_todo_main_text">추가하기</string>
     <string name="add_todo_plan_name_text">일정 제목</string>
     <string name="add_todo_plan_hint_text">제목을 입력해 주세요.</string>

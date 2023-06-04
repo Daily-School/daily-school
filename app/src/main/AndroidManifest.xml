@@ -26,6 +26,9 @@
         <activity
             android:name=".ui.plan.AddTodoActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.schedule.AddSubjectActivity"
+            android:exported="false" />
         <!-- OnboardingActivity 추가 -->
         <activity
             android:name=".ui.OnboardingActivity"
