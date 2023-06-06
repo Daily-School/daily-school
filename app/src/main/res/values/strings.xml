@@ -65,4 +65,17 @@
         <item>학년을 선택해 주세요.</item>
     </string-array>
 
+    <!-- 과목 추가 색상 배열-->
+    <string-array name="subject_color_spinner_grade">
+        <item>배경색을 지정해주세요.</item>
+        <item>기본 색상</item>
+        <item>라이트 블루</item>
+        <item>라이트 핑크</item>
+        <item>라이트 레몬</item>
+        <item>라이트 바이올렛</item>
+        <item>라이트 퍼플</item>
+        <item>라이트 샐몬</item>
+        <item>라이트 그린</item>
+    </string-array>
+
 </resources>
