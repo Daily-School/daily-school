@@ -78,7 +78,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="12dp"
             android:paddingLeft="15dp"
-            android:background="@drawable/edittext_border"
+            android:background="@drawable/edittext_border_gray"
             app:layout_constraintTop_toBottomOf="@+id/addSubjectName" />
 
         <!-- 배경색 지정 텍스트-->
@@ -95,6 +95,7 @@
             app:layout_constraintTop_toBottomOf="@id/addSubjectNameEdit"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <!-- 과목 선택 스피너 -->
         <Spinner
             android:id="@+id/schoolInfoClassSpinner"
             android:layout_width="match_parent"
@@ -106,6 +107,21 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="12dp"
             app:layout_constraintTop_toBottomOf="@+id/addSubjectInputName" />
+
+        <!-- 선택 완료 버튼-->
+        <Button
+            android:id="@+id/addSubjectSelectButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/radius_blue_button_transparency_30"
+            android:text="선택완료"
+            android:fontFamily="@font/pretendard"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="@dimen/schoolInfo_margin_bottom"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
