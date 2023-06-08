@@ -10,10 +10,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.FragmentMealBreakfastBinding
+import com.daily_school.daily_school.ui.meal.MealCalendarFragment
 import com.daily_school.daily_school.ui.meal.breakfast.*
 import com.daily_school.daily_school.ui.meal.launch.*
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MealBreakfastFragment : Fragment() {
+
+    private var currentDate = LocalDate.now()
 
     private lateinit var binding : FragmentMealBreakfastBinding
 
@@ -28,6 +35,8 @@ class MealBreakfastFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_meal_breakfast, container, false)
 
+        // 날짜 텍스트뷰에 현재 날짜를 연결하는 함수
+        setCurrentDate()
 
         // 오늘의 급식 함수 호출
         todayMeal()
@@ -35,14 +44,39 @@ class MealBreakfastFragment : Fragment() {
         // 이번주 급식 함수 호출
         weeklyMeal()
 
+        // 다이얼로그 프래그먼트 보여주는 함수 호출
         showFragment()
+
+        // 캘린더를 보여주는 함수 호출
+        showCalendar()
 
         return binding.root
     }
 
+    // 날짜 포맷을 세팅하는 함수
+    private fun loadCurrentDate(date : LocalDate) : String? {
+        val formatter : DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일" ).withLocale(
+            Locale.forLanguageTag("ko"))
+        return date.format(formatter)
+    }
+
+    // 날짜 텍스트뷰에 현재 날짜를 연결하는 함수
+    private fun setCurrentDate(){
+        binding.mealBreakfastDateTextView.text = loadCurrentDate(currentDate)
+    }
+
+    // 다이얼로그 프래그먼트 보여주는 함수
     private fun showFragment(){
         binding.mealBreakfastIcToMealDialog.setOnClickListener {
             val bottomSheet = MealBreakfastTodayDialogFragment()
+            bottomSheet.show(requireActivity().supportFragmentManager, bottomSheet.tag)
+        }
+    }
+
+    // 캘린더를 보여주는 함수
+    private fun showCalendar(){
+        binding.mealBreakfastDateRectangle.setOnClickListener {
+            val bottomSheet = MealCalendarFragment()
             bottomSheet.show(requireActivity().supportFragmentManager, bottomSheet.tag)
         }
     }

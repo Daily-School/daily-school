@@ -7,6 +7,7 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.FragmentSchoolNameBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -23,8 +24,9 @@ class SchoolNameFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_school_name, container, false)
 
-        return inflater.inflate(R.layout.fragment_school_name, container, false)
+        return binding.root
 
     }
 
