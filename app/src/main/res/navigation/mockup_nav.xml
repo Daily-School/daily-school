@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mockup_nav"
+    app:startDestination="@id/firstMockUpFragment">
+    <fragment
+        android:id="@+id/firstMockUpFragment"
+        android:name="com.daily_school.daily_school.ui.mockup.FirstMockUpFragment"
+        android:label="fragment_first_mock_up"
+        tools:layout="@layout/fragment_first_mock_up" >
+        <action
+            android:id="@+id/action_firstMockUpFragment_to_secondMockUpFragment"
+            app:destination="@id/secondMockUpFragment" />
+        <action
+            android:id="@+id/action_firstMockUpFragment_to_thirdMockUpFragment"
+            app:destination="@id/thirdMockUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/secondMockUpFragment"
+        android:name="com.daily_school.daily_school.ui.mockup.SecondMockUpFragment"
+        android:label="fragment_second_mock_up"
+        tools:layout="@layout/fragment_second_mock_up" >
+        <action
+            android:id="@+id/action_secondMockUpFragment_to_thirdMockUpFragment"
+            app:destination="@id/thirdMockUpFragment" />
+        <action
+            android:id="@+id/action_secondMockUpFragment_to_firstMockUpFragment"
+            app:destination="@id/firstMockUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/thirdMockUpFragment"
+        android:name="com.daily_school.daily_school.ui.mockup.ThirdMockUpFragment"
+        android:label="fragment_third_mock_up"
+        tools:layout="@layout/fragment_third_mock_up" >
+        <action
+            android:id="@+id/action_thirdMockUpFragment_to_firstMockUpFragment"
+            app:destination="@id/firstMockUpFragment" />
+        <action
+            android:id="@+id/action_thirdMockUpFragment_to_secondMockUpFragment"
+            app:destination="@id/secondMockUpFragment" />
+    </fragment>
+</navigation>
