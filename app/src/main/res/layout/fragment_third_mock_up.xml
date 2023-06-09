@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 세번째 목업 프래그먼트 화면 레이아웃-->
+<layout>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.mockup.ThirdMockUpFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- 목업 화면 건너뛰기 텍스트뷰-->
+            <TextView
+                android:id="@+id/thirdMockUpSkipTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="56dp"
+                android:layout_marginRight="20dp"
+                android:fontFamily="@font/pretendard"
+                android:text="건너뛰기"
+                android:textColor="#9E9E9E"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- 첫번째 롤링 이미지뷰-->
+            <ImageView
+                android:id="@+id/thirdMockUpIcFirstRolling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="79dp"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/ic_mock_up_empty"
+                app:layout_constraintEnd_toStartOf="@+id/thirdMockUpIcSecondRolling"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- 두번째 롤링 이미지뷰-->
+            <ImageView
+                android:id="@+id/thirdMockUpIcSecondRolling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_mock_up_empty"
+                android:layout_marginTop="79dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- 세번째 롤링 이미지뷰-->
+            <ImageView
+                android:id="@+id/thirdMockUpIcThirdRolling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="79dp"
+                android:layout_marginLeft="16dp"
+                android:src="@drawable/ic_mock_up_full"
+                app:layout_constraintStart_toEndOf="@+id/thirdMockUpIcSecondRolling"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- 간단한 설명 텍스트뷰1-->
+            <TextView
+                android:id="@+id/thirdMockUpSentenceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="21dp"
+                android:fontFamily="@font/pretendard"
+                android:text="일정을 편리하게 관리해요!"
+                android:textColor="#757575"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/thirdMockUpIcSecondRolling" />
+
+            <!-- 간단한 설명 텍스트뷰2-->
+            <TextView
+                android:id="@+id/thirdMockUpScheduleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:fontFamily="@font/pretendard_extrabold"
+                android:text="편리한 일정 확인"
+                android:textColor="#212121"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/thirdMockUpSentenceTextView" />
+
+            <!-- 목업 설명 이미지뷰-->
+            <ImageView
+                android:id="@+id/thirdMockUpMealImageView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/mock_up_plan"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/thirdMockUpScheduleTextView" />
+
+
+            <!-- 로그인으로 이동하는 버튼-->
+            <Button
+                android:id="@+id/thirdMockUpBtn"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/main_color"
+                android:fontFamily="@font/pretendard"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="시작하기"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</layout>
