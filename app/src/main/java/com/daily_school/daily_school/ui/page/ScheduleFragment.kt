@@ -31,26 +31,14 @@ class ScheduleFragment : Fragment() {
     private lateinit var thursdayLayout: LinearLayout
     private lateinit var fridayLayout: LinearLayout
 
+    // Dummy Data
     val titleArray = arrayOf("교시", "1", "2", "3", "4", "", "5", "6", "7", "8")
     val mondayArray = arrayOf("월", "수학", "국어", "영어", "영어", "", "진로", "과학", "과학", "",)
     val tuesdayArray = arrayOf("화", "국어", "국어", "수학", "수학", "", "과학", "영어", "수학", "")
     val wednesdayArray = arrayOf("수", "국어", "국어", "수학", "수학", "", "영어", "과학", "", "")
     val thursdayArray = arrayOf("목", "영어", "영어", "국어", "국어", "", "영어", "영어", "", "")
     val fridayArray = arrayOf("금", "영어", "영어", "국어", "국어", "", "영어", "영어", "", "")
-
-    //private var color: Int? = null
-
-//    val width = TypedValue.applyDimension(
-//        TypedValue.COMPLEX_UNIT_DIP,
-//        58f,
-//        resources.displayMetrics
-//    ).toInt()
-//    val height = TypedValue.applyDimension(
-//        TypedValue.COMPLEX_UNIT_DIP,
-//        46f,
-//        resources.displayMetrics
-//    ).toInt()
-//
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -81,6 +69,7 @@ class ScheduleFragment : Fragment() {
         return binding.root
     }
 
+    // 각 요일 Cell Init 함수
     private fun classScheduleInit() {
 
         val width = TypedValue.applyDimension(
@@ -93,26 +82,14 @@ class ScheduleFragment : Fragment() {
             46f,
             resources.displayMetrics
         ).toInt()
-
+        
+        // 요일별 정의
         titleScheduleInit(width, height)
         mondayScheduleInit(width, height)
         tuesdayScheduleInit(width, height)
         wednesdayScheduleInit(width, height)
         thursdayScheduleInit(width, height)
         fridayScheduleInit(width, height)
-
-//        for (i in 0 until titleArray.size) {
-//
-//            //val color = ContextCompat.getColor(requireContext(), R.color.black)
-//
-////            val consecutiveIndexes = findConsecutiveIndexes(mondayArray)
-////
-////            for (pair in consecutiveIndexes) {
-////                val startIndex = pair.first
-////                val endIndex = pair.second
-////                println("연속되는 값의 시작 인덱스: $startIndex, 끝 인덱스: $endIndex")
-////            }
-//        }
     }
 
     private fun titleScheduleInit(width: Int, height : Int) {
@@ -348,13 +325,5 @@ class ScheduleFragment : Fragment() {
         }
 
         return consecutiveIndexes
-    }
-
-    private fun cellMerge(startIndex: Int, endIndex: Int) {
-
-    }
-    fun Int.dpToPx(context: Context): Int {
-        val density = context.resources.displayMetrics.density
-        return (this * density).toInt()
     }
 }

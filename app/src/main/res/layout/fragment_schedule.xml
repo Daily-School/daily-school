@@ -108,6 +108,7 @@
                 android:layout_gravity="center_vertical|start" />
         </FrameLayout>
 
+        <!-- 요일 영역 -->
         <LinearLayout
             android:id="@+id/scheduleLayout"
             android:layout_width="match_parent"
