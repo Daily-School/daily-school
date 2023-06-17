@@ -31,9 +31,7 @@ open class CalendarComponent @JvmOverloads constructor(
             val selectedDateText = selectedTextView.text.toString()
 
             if (selectedDateText.isNotEmpty()) {
-                val selectedDate = selectedDateText.toInt()
-
-                adapter.selectedDate = selectedDate
+                adapter.selectedDate = position
                 adapter.notifyDataSetChanged()
             }
         }
