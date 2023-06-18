@@ -2,20 +2,26 @@ package com.daily_school.daily_school.ui.page
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.daily_school.daily_school.R
+import com.daily_school.daily_school.components.CalendarComponent
 import com.daily_school.daily_school.databinding.FragmentPlanBinding
 import com.daily_school.daily_school.ui.plan.AddTodoActivity
+import java.util.*
 
 class PlanFragment : Fragment() {
-    private lateinit var binding : FragmentPlanBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private lateinit var binding: FragmentPlanBinding
+    private lateinit var calendarComponent: CalendarComponent
+
+    // 현재 년도와 월 설정
+    private val calendar: Calendar = Calendar.getInstance()
+    private var currentYear: Int = calendar.get(Calendar.YEAR)
+    private var currentMonth: Int = calendar.get(Calendar.MONTH)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,13 +29,48 @@ class PlanFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_plan, container, false)
 
+        calendarComponent = CalendarComponent(requireContext())
+
+        calendarInit()
 
         // Add 버튼 클릭 이벤트
         binding.addIcon.setOnClickListener {
-            var intent = Intent(context, AddTodoActivity::class.java)
+            val intent = Intent(context, AddTodoActivity::class.java)
             startActivity(intent)
         }
 
+        binding.dateRightIcon.setOnClickListener {
+            currentMonth++
+
+            if(currentMonth > 12) {
+                currentMonth = 1;
+                currentYear++
+            }
+
+            calendarMonthChanged(currentYear, currentMonth)
+            calendarComponent.setCurrentDate(currentYear, currentMonth)
+        }
+
+        binding.dateLeftIcon.setOnClickListener {
+            currentMonth--
+
+            if(currentMonth < 1) {
+                currentMonth = 12
+                currentYear--
+            }
+
+            calendarMonthChanged(currentYear, currentMonth)
+            calendarComponent.setCurrentDate(currentYear, currentMonth)
+        }
+
         return binding.root
+    }
+
+    private fun calendarInit() {
+        binding.planMainTextView.text = currentYear.toString() + "년 " + currentMonth.toString() + "월"
+        calendarComponent.setCurrentDate(currentYear, currentMonth)
+    }
+    private fun calendarMonthChanged(year: Int, month: Int) {
+        binding.planMainTextView.text = year.toString() + "년 " + month.toString() + "월"
     }
 }

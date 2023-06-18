@@ -18,11 +18,18 @@ open class CalendarComponent @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
+
+    private val calendar = Calendar.getInstance()
+    private var currentYear: Int = 0
+    private var currentMonth: Int = 0
+
+    private lateinit var adapter: CalendarAdapter
+
     init {
         View.inflate(context, R.layout.calendar_component, this)
 
         val dates = getMonthDates()
-        val adapter = CalendarAdapter(context, dates)
+        adapter = CalendarAdapter(context, dates)
         val gridView: GridView = findViewById(R.id.gridCalendar)
         gridView.adapter = adapter
 
@@ -37,13 +44,13 @@ open class CalendarComponent @JvmOverloads constructor(
         }
     }
 
+    fun setCurrentDate(year: Int, month: Int) {
+        currentYear = year
+        currentMonth = month
+    }
+
     private fun getMonthDates(): ArrayList<String> {
         val dates = ArrayList<String>()
-
-        // 현재 월과 년도 가져오기
-        val calendar = Calendar.getInstance()
-        val currentYear = calendar.get(Calendar.YEAR)
-        val currentMonth = calendar.get(Calendar.MONTH)
 
         // 현재 월의 첫 번째 일자로 설정
         calendar.set(currentYear, currentMonth, 1)
@@ -75,7 +82,7 @@ open class CalendarComponent @JvmOverloads constructor(
 class CalendarAdapter(context: Context, dates: List<String>) : BaseAdapter() {
 
     private val mContext: Context = context
-    private val mDates: List<String> = dates
+    private var mDates: List<String> = dates
     internal var selectedDate: Int = -1
     private val setSize: (Int) -> Int = { dp ->
         (dp * mContext.resources.displayMetrics.density).toInt()
