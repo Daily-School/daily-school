@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.annotation.LayoutRes
-import androidx.core.content.ContextCompat
-import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.ItemStudentInfoSpinnerBinding
 
 class StudentInfoSpinnerAdapter(context: Context, @LayoutRes private val resId: Int, private val values: MutableList<StudentInfoSpinnerModel>)
@@ -16,7 +14,7 @@ class StudentInfoSpinnerAdapter(context: Context, @LayoutRes private val resId: 
 {
     // 배열의 크기 불러오는 함수
     override fun getCount(): Int {
-        return values.size
+        return super.getCount() - 1
     }
 
     // 배열의 값 불러오는 함수
@@ -28,12 +26,16 @@ class StudentInfoSpinnerAdapter(context: Context, @LayoutRes private val resId: 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val binding = ItemStudentInfoSpinnerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val model = values[position]
-        try {
+
+        if (position == count) {
             binding.spinnerTextView.text = model.info
             binding.spinnerTextView.setGravity(Gravity.LEFT)
-        } catch (e : Exception){
-            e.printStackTrace()
+            binding.spinnerTextView.hint = getItem(count).toString()
         }
+
+        binding.spinnerTextView.text = model.info
+        binding.spinnerTextView.setGravity(Gravity.LEFT)
+
         return binding.root
     }
 

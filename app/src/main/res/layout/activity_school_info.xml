@@ -86,7 +86,7 @@
     <Spinner
         android:id="@+id/schoolInfoGradeSpinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:background="@drawable/bg_spinner_gray7"
         android:overlapAnchor="false"
         android:layout_marginLeft="20dp"
@@ -112,7 +112,7 @@
     <Spinner
         android:id="@+id/schoolInfoClassSpinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:background="@drawable/bg_spinner_gray7"
         android:overlapAnchor="false"
         android:textAlignment="textStart"

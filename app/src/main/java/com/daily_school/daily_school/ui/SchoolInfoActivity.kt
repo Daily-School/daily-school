@@ -63,6 +63,7 @@ class SchoolInfoActivity : AppCompatActivity() {
         }
         spinnerAdapterGrade = StudentInfoSpinnerAdapter(this, R.layout.item_student_info_spinner, listOfGrade)
         binding.schoolInfoGradeSpinner.adapter = spinnerAdapterGrade
+        binding.schoolInfoGradeSpinner.setSelection(spinnerAdapterGrade.count,false)
     }
 
     // 반 스피너 셋업 함수
@@ -76,6 +77,7 @@ class SchoolInfoActivity : AppCompatActivity() {
 
         spinnerAdapterClass = StudentInfoSpinnerAdapter(this, R.layout.item_student_info_spinner, listOfClass)
         binding.schoolInfoClassSpinner.adapter = spinnerAdapterClass
+        binding.schoolInfoClassSpinner.setSelection(spinnerAdapterClass.count, false)
     }
 
     // 스피너 핸들러 셋업 함수
@@ -88,11 +90,11 @@ class SchoolInfoActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-
+                binding.schoolInfoGradeSpinner.setBackgroundResource(R.drawable.bg_spinner_blue)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-
+                binding.schoolInfoGradeSpinner.setBackgroundResource(R.drawable.bg_spinner_gray7)
             }
         }
 
@@ -103,13 +105,12 @@ class SchoolInfoActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                binding.schoolInfoClassSpinner.setSelection(position, false)
-                
+                binding.schoolInfoClassSpinner.setBackgroundResource(R.drawable.bg_spinner_blue)
             }
 
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                //binding.schoolInfoClassSpinner.setBackgroundResource(R.drawable.bg_spinner_blue)
+                binding.schoolInfoClassSpinner.setBackgroundResource(R.drawable.bg_spinner_gray7)
             }
         }
 
