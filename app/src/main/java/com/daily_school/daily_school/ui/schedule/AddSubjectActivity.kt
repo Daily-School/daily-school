@@ -106,7 +106,7 @@ class AddSubjectActivity : AppCompatActivity() {
                         binding.addSubjectSelectButton.setBackgroundResource(R.drawable.radius_blue_button)
                     }
 
-                    binding.addSubjectNameEdit.setBackgroundResource(R.drawable.bg_spinner_blue)
+                    binding.addSubjectNameEdit.setBackgroundResource(R.drawable.bg_blue)
                 }
                 else {
                 }
