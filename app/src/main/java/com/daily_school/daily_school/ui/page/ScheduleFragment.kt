@@ -1,7 +1,6 @@
 package com.daily_school.daily_school.ui.page
 
 import FirebaseManager
-import ReadDataCallback
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -17,11 +16,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.FragmentPlanBinding
 import com.daily_school.daily_school.databinding.FragmentScheduleBinding
 import com.daily_school.daily_school.ui.plan.AddTodoActivity
 import com.daily_school.daily_school.ui.schedule.AddSubjectActivity
+import kotlinx.coroutines.launch
 
 
 class ScheduleFragment : Fragment() {
@@ -352,19 +353,18 @@ class ScheduleFragment : Fragment() {
             val subject = subjectArray[index]
             val subjectName = subject.first
 
-            firebaseManager.readSubjectData(subjectName, object : ReadDataCallback {
-                override fun onSuccess(value: Any?) {
-                    if (value != null) {
-                        Log.d(TAG, "Subject Color: $value")
+            lifecycleScope.launch {
+                try {
+                    val subjectColor = firebaseManager.readSubjectData(subjectName)
+                    if (subjectColor != null) {
+                        Log.d(TAG, "Subject Color: $subjectColor")
                     } else {
                         Log.d(TAG, "Subject Color is Null")
                     }
-                }
-
-                override fun onFailure(e: Exception) {
+                } catch (e: Exception) {
                     Log.e(TAG, "Failed to Read", e)
                 }
-            })
+            }
         }
     }
 }

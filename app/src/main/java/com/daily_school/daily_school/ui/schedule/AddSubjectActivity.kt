@@ -1,7 +1,6 @@
 package com.daily_school.daily_school.ui.schedule
 
 import FirebaseManager
-import ReadDataCallback
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -27,7 +26,7 @@ class AddSubjectActivity : AppCompatActivity() {
     private lateinit var subjectColors: Array<String>
     private var spinnerSelectPosition = 0
 
-    val firebaseManager = FirebaseManager()
+    private val firebaseManager = FirebaseManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,7 +96,7 @@ class AddSubjectActivity : AppCompatActivity() {
         }
     }
 
-    // 설저 완료 버튼 클릭 이벤트
+    // 선택 완료 버튼 클릭 이벤트
     private fun selectButtonClick() {
         val subjectName = binding.addSubjectNameEdit.text.toString()
         val subjectColor = subjectColors[spinnerSelectPosition]
