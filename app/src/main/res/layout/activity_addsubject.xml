@@ -95,9 +95,9 @@
             app:layout_constraintTop_toBottomOf="@id/addSubjectNameEdit"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- 과목 선택 스피너 -->
+        <!-- 배경색 지정 선택 스피너 -->
         <Spinner
-            android:id="@+id/schoolInfoClassSpinner"
+            android:id="@+id/AddSubjectClassSpinner"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/bg_spinner_gray7"

@@ -8,6 +8,7 @@ class FirebaseManager {
     private val TAG = "FirebaseManager"
 
     private val usersCollection = "users"
+    private val timeField = "time"
 
     fun saveCurrentUser(uid: String) {
         val db = FirebaseFirestore.getInstance()
@@ -16,14 +17,14 @@ class FirebaseManager {
         val currentTime = Calendar.getInstance().time as Any
 
         val data = mutableMapOf<String, Any>()
-        data["time"] = currentTime
+        data[timeField] = currentTime
 
         userDocRef.set(data)
             .addOnSuccessListener {
-                Log.d(TAG, "Time saved successfully")
+                Log.d(TAG, "User saved successfully")
             }
             .addOnFailureListener { e ->
-                Log.e(TAG, "Failed to save time", e)
+                Log.e(TAG, "Failed to User Data", e)
             }
     }
 }
