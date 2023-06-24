@@ -1,9 +1,12 @@
 package com.daily_school.daily_school.ui.page
 
+import FirebaseManager
+import ReadDataCallback
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import androidx.fragment.app.Fragment
@@ -22,7 +25,11 @@ import com.daily_school.daily_school.ui.schedule.AddSubjectActivity
 
 
 class ScheduleFragment : Fragment() {
+    private val TAG = ScheduleFragment::class.java.simpleName
+
     private lateinit var binding : FragmentScheduleBinding
+
+    val firebaseManager = FirebaseManager()
 
     private lateinit var titleLayout: LinearLayout
     private lateinit var mondayLayout: LinearLayout
@@ -38,6 +45,8 @@ class ScheduleFragment : Fragment() {
     val wednesdayArray = arrayOf("수", "국어", "국어", "수학", "수학", "", "영어", "과학", "", "")
     val thursdayArray = arrayOf("목", "영어", "영어", "국어", "국어", "", "영어", "영어", "", "")
     val fridayArray = arrayOf("금", "영어", "영어", "국어", "국어", "", "영어", "영어", "", "")
+
+    private val subjectArray = ArrayList<Pair<String, String>>()
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +57,9 @@ class ScheduleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_schedule, container, false)
+
+        // 과목 셋업 함수
+        subjectInit()
 
         titleLayout = binding.titleLayout
         mondayLayout = binding.mondayLayout
@@ -207,7 +219,6 @@ class ScheduleFragment : Fragment() {
                 wednesdayTextView.text = tuesdayArray[i]
             }
 
-
             wednesdayTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
             wednesdayTextView.setTextColor(Color.BLACK)
 
@@ -325,5 +336,35 @@ class ScheduleFragment : Fragment() {
         }
 
         return consecutiveIndexes
+    }
+
+    private fun subjectInit() {
+        subjectArray.add(Pair("Math", ""))
+        subjectArray.add(Pair("Music", ""))
+        subjectArray.add(Pair("science", ""))
+
+        subjectColorInit()
+    }
+
+    // 과목 색상 셋업 함수
+    private fun subjectColorInit() {
+        for (index in subjectArray.indices) {
+            val subject = subjectArray[index]
+            val subjectName = subject.first
+
+            firebaseManager.readSubjectData(subjectName, object : ReadDataCallback {
+                override fun onSuccess(value: Any?) {
+                    if (value != null) {
+                        Log.d(TAG, "Subject Color: $value")
+                    } else {
+                        Log.d(TAG, "Subject Color is Null")
+                    }
+                }
+
+                override fun onFailure(e: Exception) {
+                    Log.e(TAG, "Failed to Read", e)
+                }
+            })
+        }
     }
 }

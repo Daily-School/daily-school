@@ -1,5 +1,7 @@
 package com.daily_school.daily_school.ui.schedule
 
+import FirebaseManager
+import ReadDataCallback
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,8 +14,11 @@ import androidx.databinding.DataBindingUtil
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.ActivityAddsubjectBinding
 import com.daily_school.daily_school.ui.AddSubjectSpinnerAdapter
+import com.daily_school.daily_school.ui.LoginActivity
 
 class AddSubjectActivity : AppCompatActivity() {
+    private val TAG = AddSubjectActivity::class.java.simpleName
+
     private lateinit var binding : ActivityAddsubjectBinding
 
     private lateinit var spinnerAdapterGrade : AddSubjectSpinnerAdapter
@@ -21,6 +26,8 @@ class AddSubjectActivity : AppCompatActivity() {
 
     private lateinit var subjectColors: Array<String>
     private var spinnerSelectPosition = 0
+
+    val firebaseManager = FirebaseManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,10 +97,19 @@ class AddSubjectActivity : AppCompatActivity() {
         }
     }
 
+    // 설저 완료 버튼 클릭 이벤트
     private fun selectButtonClick() {
-        val subjectName = binding.addSubjectNameEdit.text
+        val subjectName = binding.addSubjectNameEdit.text.toString()
+        val subjectColor = subjectColors[spinnerSelectPosition]
+
+        Log.d(TAG, "subjectName : ${subjectName}, subjectColor : ${subjectColor}")
+
+        if(subjectName.isNotEmpty() && subjectColor.isNotEmpty()) {
+            firebaseManager.saveSubjectData(subjectName, subjectColor)
+        }
     }
 
+    // 과목명 입력 에디터 핸들러 셋업 함수
     private fun addSubjectEditorHandler() {
         binding.addSubjectNameEdit.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
