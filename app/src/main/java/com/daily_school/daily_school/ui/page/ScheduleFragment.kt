@@ -1,26 +1,25 @@
 package com.daily_school.daily_school.ui.page
 
 import FirebaseManager
-import android.content.Context
+import android.content.ComponentName
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.app.ShareCompat.getCallingActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.daily_school.daily_school.R
-import com.daily_school.daily_school.databinding.FragmentPlanBinding
 import com.daily_school.daily_school.databinding.FragmentScheduleBinding
-import com.daily_school.daily_school.ui.plan.AddTodoActivity
 import com.daily_school.daily_school.ui.schedule.AddSubjectActivity
 import kotlinx.coroutines.launch
 
@@ -41,14 +40,35 @@ class ScheduleFragment : Fragment() {
 
     // Dummy Data
     val titleArray = arrayOf("교시", "1", "2", "3", "4", "", "5", "6", "7", "8")
-    val mondayArray = arrayOf("월", "수학", "국어", "영어", "영어", "", "진로", "과학", "과학", "",)
+    val mondayArray = arrayOf("월", "수학", "국어", "영어", "영어", "", "진로", "과학", "과학", "")
     val tuesdayArray = arrayOf("화", "국어", "국어", "수학", "수학", "", "과학", "영어", "수학", "")
     val wednesdayArray = arrayOf("수", "국어", "국어", "수학", "수학", "", "영어", "과학", "", "")
     val thursdayArray = arrayOf("목", "영어", "영어", "국어", "국어", "", "영어", "영어", "", "")
     val fridayArray = arrayOf("금", "영어", "영어", "국어", "국어", "", "영어", "영어", "", "")
 
-    private val subjectArray = ArrayList<Pair<String, String>>()
-    
+    private val subjectArray = ArrayList<Pair<String, Any>>()
+
+    private val subjectColorStringArray = arrayOf(
+        "기본 색상",
+        "라이트 블루",
+        "라이트 핑크",
+        "라이트 레몬",
+        "라이트 바이올렛",
+        "라이트 퍼플",
+        "라이트 샐몬",
+        "라이트 그린",
+    )
+
+    private val subjectColorArray = arrayOf(
+        R.color.subject_default_color,
+        R.color.subject_light_blue_color,
+        R.color.subject_light_pink_color,
+        R.color.subject_light_lemon_color,
+        R.color.subject_light_violet_color,
+        R.color.subject_light_purple_color,
+        R.color.subject_light_salmon_color,
+        R.color.subject_light_green_color
+    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -61,6 +81,7 @@ class ScheduleFragment : Fragment() {
 
         // 과목 셋업 함수
         subjectInit()
+        subjectColorInit()
 
         titleLayout = binding.titleLayout
         mondayLayout = binding.mondayLayout
@@ -68,10 +89,6 @@ class ScheduleFragment : Fragment() {
         wednesdayLayout = binding.wednesdayLayout
         thursdayLayout = binding.thursdayLayout
         fridayLayout = binding.fridayLayout
-
-        //color = ContextCompat.getColor(requireContext(), R.color.black)
-
-        classScheduleInit()
 
         // 과목 추가 버튼 클릭 이벤트
         binding.scheduleAddArea.setOnClickListener {
@@ -147,6 +164,8 @@ class ScheduleFragment : Fragment() {
                 mondayTextView.layoutParams = LinearLayout.LayoutParams(width, height)
             }
 
+            applySubjectColor(mondayArray[i], mondayTextView)
+
             mondayLayout.addView(mondayTextView)
         }
     }
@@ -165,6 +184,7 @@ class ScheduleFragment : Fragment() {
             val tuesdayTextView = TextView(requireContext())
             tuesdayTextView.text = tuesdayArray[i]
             tuesdayTextView.gravity = Gravity.CENTER
+
             if (i == 5) {
                 tuesdayTextView.text = "점심"
                 tuesdayTextView.gravity = Gravity.END or Gravity.CENTER_VERTICAL
@@ -190,6 +210,8 @@ class ScheduleFragment : Fragment() {
             else {
                 tuesdayTextView.layoutParams = LinearLayout.LayoutParams(width, height)
             }
+
+            applySubjectColor(tuesdayArray[i], tuesdayTextView)
 
             tuesdayLayout.addView(tuesdayTextView)
         }
@@ -217,7 +239,7 @@ class ScheduleFragment : Fragment() {
                 wednesdayTextView.setBackgroundResource(R.drawable.schedule_cell_border)
             }
             else {
-                wednesdayTextView.text = tuesdayArray[i]
+                wednesdayTextView.text = wednesdayArray[i]
             }
 
             wednesdayTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
@@ -233,6 +255,8 @@ class ScheduleFragment : Fragment() {
             else {
                 wednesdayTextView.layoutParams = LinearLayout.LayoutParams(width, height)
             }
+
+            applySubjectColor(wednesdayArray[i], wednesdayTextView)
 
             wednesdayLayout.addView(wednesdayTextView)
         }
@@ -271,6 +295,8 @@ class ScheduleFragment : Fragment() {
                 thursdayTextView.layoutParams = LinearLayout.LayoutParams(width, height)
             }
 
+            applySubjectColor(thursdayArray[i], thursdayTextView)
+
             thursdayLayout.addView(thursdayTextView)
         }
     }
@@ -303,6 +329,8 @@ class ScheduleFragment : Fragment() {
             else {
                 fridayTextView.layoutParams = LinearLayout.LayoutParams(width, height)
             }
+
+            applySubjectColor(fridayArray[i], fridayTextView)
 
             fridayLayout.addView(fridayTextView)
         }
@@ -340,31 +368,57 @@ class ScheduleFragment : Fragment() {
     }
 
     private fun subjectInit() {
-        subjectArray.add(Pair("Math", ""))
-        subjectArray.add(Pair("Music", ""))
-        subjectArray.add(Pair("science", ""))
-
-        subjectColorInit()
+        subjectArray.add(Pair("수학", ""))
+        subjectArray.add(Pair("과학", ""))
+        subjectArray.add(Pair("영어", ""))
+        subjectArray.add(Pair("국어", ""))
+        subjectArray.add(Pair("진로", ""))
     }
 
     // 과목 색상 셋업 함수
     private fun subjectColorInit() {
-        for (index in subjectArray.indices) {
-            val subject = subjectArray[index]
-            val subjectName = subject.first
+        lifecycleScope.launch {
+            try {
+                for (index in subjectArray.indices) {
+                    val subject = subjectArray[index]
+                    val subjectName = subject.first
 
-            lifecycleScope.launch {
-                try {
                     val subjectColor = firebaseManager.readSubjectData(subjectName)
                     if (subjectColor != null) {
                         Log.d(TAG, "Subject Color: $subjectColor")
+                        subjectArray[index] = Pair(subjectName, subjectColor)
                     } else {
                         Log.d(TAG, "Subject Color is Null")
                     }
-                } catch (e: Exception) {
-                    Log.e(TAG, "Failed to Read", e)
                 }
+
+                // 과목 색상 설정 후 각 요일 Cell 초기화
+                classScheduleInit()
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to Read", e)
             }
+        }
+    }
+
+    // 과목 값에 해당하는 과목 색상을 적용하는 함수
+    private fun applySubjectColor(subject: String, textView: TextView) {
+        val matchedSubject = subjectArray.find { it.first == subject }
+
+        if (matchedSubject != null) {
+            val subjectColor = matchedSubject.second
+
+            val color = when (subjectColor) {
+                subjectColorStringArray[0] -> ContextCompat.getColor(requireContext(), subjectColorArray[0])
+                subjectColorStringArray[1] -> ContextCompat.getColor(requireContext(), subjectColorArray[1])
+                subjectColorStringArray[2] -> ContextCompat.getColor(requireContext(), subjectColorArray[2])
+                subjectColorStringArray[3] -> ContextCompat.getColor(requireContext(), subjectColorArray[3])
+                subjectColorStringArray[4] -> ContextCompat.getColor(requireContext(), subjectColorArray[4])
+                subjectColorStringArray[5] -> ContextCompat.getColor(requireContext(), subjectColorArray[5])
+                subjectColorStringArray[6] -> ContextCompat.getColor(requireContext(), subjectColorArray[6])
+                subjectColorStringArray[7] -> ContextCompat.getColor(requireContext(), subjectColorArray[7])
+                else -> Color.WHITE // 기본값으로 설정할 색상
+            }
+            textView.setBackgroundColor(color)
         }
     }
 }
