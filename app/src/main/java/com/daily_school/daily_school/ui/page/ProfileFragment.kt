@@ -10,7 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.FragmentProfileBinding
 import com.daily_school.daily_school.ui.AccountActivity
-import com.daily_school.daily_school.ui.SchoolInfoActivity
+import com.daily_school.daily_school.ui.search.SchoolInfoActivity
 import com.daily_school.daily_school.ui.profile.QuestionActivity
 
 class ProfileFragment : Fragment() {

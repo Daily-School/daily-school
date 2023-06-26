@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SchoolInfoActivity">
+    tools:context=".ui.search.SchoolInfoActivity">
 
     <!--    학교 정보 입력 텍스트뷰-->
     <TextView
