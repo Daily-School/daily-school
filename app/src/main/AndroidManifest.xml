@@ -40,7 +40,7 @@
         </activity> <!-- schoolInfoActivity 추가 -->
         <!-- 각 스크린 Activity 추가 -->
         <activity
-            android:name=".ui.SchoolInfoActivity"
+            android:name=".ui.search.SchoolInfoActivity"
             android:exported="false" /> <!-- 카카오 sdk 설정 -->
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
