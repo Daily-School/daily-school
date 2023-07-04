@@ -8,12 +8,10 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.ActivityAddsubjectBinding
 import com.daily_school.daily_school.ui.AddSubjectSpinnerAdapter
-import com.daily_school.daily_school.ui.LoginActivity
 
 class AddSubjectActivity : AppCompatActivity() {
     private val TAG = AddSubjectActivity::class.java.simpleName

@@ -9,6 +9,7 @@ import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.ActivityLoginBinding
 import com.daily_school.daily_school.ui.search.SchoolInfoActivity
 import com.daily_school.daily_school.utils.KakaoRef
+import com.daily_school.daily_school.utils.NaverRef
 import com.kakao.sdk.auth.AuthApiClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
@@ -19,35 +20,37 @@ import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.OAuthLoginCallback
 
-class LoginActivity : AppCompatActivity(){
+class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityLoginBinding
 
     private val TAG = LoginActivity::class.java.simpleName
-
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 
         Log.d(TAG, "keyhash : ${Utility.getKeyHash(this)}")
 
+//        NaverIdLoginSDK.initialize(
+//            this,
+//            NaverRef.naverClientId,
+//            NaverRef.naverClientSecret,
+//            NaverRef.naverClientName
+//        )
+
         // 카카오 로그인 초기 설정
         KakaoSdk.init(this, KakaoRef.APP_KEY)
         if (AuthApiClient.instance.hasToken()) {
             UserApiClient.instance.accessTokenInfo { _, error ->
                 if (error == null) {
-                    schoolInfoActivity()
+
                 }
             }
         }
 
-        // 카카오 로그인 함수 호출
         kakaoLogin()
-        // 네이버 로그인 함수 호출
-        naverLogin()
-
+//        naverLogin()
     }
 
     private fun schoolInfoActivity(){
@@ -96,26 +99,30 @@ class LoginActivity : AppCompatActivity(){
         }
     }
 
-    // 네이버 로그인 함수
-    private fun naverLogin(){
-        // 네이버 로그인 버튼을 눌렀을 때
-        binding.loginNaverBtn.setOnClickListener {
-            val oauthLoginCallback = object : OAuthLoginCallback {
-                override fun onSuccess() {
-                    // 네이버 로그인 인증이 성공했을 때 수행할 코드 추가
-                    schoolInfoActivity()
-                }
-                // 로그인 실패 했을 때
-                override fun onFailure(httpStatus: Int, message: String) {
-                    val errorCode = NaverIdLoginSDK.getLastErrorCode().code
-                    val errorDescription = NaverIdLoginSDK.getLastErrorDescription()
-                }
-                // 로그인 에러가 떴을 때
-                override fun onError(errorCode: Int, message: String) {
-                    onFailure(errorCode, message)
-                }
-            }
-            NaverIdLoginSDK.authenticate(this, oauthLoginCallback)
-        }
-    }
+//    private fun naverLogin(){
+//        binding.loginNaverBtn.setOnClickListener {
+//            val oauthLoginCallback = object : OAuthLoginCallback {
+//                override fun onSuccess() {
+//                    Log.d("test", "AccessToken : " + NaverIdLoginSDK.getAccessToken())
+//                    Log.d("test", "ReFreshToken : " + NaverIdLoginSDK.getRefreshToken())
+//                    Log.d("test", "Expires : " + NaverIdLoginSDK.getExpiresAt().toString())
+//                    Log.d("test", "TokenType : " + NaverIdLoginSDK.getTokenType())
+//                    Log.d("test", "State : " + NaverIdLoginSDK.getState().toString())
+//                }
+//
+//
+//                override fun onFailure(httpStatus: Int, message: String) {
+//                    val errorCode = NaverIdLoginSDK.getLastErrorCode().code
+//                    val errorDescription = NaverIdLoginSDK.getLastErrorDescription()
+//                    Log.e("test", "$errorCode $errorDescription")
+//                }
+//                override fun onError(errorCode: Int, message: String) {
+//                    onFailure(errorCode, message)
+//                }
+//            }
+//
+//            NaverIdLoginSDK.authenticate(this, oauthLoginCallback)
+//        }
+//
+//    }
 }

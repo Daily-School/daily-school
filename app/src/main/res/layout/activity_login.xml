@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         tools:context=".ui.LoginActivity">
 
-<!--        백그라운드 이미지-->
+        <!--        백그라운드 이미지-->
         <ImageView
             android:id="@+id/loginBackground"
             android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:src="@drawable/login_background"
             app:layout_constraintTop_toTopOf="parent" />
 
-<!--        로고 이미지-->
+        <!--        로고 이미지-->
         <ImageView
             android:id="@+id/loginLogo"
             android:layout_width="@dimen/login_logo_weight"
@@ -28,7 +28,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-<!--        로고 밑 텍스트뷰-->
+        <!--        로고 밑 텍스트뷰-->
         <TextView
             android:id="@+id/login_textView"
             android:layout_width="wrap_content"

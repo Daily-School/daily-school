@@ -1,7 +1,6 @@
 package com.daily_school.daily_school.model.network
 
 import android.util.Log
-import com.daily_school.daily_school.ui.LoginActivity
 import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
