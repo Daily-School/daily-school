@@ -1,10 +1,13 @@
 package com.daily_school.daily_school.ui.search
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.daily_school.daily_school.MainActivity
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.ActivitySchoolInfoBinding
@@ -113,6 +116,14 @@ class SchoolInfoActivity : AppCompatActivity() {
             }
         }
 
+    }
+    // SchoolNameFragment에서 SchoolInfoActivity로 데이터를 받는 함수
+    fun receiveData(schoolNm : String){
+        binding.schoolInfoNameEdit.setText(schoolNm)
+        if(binding.schoolInfoNameEdit.text.isNotEmpty()){
+            binding.schoolInfoNameEdit.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.main_color)
+            binding.schoolInfoNameEdit.clearFocus()
+        }
     }
 
 }

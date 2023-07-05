@@ -2,25 +2,29 @@ package com.daily_school.daily_school.ui.search
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.FragmentSchoolNameBinding
+import com.daily_school.daily_school.databinding.SchoolNameRvItemBinding
 import com.daily_school.daily_school.model.network.RetrofitApi
 import com.daily_school.daily_school.utils.NeisRef
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class SchoolNameFragment : BottomSheetDialogFragment() {
@@ -42,7 +46,9 @@ class SchoolNameFragment : BottomSheetDialogFragment() {
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
-        retrofitWork()
+        searchSchoolInfo()
+
+        closeFragment()
 
         return binding.root
 
@@ -93,43 +99,57 @@ class SchoolNameFragment : BottomSheetDialogFragment() {
         return displayMetrics.heightPixels
     }
 
-    private fun retrofitWork(){
-        val service = RetrofitApi.schoolInfoService
-        service.getSchoolInfoData(NeisRef.api_key, "json")
-            .enqueue(object : Callback<SchoolInfoResponse> {
-                override fun onResponse(
-                    call: Call<SchoolInfoResponse>,
-                    response: Response<SchoolInfoResponse>
-                ) {
-                    if(response.isSuccessful){
-                        Log.d("SchoolNameFragment", response.body().toString())
-                        val result = response.body()?.schoolInfo?.get(1)?.row
-                        schoolInfoAdapter.submitList(result!!)
+    // 학교 검색을 했을 때 해당 학교를 검색하는 함수
+    private fun searchSchoolInfo(){
+
+        // 검색 아이콘을 눌렀을 때
+        binding.schoolNameIcSearch.setOnClickListener {
+            val service = RetrofitApi.schoolInfoService
+
+            // EditText 커서 없애줌
+            binding.schoolNameSearchEditText.clearFocus()
+
+            // neis 학교정보 api를 1페이지에서 12페이지까지 불러와 해당 학교가 있는지 찾음
+            CoroutineScope(Dispatchers.IO).launch {
+                for (i in 1..12){
+                    val response = service.getDataCoroutine(NeisRef.api_key, "json", i, 1000, binding.schoolNameSearchEditText.text.toString())
+
+                    withContext(Dispatchers.Main) {
+                        if (response.isSuccessful) {
+                            val result = response.body()?.schoolInfo?.get(1)?.row
+                            result?.let {
+                                schoolInfoAdapter.submitList(it)
+                            }
+                        } else {
+                            Log.e("SchoolNameFragment", response.code().toString())
+                        }
                     }
                 }
 
-                override fun onFailure(call: Call<SchoolInfoResponse>, t: Throwable) {
-                    Log.d("SchoolNameFragment", t.message.toString())
-                }
+            }
 
+            // 원하는 학교를 선택하여 그 학교의 정보를 EditText안에 넣어줌
+            schoolInfoAdapter.listItemClickFunc(object : SchoolInfoAdapter.OnItemClickListener{
+                val sNm = binding.schoolNameSearchEditText
+                override fun setOnItemClickListener(
+                    itemData: String,
+                    binding: SchoolNameRvItemBinding
+                ) {
+                    sNm.setText(itemData)
+                    val mActivity = activity as SchoolInfoActivity
+                    mActivity.receiveData(sNm.text.toString())
+                    dismiss()
+                }
             })
 
-//        CoroutineScope(Dispatchers.IO).launch {
-//            val response = service.getDataCoroutine(NeisRef.api_key, "json")
-//
-//            withContext(Dispatchers.Main) {
-//                if (response.isSuccessful) {
-//                    val result = response.body()?.schoolInfo?.get(1)?.row
-//                    result?.let {
-//                        schoolInfoAdapter.submitList(it)
-//                    }
-//                } else {
-//                    Log.e("SchoolNameFragment", response.code().toString())
-//                }
-//            }
-//        }
+        }
 
     }
 
+    private fun closeFragment(){
+        binding.schoolNameIcBack.setOnClickListener {
+            dismiss()
+        }
+    }
 
 }
