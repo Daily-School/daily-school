@@ -46,9 +46,7 @@ class FirebaseManager {
     }
 
     private fun getUserId(): String {
-        //return FirebaseAuth.getInstance().currentUser?.uid ?: ""
-
-        return "TestUser"
+        return FirebaseAuth.getInstance().currentUser?.uid ?: ""
     }
 
     fun saveSubjectData(subjectName: String, subjectColor: String) {
