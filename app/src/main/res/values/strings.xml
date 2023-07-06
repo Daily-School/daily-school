@@ -47,7 +47,7 @@
         <item>4학년</item>
         <item>5학년</item>
         <item>6학년</item>
-        <item>학교를 선택해 주세요.</item>
+        <item>학년를 선택해 주세요.</item>
     </string-array>
 
     <!--    스피너 반 배열반-->
@@ -67,7 +67,7 @@
         <item>13반</item>
         <item>14반</item>
         <item>15반</item>
-        <item>학년을 선택해 주세요.</item>
+        <item>반을 선택해 주세요.</item>
     </string-array>
 
     <!-- 과목 추가 색상 배열-->
