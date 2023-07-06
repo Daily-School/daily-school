@@ -46,7 +46,9 @@ class FirebaseManager {
     }
 
     private fun getUserId(): String {
-        return FirebaseAuth.getInstance().currentUser?.uid ?: ""
+        //return FirebaseAuth.getInstance().currentUser?.uid ?: ""
+
+        return "TestUser"
     }
 
     fun saveSubjectData(subjectName: String, subjectColor: String) {
@@ -186,6 +188,47 @@ class FirebaseManager {
             }
         } else {
             null
+        }
+    }
+
+    fun deleteSubjectData(subjectName: String) {
+        val uid = getUserId()
+
+        if (uid.isNotEmpty()) {
+            val db = FirebaseFirestore.getInstance()
+            val subjectRef = db.collection(usersCollection)
+                .document(uid)
+                .collection(dataCollection)
+                .document(subjectDocument)
+
+            subjectRef.get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val document = task.result
+                        if (document != null && document.exists()) {
+                            val subjectData = document.data
+                            if (subjectData?.containsKey(subjectName) == true) {
+                                subjectData.remove(subjectName)
+
+                                subjectRef.set(subjectData)
+                                    .addOnSuccessListener {
+                                        Log.d(TAG, "Subject Data Deleted Successfully")
+                                    }
+                                    .addOnFailureListener { e ->
+                                        Log.e(TAG, "Failed to Delete Subject Data", e)
+                                    }
+                            } else {
+                                Log.d(TAG, "Subject Data with key $subjectName does not exist")
+                            }
+                        } else {
+                            Log.d(TAG, "Subject Data does not exist")
+                        }
+                    } else {
+                        Log.e(TAG, "Failed to Access Document", task.exception)
+                    }
+                }
+        } else {
+            Log.e(TAG, "User UID is empty")
         }
     }
 }

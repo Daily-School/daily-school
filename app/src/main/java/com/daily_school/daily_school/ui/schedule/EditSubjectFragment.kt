@@ -1,5 +1,6 @@
 package com.daily_school.daily_school.ui.schedule
 
+import DeleteSubjectDialog
 import FirebaseManager
 import android.app.Activity
 import android.app.Dialog
@@ -59,7 +60,11 @@ class EditSubjectFragment : BottomSheetDialogFragment() {
         // 수정 과목 셋업 함수
         subjectInit()
 
+        // 완료 버튼 클릭 함수
         selectButtonClick()
+
+        // 과목 삭제 버튼 클릭 함수
+        showDeleteSubjectDialog()
 
         return binding.root
 
@@ -191,4 +196,23 @@ class EditSubjectFragment : BottomSheetDialogFragment() {
         binding.subjectText.text = subjectName
         binding.editSubjectNameEdit.text = Editable.Factory.getInstance().newEditable(subjectName)
     }
+
+    private fun showDeleteSubjectDialog() {
+        binding.deleteSubjectArea.setOnClickListener {
+            val deleteDialog = DeleteSubjectDialog()
+            deleteDialog.setDeleteSubjectListener(object : DeleteSubjectDialog.DeleteSubjectListener {
+                // 아니요 버튼 클릭 시 동작
+                override fun onNoButtonClicked() {
+                }
+
+                // 예 버튼 클릭 시 동작
+                override fun onYesButtonClicked() {
+                    firebaseManager.deleteSubjectData(subjectName)
+                    dismiss()
+                }
+            })
+            deleteDialog.show(requireActivity().supportFragmentManager, deleteDialog.tag)
+        }
+    }
+
 }

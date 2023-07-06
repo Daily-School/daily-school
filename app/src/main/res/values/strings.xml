@@ -14,9 +14,13 @@
     <string name="add_subject_background_text">배경색 지정</string>
 
     <string name="subject_delete_text">과목 삭제</string>
+    <string name="subject_delete_guide_text">정말 과목을 삭제하시겠어요?</string>
     <string name="edit_subject_text">과목명 수정</string>
     <string name="edit_subject_hint_text">과목명을 수정해주세요.</string>
     <string name="edit_subject_button_text">완료</string>
+
+    <string name="delete_dialog_button_no_text">아니요</string>
+    <string name="delete_dialog_button_yes_text">네, 삭제할래요</string>
 
     <string name="add_todo_main_text">추가하기</string>
     <string name="add_todo_plan_name_text">일정 제목</string>
@@ -47,7 +51,7 @@
         <item>4학년</item>
         <item>5학년</item>
         <item>6학년</item>
-        <item>학년를 선택해 주세요.</item>
+        <item>학년을 선택해 주세요.</item>
     </string-array>
 
     <!--    스피너 반 배열반-->
