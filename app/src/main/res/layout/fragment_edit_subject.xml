@@ -56,12 +56,12 @@
 
                 <!-- 과목 텍스트 -->
                 <TextView
-                    android:id="@+id/subjetcText"
+                    android:id="@+id/subjectText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/pretendard"
-                    android:text="수학"
+                    android:text=""
                     android:textColor="@color/main_color"
                     android:textStyle="bold"
                     android:textSize="18sp" />
@@ -119,7 +119,7 @@
                 android:layout_height="50dp"
                 android:hint="@string/edit_subject_hint_text"
                 android:fontFamily="@font/pretendard"
-                android:textColor="#9E9E9E"
+                android:textColor="@color/black"
                 android:textColorHint="#C0C0C0"
                 android:textSize="20sp"
                 android:layout_marginLeft="20dp"
@@ -167,7 +167,7 @@
                 android:textColor="#FFFFFF"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="@dimen/schoolInfo_margin_bottom"
+                android:layout_marginBottom="40dp"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
 

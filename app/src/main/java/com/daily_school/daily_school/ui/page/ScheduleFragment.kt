@@ -21,6 +21,7 @@ import androidx.lifecycle.lifecycleScope
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.FragmentScheduleBinding
 import com.daily_school.daily_school.ui.schedule.AddSubjectActivity
+import com.daily_school.daily_school.ui.schedule.EditSubjectFragment
 import kotlinx.coroutines.launch
 
 
@@ -166,6 +167,13 @@ class ScheduleFragment : Fragment() {
 
             applySubjectColor(mondayArray[i], mondayTextView)
 
+            mondayTextView.setOnClickListener {
+                val cellText = mondayTextView.text.toString()
+                Log.d(TAG, "cellText: $cellText")
+
+                showEditSubjectSheet(cellText)
+            }
+
             mondayLayout.addView(mondayTextView)
         }
     }
@@ -213,6 +221,13 @@ class ScheduleFragment : Fragment() {
 
             applySubjectColor(tuesdayArray[i], tuesdayTextView)
 
+            tuesdayTextView.setOnClickListener {
+                val cellText = tuesdayTextView.text.toString()
+                Log.d(TAG, "cellText: $cellText")
+
+                showEditSubjectSheet(cellText)
+            }
+
             tuesdayLayout.addView(tuesdayTextView)
         }
     }
@@ -258,6 +273,13 @@ class ScheduleFragment : Fragment() {
 
             applySubjectColor(wednesdayArray[i], wednesdayTextView)
 
+            wednesdayTextView.setOnClickListener {
+                val cellText = wednesdayTextView.text.toString()
+                Log.d(TAG, "cellText: $cellText")
+
+                showEditSubjectSheet(cellText)
+            }
+
             wednesdayLayout.addView(wednesdayTextView)
         }
     }
@@ -297,6 +319,13 @@ class ScheduleFragment : Fragment() {
 
             applySubjectColor(thursdayArray[i], thursdayTextView)
 
+            thursdayTextView.setOnClickListener {
+                val cellText = thursdayTextView.text.toString()
+                Log.d(TAG, "cellText: $cellText")
+
+                showEditSubjectSheet(cellText)
+            }
+
             thursdayLayout.addView(thursdayTextView)
         }
     }
@@ -331,6 +360,13 @@ class ScheduleFragment : Fragment() {
             }
 
             applySubjectColor(fridayArray[i], fridayTextView)
+
+            fridayTextView.setOnClickListener {
+                val cellText = fridayTextView.text.toString()
+                Log.d(TAG, "cellText: $cellText")
+
+                showEditSubjectSheet(cellText)
+            }
 
             fridayLayout.addView(fridayTextView)
         }
@@ -420,5 +456,13 @@ class ScheduleFragment : Fragment() {
             }
             textView.setBackgroundColor(color)
         }
+    }
+
+    private fun showEditSubjectSheet(subject: String) {
+        val bottomSheet = EditSubjectFragment()
+        val bundle = Bundle()
+        bundle.putString("subject", subject)
+        bottomSheet.arguments = bundle
+        bottomSheet.show(requireActivity().supportFragmentManager, bottomSheet.tag)
     }
 }
