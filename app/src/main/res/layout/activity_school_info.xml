@@ -59,7 +59,7 @@
         android:hint="학교를 선택해 주세요."
         android:backgroundTint="#C0C0C0"
         android:fontFamily="@font/pretendard"
-        android:textColor="#9E9E9E"
+        android:textColor="@color/gray_1"
         android:textColorHint="#C0C0C0"
         android:textSize="18sp"
         android:drawableRight="@drawable/ic_school_info_x"

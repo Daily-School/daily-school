@@ -13,6 +13,10 @@ import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.ActivitySchoolInfoBinding
 
 
+var schoolInfoBool : Int = 0
+var gradeBool : Int = 0
+var classBool : Int = 0
+
 class SchoolInfoActivity : AppCompatActivity() {
 
     private var _binding: ActivitySchoolInfoBinding? = null
@@ -28,23 +32,21 @@ class SchoolInfoActivity : AppCompatActivity() {
         _binding = ActivitySchoolInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 학교 검색 fragment 호출 함수
+        // 학교 검색 fragment 호출 함수 호출
         showSearchFragment()
 
-        // 학년 스피너 셋업 함수
+        // 학년 스피너 셋업 함수 호출
         setupSpinnerGrade()
 
-        // 반 스피너 셋업 함수
+        // 반 스피너 셋업 함수 호출
         setupSpinnerClass()
 
-        // 스피너 핸들러 셋업 함수
+        // 스피너 핸들러 셋업 함수 호출
         setupSpinnerHandler()
 
-        binding.schoolInfoSelectBtn.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+        // 학교, 학년, 반이 모두 입력이 되면 MainActivity로 이동하는 함수 호출
+        changeBtn()
+
     }
 
     // 학교 검색 fragment 호출 함수
@@ -93,6 +95,11 @@ class SchoolInfoActivity : AppCompatActivity() {
                 id: Long
             ) {
                 binding.schoolInfoGradeSpinner.setBackgroundResource(R.drawable.bg_spinner_blue)
+                gradeBool = 1
+                Log.e("SchoolInfoActivity", "gradeBool true")
+                if(schoolInfoBool == 1 && gradeBool == 1 && classBool == 1){
+                    binding.schoolInfoSelectBtn.setBackgroundResource(R.drawable.border_main_color)
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -108,6 +115,12 @@ class SchoolInfoActivity : AppCompatActivity() {
                 id: Long
             ) {
                 binding.schoolInfoClassSpinner.setBackgroundResource(R.drawable.bg_spinner_blue)
+                classBool = 1
+                Log.e("SchoolInfoActivity", "classBool true")
+                if(schoolInfoBool == 1 && gradeBool == 1 && classBool == 1){
+                    binding.schoolInfoSelectBtn.setBackgroundResource(R.drawable.border_main_color)
+                }
+
             }
 
 
@@ -123,7 +136,25 @@ class SchoolInfoActivity : AppCompatActivity() {
         if(binding.schoolInfoNameEdit.text.isNotEmpty()){
             binding.schoolInfoNameEdit.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.main_color)
             binding.schoolInfoNameEdit.clearFocus()
+            schoolInfoBool = 1
+            if(schoolInfoBool == 1 && gradeBool == 1 && classBool == 1){
+                binding.schoolInfoSelectBtn.setBackgroundResource(R.drawable.border_main_color)
+            }
+            Log.e("SchoolInfoActivity", "schoolInfoBool true")
         }
+    }
+
+    // 학교, 학년, 반이 모두 입력이 되면 MainActivity로 이동하는 함수
+    private fun changeBtn(){
+
+        binding.schoolInfoSelectBtn.setOnClickListener {
+            if(schoolInfoBool == 1 && gradeBool == 1 && classBool == 1){
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+
     }
 
 }
