@@ -25,6 +25,8 @@
     <color name="light_green_color">#47DE00</color>
     <color name="pink_color">#FF51EE</color>
 
+    <color name="school_info_gray_color">#C0C0C0</color>
+
     <color name="subject_default_color">#FFE0E0E0</color>
     <color name="subject_light_blue_color">#C8DBFF</color>
     <color name="subject_light_pink_color">#FFF2FC</color>
