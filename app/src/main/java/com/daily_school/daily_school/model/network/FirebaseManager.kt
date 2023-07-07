@@ -22,6 +22,12 @@ class FirebaseManager {
     private val todoRepeatKey = "todoRepeat"
     private val todoColorKey = "todoColor"
 
+    // 학교 정보 DB 모델
+    private val schoolInfoDocument = "schoolInfo"
+    private val schoolNameKey = "schoolName"
+    private val gradeKey = "grade"
+    private val classKey = "class"
+
     fun saveCurrentUser(uid: String) {
         if (uid.isNotEmpty()) {
             val db = FirebaseFirestore.getInstance()
@@ -227,6 +233,79 @@ class FirebaseManager {
                 }
         } else {
             Log.e(TAG, "User UID is empty")
+        }
+    }
+
+    // schoolInfo 저장하는 함수
+    fun saveSchoolInfoData(uid: String, schoolName : String, gradeInfo : String, classInfo : String){
+
+        // uid가 존재할 때
+        if(uid.isNotEmpty()){
+            val db = FirebaseFirestore.getInstance()
+            val schoolInfoRef = db.collection(usersCollection)
+                .document(uid)
+                .collection(dataCollection)
+                .document(schoolInfoDocument)
+
+            val schoolInfoData = mutableMapOf<String, Any>()
+            schoolInfoData[schoolNameKey] = schoolName
+            schoolInfoData[gradeKey] = gradeInfo
+            schoolInfoData[classKey] = classInfo
+
+            schoolInfoRef.get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val document = task.result
+                        if (document != null && document.exists()) {
+                            schoolInfoRef.update(schoolInfoData)
+                                .addOnSuccessListener {
+                                    Log.d(TAG, "SchoolInfo Data Saved Successfully")
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.e(TAG, "Failed to Save SchoolInfo Data", e)
+                                }
+                        } else {
+                            schoolInfoRef.set(schoolInfoData)
+                                .addOnSuccessListener {
+                                    Log.d(TAG, "SchoolInfo Data Saved Successfully")
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.e(TAG, "Failed to Save SchoolInfo Data", e)
+                                }
+                        }
+                    } else {
+                        Log.e(TAG, "Failed to Access Document", task.exception)
+                    }
+                }
+        }
+        // uid가 존재하지 않을 때
+        else {
+            Log.e(TAG, "User UID is empty")
+        }
+    }
+
+    suspend fun readSchoolInfoData(uid : String): Map<String, Any>? {
+
+        return if (uid.isNotEmpty()) {
+            val db = FirebaseFirestore.getInstance()
+            val schoolInfoRef = db.collection(usersCollection)
+                .document(uid)
+                .collection(dataCollection)
+                .document(schoolInfoDocument)
+
+            try {
+                val document = schoolInfoRef.get().await()
+                if (document != null && document.exists()) {
+                    val schoolInfo = document.data
+                    schoolInfo as? Map<String, Any>
+                } else {
+                    null
+                }
+            } catch (e: Exception) {
+                null
+            }
+        } else {
+            null
         }
     }
 }
