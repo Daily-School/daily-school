@@ -41,13 +41,6 @@ class LoginActivity : AppCompatActivity() {
 
         // 카카오 로그인 초기 설정
         KakaoSdk.init(this, KakaoRef.APP_KEY)
-        if (AuthApiClient.instance.hasToken()) {
-            UserApiClient.instance.accessTokenInfo { _, error ->
-                if (error == null) {
-
-                }
-            }
-        }
 
         kakaoLogin()
 //        naverLogin()
