@@ -15,10 +15,10 @@
 
             <!--    프로필 메인 텍스트뷰-->
             <TextView
-                android:id="@+id/profileMainTextView"
+                android:id="@+id/mealMainTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="105dp"
+                android:layout_marginLeft="100dp"
                 android:layout_marginTop="58dp"
                 android:fontFamily="@font/pretendard_extrabold"
                 android:gravity="center"
@@ -31,13 +31,13 @@
 
             <!--   프로필 수정 아이콘-->
             <ImageView
-                android:id="@+id/profileIcFilter"
+                android:id="@+id/mealIcFilter"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="60dp"
                 android:src="@drawable/ic_profile_filter"
-                app:layout_constraintStart_toEndOf="@+id/profileMainTextView"
+                app:layout_constraintStart_toEndOf="@+id/mealMainTextView"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -50,7 +50,7 @@
                 android:background="@color/gray_8"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profileMainTextView"
+                app:layout_constraintTop_toBottomOf="@id/mealMainTextView"
                 android:orientation="vertical">
 
             </LinearLayout>

@@ -19,7 +19,7 @@
                 android:id="@+id/profileMainTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="105dp"
+                android:layout_marginLeft="100dp"
                 android:layout_marginTop="58dp"
                 android:fontFamily="@font/pretendard_extrabold"
                 android:gravity="center"
