@@ -1,10 +1,13 @@
 package com.daily_school.daily_school.ui
 
+import FirebaseManager
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
+import com.daily_school.daily_school.MainActivity
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.ActivityLoginBinding
 import com.daily_school.daily_school.ui.search.SchoolInfoActivity
@@ -19,12 +22,15 @@ import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.OAuthLoginCallback
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityLoginBinding
 
     private val TAG = LoginActivity::class.java.simpleName
+
+    private val firebaseManager = FirebaseManager()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -46,7 +52,12 @@ class LoginActivity : AppCompatActivity() {
 //        naverLogin()
     }
 
-    private fun schoolInfoActivity(){
+    private fun moveMainActivity(){
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+    }
+
+    private fun moveSchoolInfoActivity(){
         startActivity(Intent(this, SchoolInfoActivity::class.java))
         finish()
     }
@@ -61,7 +72,20 @@ class LoginActivity : AppCompatActivity() {
                     Log.e(TAG, "카카오계정으로 로그인 실패", error)
                 } else if (token != null) {
                     Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
-                    schoolInfoActivity()
+                    lifecycleScope.launch {
+                        try {
+                            val userInfo = firebaseManager.readSchoolInfoData(token.idToken.toString())
+                            if (userInfo != null){
+                                moveMainActivity()
+                            }
+                            else{
+                                moveSchoolInfoActivity()
+                            }
+                        }
+                        catch (e : Exception){
+                            Log.e(TAG, "Failed to Read", e)
+                        }
+                    }
                 }
             }
 
@@ -83,7 +107,20 @@ class LoginActivity : AppCompatActivity() {
                     // 카카오톡으로 로그인 성공하면 SchoolInfoActivity로 이동
                     else if (token != null) {
                         Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
-                        schoolInfoActivity()
+                        lifecycleScope.launch {
+                            try {
+                                val userInfo = firebaseManager.readSchoolInfoData(token.idToken.toString())
+                                if (userInfo != null){
+                                    moveMainActivity()
+                                }
+                                else{
+                                    moveSchoolInfoActivity()
+                                }
+                            }
+                            catch (e : Exception){
+                                Log.e(TAG, "Failed to Read", e)
+                            }
+                        }
                     }
                 }
             } else {

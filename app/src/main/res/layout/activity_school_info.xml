@@ -56,16 +56,27 @@
         android:id="@+id/schoolInfoNameEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="학교를 선택해 주세요."
-        android:backgroundTint="#C0C0C0"
-        android:fontFamily="@font/pretendard"
-        android:textColor="@color/gray_1"
-        android:textColorHint="#C0C0C0"
-        android:textSize="18sp"
-        android:drawableRight="@drawable/ic_school_info_x"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:backgroundTint="#C0C0C0"
+        android:fontFamily="@font/pretendard"
+        android:hint="학교를 선택해 주세요."
+        android:textColor="@color/gray_1"
+        android:textColorHint="@color/school_info_gray_color"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/schoolInfoNameTxt" />
+
+    <ImageView
+        android:id="@+id/schoolInfoIcDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_school_info_x"
+        android:layout_marginRight="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/schoolInfoNameEdit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/schoolInfoNameEdit" />
 
     <!--    학년 선택 텍스트뷰-->
     <TextView

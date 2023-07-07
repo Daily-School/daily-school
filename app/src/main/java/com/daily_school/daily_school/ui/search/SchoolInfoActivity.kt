@@ -1,5 +1,6 @@
 package com.daily_school.daily_school.ui.search
 
+import FirebaseManager
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -11,11 +12,9 @@ import androidx.core.content.ContextCompat
 import com.daily_school.daily_school.MainActivity
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.ActivitySchoolInfoBinding
-
-
-var schoolInfoBool : Int = 0
-var gradeBool : Int = 0
-var classBool : Int = 0
+import com.daily_school.daily_school.utils.KakaoRef
+import com.kakao.sdk.common.KakaoSdk
+import com.kakao.sdk.user.UserApiClient
 
 class SchoolInfoActivity : AppCompatActivity() {
 
@@ -26,11 +25,22 @@ class SchoolInfoActivity : AppCompatActivity() {
     private lateinit var spinnerAdapterClass : StudentInfoSpinnerAdapter
     private val listOfGrade = ArrayList<StudentInfoSpinnerModel>()
     private val listOfClass = ArrayList<StudentInfoSpinnerModel>()
+
+    private lateinit var gradeArray : Array<String>
+    private lateinit var classArray : Array<String>
+
+    private var gradeSpinnerPosition = -1
+    private var classSpinnerPosition = -1
+
+    private val firebaseManager = FirebaseManager()
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         _binding = ActivitySchoolInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        gradeArray = resources.getStringArray(R.array.spinner_grade)
+        classArray = resources.getStringArray(R.array.spinner_class)
 
         // 학교 검색 fragment 호출 함수 호출
         showSearchFragment()
@@ -46,6 +56,9 @@ class SchoolInfoActivity : AppCompatActivity() {
 
         // 학교, 학년, 반이 모두 입력이 되면 MainActivity로 이동하는 함수 호출
         changeBtn()
+
+        // editText에 있는 글자를 초기화시키는 함수 호출
+        deleteWord()
 
     }
 
@@ -94,12 +107,14 @@ class SchoolInfoActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
+                gradeSpinnerPosition = position
+
                 binding.schoolInfoGradeSpinner.setBackgroundResource(R.drawable.bg_spinner_blue)
-                gradeBool = 1
-                Log.e("SchoolInfoActivity", "gradeBool true")
-                if(schoolInfoBool == 1 && gradeBool == 1 && classBool == 1){
+
+                if(binding.schoolInfoNameEdit.text.toString().isNotEmpty() && gradeSpinnerPosition != -1 && classSpinnerPosition != -1){
                     binding.schoolInfoSelectBtn.setBackgroundResource(R.drawable.border_main_color)
                 }
+
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -114,10 +129,12 @@ class SchoolInfoActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
+
+                classSpinnerPosition = position
+
                 binding.schoolInfoClassSpinner.setBackgroundResource(R.drawable.bg_spinner_blue)
-                classBool = 1
-                Log.e("SchoolInfoActivity", "classBool true")
-                if(schoolInfoBool == 1 && gradeBool == 1 && classBool == 1){
+
+                if(binding.schoolInfoNameEdit.text.toString().isNotEmpty() && gradeSpinnerPosition != -1 && classSpinnerPosition != -1){
                     binding.schoolInfoSelectBtn.setBackgroundResource(R.drawable.border_main_color)
                 }
 
@@ -136,25 +153,49 @@ class SchoolInfoActivity : AppCompatActivity() {
         if(binding.schoolInfoNameEdit.text.isNotEmpty()){
             binding.schoolInfoNameEdit.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.main_color)
             binding.schoolInfoNameEdit.clearFocus()
-            schoolInfoBool = 1
-            if(schoolInfoBool == 1 && gradeBool == 1 && classBool == 1){
-                binding.schoolInfoSelectBtn.setBackgroundResource(R.drawable.border_main_color)
-            }
-            Log.e("SchoolInfoActivity", "schoolInfoBool true")
+        }
+        if(binding.schoolInfoNameEdit.text.toString().isNotEmpty() && gradeSpinnerPosition != -1 && classSpinnerPosition != -1){
+            binding.schoolInfoSelectBtn.setBackgroundResource(R.drawable.border_main_color)
         }
     }
 
     // 학교, 학년, 반이 모두 입력이 되면 MainActivity로 이동하는 함수
     private fun changeBtn(){
 
+        KakaoSdk.init(this, KakaoRef.APP_KEY)
+
         binding.schoolInfoSelectBtn.setOnClickListener {
-            if(schoolInfoBool == 1 && gradeBool == 1 && classBool == 1){
+
+            val schoolName = binding.schoolInfoNameEdit.text.toString()
+            val gradeInfo = gradeArray[gradeSpinnerPosition]
+            val classInfo = classArray[classSpinnerPosition]
+
+            UserApiClient.instance.accessTokenInfo{ tokenInfo, error ->
+                if (error != null){
+                    Log.e("SchoolInfoActivity", "토큰 정보 보기 실패", error)
+                }
+                else if (tokenInfo != null){
+                    firebaseManager.saveCurrentUser(tokenInfo.id.toString())
+                    firebaseManager.saveSchoolInfoData(tokenInfo.id.toString(), schoolName, gradeInfo, classInfo)
+                }
+            }
+            if(binding.schoolInfoNameEdit.text.toString().isNotEmpty() && gradeSpinnerPosition != -1 && classSpinnerPosition != -1){
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }
         }
 
+    }
+
+    // editText에 있는 글자를 초기화시키는 함수 호출
+    private fun deleteWord(){
+        binding.schoolInfoIcDelete.setOnClickListener {
+            binding.schoolInfoNameEdit.text = null
+            if(binding.schoolInfoNameEdit.text.isEmpty()){
+                binding.schoolInfoNameEdit.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.school_info_gray_color)
+            }
+        }
     }
 
 }
