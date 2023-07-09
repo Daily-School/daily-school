@@ -23,7 +23,7 @@
                 android:layout_marginTop="58dp"
                 android:fontFamily="@font/pretendard_extrabold"
                 android:gravity="center"
-                android:text="데일중학교 1학년 1반"
+                android:text=""
                 android:textColor="@color/gray_1"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -56,10 +56,6 @@
 
             </LinearLayout>
 
-
-
-
-
             <!--    회색 사각형 화면-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/profileGrayRectangle"
@@ -70,21 +66,35 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profileFirstLine">
 
-                <!--   인사말 텍스트뷰-->
+                <!-- 닉네임 텍스트뷰-->
                 <TextView
-                    android:id="@+id/profileHelloTextView"
-                    android:layout_width="match_parent"
+                    android:id="@+id/profileNicknameTextView"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/pretendard"
-                    android:text="홍길동님, 안녕하세요?"
+                    android:text=""
                     android:textColor="@color/gray_1"
                     android:textSize="20sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/profileGrayRectangle" />
 
-                <!--    하얀색 사각형 화면-->
+                <!-- 인사말 텍스트뷰-->
+                <TextView
+                    android:id="@+id/profileHelloTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/pretendard"
+                    android:text="님, 안녕하세요?"
+                    android:textColor="@color/gray_1"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toEndOf="@+id/profileNicknameTextView"
+                    app:layout_constraintTop_toTopOf="@+id/profileGrayRectangle"/>
+
+                <!-- 하얀색 사각형 화면-->
                 <ImageView
                     android:id="@+id/profileWhiteRectangle"
                     android:layout_width="match_parent"
@@ -130,7 +140,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="13dp"
                     android:fontFamily="@font/pretendard"
-                    android:text="데일중학교 1학년 1반"
+                    android:text=""
                     android:textColor="@color/gray_1"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -202,6 +212,31 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profileIcToAccount" />
 
+            <!-- 화면 테마 설정 텍스트뷰-->
+            <TextView
+                android:id="@+id/profileThemeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="19dp"
+                android:fontFamily="@font/pretendard"
+                android:text="화면 테마 설정"
+                android:textColor="@color/gray_1"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileQuestionTextView" />
+
+            <!-- 화면 테마 설정 아이콘-->
+            <ImageView
+                android:id="@+id/profileIcToTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginRight="21dp"
+                android:src="@drawable/ic_profile_right"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileIcToQuestion" />
+
             <!--   로그아웃 텍스트뷰-->
             <TextView
                 android:id="@+id/profileLogoutTextView"
@@ -214,7 +249,7 @@
                 android:textColor="@color/gray_1"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profileQuestionTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/profileThemeTextView" />
 
             <!--   로그아웃 아이콘-->
             <ImageView
@@ -225,7 +260,7 @@
                 android:layout_marginRight="21dp"
                 android:src="@drawable/ic_profile_right"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profileIcToQuestion" />
+                app:layout_constraintTop_toBottomOf="@+id/profileIcToTheme" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
