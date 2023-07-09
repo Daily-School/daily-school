@@ -81,6 +81,7 @@ class ProfileFragment : Fragment() {
     // 유저 정보를 입력시키는 함수
     private fun getSchoolInfoData(){
         KakaoSdk.init(requireContext(), KakaoRef.APP_KEY)
+
         UserApiClient.instance.accessTokenInfo{ tokenInfo, error ->
             if (error != null){
                 Log.e(TAG, "토큰 정보 보기 실패", error)
@@ -94,6 +95,18 @@ class ProfileFragment : Fragment() {
                             val userGrade = userInfo["grade"]
                             val userClass = userInfo["class"]
                             binding.profileMainTextView.text = "$userSchoolName $userGrade $userClass"
+                            binding.profileCurrentSchoolDynamicTextView.text = "$userSchoolName $userGrade $userClass"
+
+                            UserApiClient.instance.me { user, error ->
+                                if (error != null) {
+                                    Log.e(TAG, "사용자 정보 요청 실패 $error")
+                                } else if (user != null) {
+                                    Log.e(TAG, "사용자 정보 요청 성공 : $user")
+                                    val nickname = user.kakaoAccount?.profile?.nickname
+                                    binding.profileNicknameTextView.text = "$nickname"
+                                }
+                            }
+
 
                         } else {
                             Log.d(TAG, "TodoList is Null")
