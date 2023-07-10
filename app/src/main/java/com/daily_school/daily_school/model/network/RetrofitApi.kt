@@ -1,5 +1,6 @@
 package com.daily_school.daily_school.model.network
 
+import com.daily_school.daily_school.ui.meal.MealInfoService
 import com.daily_school.daily_school.ui.search.SchoolInfoService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -25,5 +26,8 @@ object RetrofitApi {
     }
     val schoolInfoService : SchoolInfoService by lazy {
         retrofit.create(SchoolInfoService::class.java)
+    }
+    val mealInfoService : MealInfoService by lazy{
+        retrofit.create(MealInfoService::class.java)
     }
 }
