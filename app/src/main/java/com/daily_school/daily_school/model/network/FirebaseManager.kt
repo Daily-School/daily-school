@@ -27,6 +27,8 @@ class FirebaseManager {
     private val schoolNameKey = "schoolName"
     private val gradeKey = "grade"
     private val classKey = "class"
+    private val cityCodeKey = "cityCode"
+    private val schoolCodeKey = "schoolCode"
 
     fun saveCurrentUser(uid: String) {
         if (uid.isNotEmpty()) {
@@ -237,7 +239,7 @@ class FirebaseManager {
     }
 
     // schoolInfo 저장하는 함수
-    fun saveSchoolInfoData(uid: String, schoolName : String, gradeInfo : String, classInfo : String){
+    fun saveSchoolInfoData(uid: String, schoolName : String, gradeInfo : String, classInfo : String, cityCodeInfo : String, schoolCodeInfo : String){
 
         // uid가 존재할 때
         if(uid.isNotEmpty()){
@@ -251,6 +253,8 @@ class FirebaseManager {
             schoolInfoData[schoolNameKey] = schoolName
             schoolInfoData[gradeKey] = gradeInfo
             schoolInfoData[classKey] = classInfo
+            schoolInfoData[cityCodeKey] = cityCodeInfo
+            schoolInfoData[schoolCodeKey] = schoolCodeInfo
 
             schoolInfoRef.get()
                 .addOnCompleteListener { task ->
