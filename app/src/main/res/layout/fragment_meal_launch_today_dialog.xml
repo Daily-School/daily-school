@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:fontFamily="@font/pretendard"
-                android:text="5월 22일 (목)"
+                android:text=""
                 android:textColor="@color/main_color"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -50,6 +50,7 @@
                 android:id="@+id/mealLaunchTodayDialogRv"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:visibility="gone"
                 android:layout_marginTop="16dp"
                 android:layout_marginLeft="29dp"
                 android:layout_marginRight="25dp"
@@ -58,6 +59,34 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/mealLaunchDash" />
+
+            <!--    급식이 제공되지 않을 때 나오는 아이콘-->
+            <ImageView
+                android:id="@+id/mealLaunchDialogNotionIc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="9dp"
+                android:src="@drawable/ic_meal_notion"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/mealLaunchNotionDialogTextView" />
+
+            <!--    급식이 나오지 않을 때 나오는 텍스트뷰-->
+            <TextView
+                android:id="@+id/mealLaunchNotionDialogTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard"
+                android:gravity="center"
+                android:text="급식이 제공되지\n않는 날이에요"
+                android:textColor="@color/gray_5"
+                android:textSize="14sp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

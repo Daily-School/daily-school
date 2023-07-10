@@ -30,7 +30,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/gray_1"
-            android:maxLength="10"
+            android:maxLength="12"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/launchMealTodayPointIc"
             app:layout_constraintTop_toTopOf="parent" />

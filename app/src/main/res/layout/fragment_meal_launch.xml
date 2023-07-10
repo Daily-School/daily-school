@@ -80,6 +80,28 @@
                     app:layout_constraintStart_toEndOf="@+id/mealLaunchTodayTextView"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <ImageView
+                    android:id="@+id/mealLaunchCalorieRectangle"
+                    android:layout_width="77dp"
+                    android:layout_height="22dp"
+                    android:layout_marginTop="76dp"
+                    android:layout_marginLeft="9dp"
+                    android:src="@drawable/radius_gray8_rectangle"
+                    app:layout_constraintStart_toEndOf="@+id/mealLaunchTodayIc"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/mealLaunchCalorieTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard"
+                    android:text=""
+                    android:textColor="@color/gray_1"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/mealLaunchCalorieRectangle"
+                    app:layout_constraintStart_toStartOf="@+id/mealLaunchCalorieRectangle"
+                    app:layout_constraintTop_toTopOf="@+id/mealLaunchCalorieRectangle" />
+
                 <!--    오늘의 급식 다이어로그로 가는 아이콘-->
                 <ImageView
                     android:id="@+id/mealLaunchIcToMealDialog"
