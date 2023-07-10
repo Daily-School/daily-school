@@ -29,6 +29,9 @@ class SchoolInfoActivity : AppCompatActivity() {
     private lateinit var gradeArray : Array<String>
     private lateinit var classArray : Array<String>
 
+    private lateinit var cityCodeInfo : String
+    private lateinit var schoolCodeInfo : String
+
     private var gradeSpinnerPosition = -1
     private var classSpinnerPosition = -1
 
@@ -159,6 +162,11 @@ class SchoolInfoActivity : AppCompatActivity() {
         }
     }
 
+    fun receiveSchoolData(cityCode : String, schoolCode : String) {
+        cityCodeInfo = cityCode
+        schoolCodeInfo = schoolCode
+    }
+
     // 학교, 학년, 반이 모두 입력이 되면 MainActivity로 이동하는 함수
     private fun changeBtn(){
 
@@ -176,7 +184,8 @@ class SchoolInfoActivity : AppCompatActivity() {
                 }
                 else if (tokenInfo != null){
                     firebaseManager.saveCurrentUser(tokenInfo.id.toString())
-                    firebaseManager.saveSchoolInfoData(tokenInfo.id.toString(), schoolName, gradeInfo, classInfo)
+                    Log.d("SchoolInfoActivity", cityCodeInfo)
+                    firebaseManager.saveSchoolInfoData(tokenInfo.id.toString(), schoolName, gradeInfo, classInfo, cityCodeInfo, schoolCodeInfo)
                 }
             }
             if(binding.schoolInfoNameEdit.text.toString().isNotEmpty() && gradeSpinnerPosition != -1 && classSpinnerPosition != -1){

@@ -1,5 +1,4 @@
 package com.daily_school.daily_school.ui.search
-
 import com.google.gson.annotations.SerializedName
 
 // 학교 정보 api에 필요한 데이터 모델 분류
@@ -28,4 +27,8 @@ data class Row(
     val sCHULNM : String?,
     @SerializedName("ORG_RDNMA")
     val oRGRDNMA : String?,
+    @SerializedName("ATPT_OFCDC_SC_CODE")
+    val aTPTOFCDCSCCODE : String,
+    @SerializedName("SD_SCHUL_CODE")
+    val sDSCHULCODE : String
 )
