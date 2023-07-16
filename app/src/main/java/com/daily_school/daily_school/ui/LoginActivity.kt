@@ -12,7 +12,6 @@ import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.ActivityLoginBinding
 import com.daily_school.daily_school.ui.search.SchoolInfoActivity
 import com.daily_school.daily_school.utils.KakaoRef
-import com.daily_school.daily_school.utils.NaverRef
 import com.kakao.sdk.auth.AuthApiClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
@@ -20,17 +19,15 @@ import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
-import com.navercorp.nid.NaverIdLoginSDK
-import com.navercorp.nid.oauth.OAuthLoginCallback
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityLoginBinding
-
+    private lateinit var binding: ActivityLoginBinding
     private val TAG = LoginActivity::class.java.simpleName
-
     private val firebaseManager = FirebaseManager()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -38,32 +35,24 @@ class LoginActivity : AppCompatActivity() {
 
         Log.d(TAG, "keyhash : ${Utility.getKeyHash(this)}")
 
-//        NaverIdLoginSDK.initialize(
-//            this,
-//            NaverRef.naverClientId,
-//            NaverRef.naverClientSecret,
-//            NaverRef.naverClientName
-//        )
-
         // 카카오 로그인 초기 설정
         KakaoSdk.init(this, KakaoRef.APP_KEY)
 
         kakaoLogin()
-//        naverLogin()
     }
 
-    private fun moveMainActivity(){
+    private fun moveMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 
-    private fun moveSchoolInfoActivity(){
+    private fun moveSchoolInfoActivity() {
         startActivity(Intent(this, SchoolInfoActivity::class.java))
         finish()
     }
 
     // 카카오 로그인 함수
-    private fun kakaoLogin(){
+    private fun kakaoLogin() {
         // 카카오 로그인 버튼을 눌렀을 때
         binding.loginKakaoBtn.setOnClickListener {
             // 카카오톡으로 로그인 할 수 없어 카카오계정으로 로그인할 경우 사용됨
@@ -72,19 +61,24 @@ class LoginActivity : AppCompatActivity() {
                     Log.e(TAG, "카카오계정으로 로그인 실패", error)
                 } else if (token != null) {
                     Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
-                    lifecycleScope.launch {
-                        try {
-                            val userInfo = firebaseManager.readSchoolInfoData(token.idToken.toString())
-                            if (userInfo != null){
-                                moveMainActivity()
-                            }
-                            else{
-                                moveSchoolInfoActivity()
+                    val isKakaoLoggedIn = AuthApiClient.instance.hasToken()
+
+                    if (isKakaoLoggedIn) {
+                        firebaseManager.saveCurrentUser(token.accessToken)
+                        lifecycleScope.launch {
+                            try {
+                                val userInfo = firebaseManager.readSchoolInfoData(token.accessToken)
+                                if (userInfo != null) {
+                                    moveMainActivity()
+                                } else {
+                                    moveSchoolInfoActivity()
+                                }
+                            } catch (e: Exception) {
+                                Log.e(TAG, "Failed to Read", e)
                             }
                         }
-                        catch (e : Exception){
-                            Log.e(TAG, "Failed to Read", e)
-                        }
+                    } else {
+                        Log.e(TAG, "Failed to retrieve UID")
                     }
                 }
             }
@@ -100,26 +94,31 @@ class LoginActivity : AppCompatActivity() {
                         if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
                             return@loginWithKakaoTalk
                         }
-
                         // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인 시도
                         UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
                     }
                     // 카카오톡으로 로그인 성공하면 SchoolInfoActivity로 이동
                     else if (token != null) {
                         Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
-                        lifecycleScope.launch {
-                            try {
-                                val userInfo = firebaseManager.readSchoolInfoData(token.idToken.toString())
-                                if (userInfo != null){
-                                    moveMainActivity()
-                                }
-                                else{
-                                    moveSchoolInfoActivity()
+                        val isKakaoLoggedIn = AuthApiClient.instance.hasToken()
+
+                        // 기존 사용자인 경우
+                        if (isKakaoLoggedIn) {
+                            firebaseManager.saveCurrentUser(token.accessToken)
+                            lifecycleScope.launch {
+                                try {
+                                    val userInfo = firebaseManager.readSchoolInfoData(token.accessToken)
+                                    if (userInfo != null) {
+                                        moveMainActivity()
+                                    } else {
+                                        moveSchoolInfoActivity()
+                                    }
+                                } catch (e: Exception) {
+                                    Log.e(TAG, "Failed to Read", e)
                                 }
                             }
-                            catch (e : Exception){
-                                Log.e(TAG, "Failed to Read", e)
-                            }
+                        } else {
+                            Log.e(TAG, "Failed to retrieve UID")
                         }
                     }
                 }
@@ -128,31 +127,4 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
-//    private fun naverLogin(){
-//        binding.loginNaverBtn.setOnClickListener {
-//            val oauthLoginCallback = object : OAuthLoginCallback {
-//                override fun onSuccess() {
-//                    Log.d("test", "AccessToken : " + NaverIdLoginSDK.getAccessToken())
-//                    Log.d("test", "ReFreshToken : " + NaverIdLoginSDK.getRefreshToken())
-//                    Log.d("test", "Expires : " + NaverIdLoginSDK.getExpiresAt().toString())
-//                    Log.d("test", "TokenType : " + NaverIdLoginSDK.getTokenType())
-//                    Log.d("test", "State : " + NaverIdLoginSDK.getState().toString())
-//                }
-//
-//
-//                override fun onFailure(httpStatus: Int, message: String) {
-//                    val errorCode = NaverIdLoginSDK.getLastErrorCode().code
-//                    val errorDescription = NaverIdLoginSDK.getLastErrorDescription()
-//                    Log.e("test", "$errorCode $errorDescription")
-//                }
-//                override fun onError(errorCode: Int, message: String) {
-//                    onFailure(errorCode, message)
-//                }
-//            }
-//
-//            NaverIdLoginSDK.authenticate(this, oauthLoginCallback)
-//        }
-//
-//    }
 }
