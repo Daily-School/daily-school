@@ -10,25 +10,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import com.daily_school.daily_school.R
-import com.daily_school.daily_school.components.CalendarComponent
 import com.daily_school.daily_school.databinding.FragmentPlanBinding
 import com.daily_school.daily_school.ui.plan.AddTodoActivity
+import com.daily_school.daily_school.ui.plan.PlanCalendarRvAdapter
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.YearMonth
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class PlanFragment : Fragment() {
     private val TAG = PlanFragment::class.java.simpleName
 
     private lateinit var binding: FragmentPlanBinding
-    private lateinit var calendarComponent: CalendarComponent
+
+    private var selectedDate = LocalDate.now()
 
     val firebaseManager = FirebaseManager()
-
-    // 현재 년도와 월 설정
-    private val calendar: Calendar = Calendar.getInstance()
-    private var currentYear: Int = calendar.get(Calendar.YEAR)
-    private var currentMonth: Int = calendar.get(Calendar.MONTH)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,11 +36,6 @@ class PlanFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_plan, container, false)
 
-        calendarComponent = CalendarComponent(requireContext())
-
-        // 달력 셋업 함수
-        calendarInit()
-        
         // 할 일 목록 셋업 함수
         todoListInit()
 
@@ -50,42 +45,81 @@ class PlanFragment : Fragment() {
             startActivity(intent)
         }
 
-        binding.dateRightIcon.setOnClickListener {
-            currentMonth++
+        // 달력 adapter 연결하는 함수 호출
+        setMonthYear()
 
-            if(currentMonth > 12) {
-                currentMonth = 1;
-                currentYear++
-            }
+        // 이전 달로 돌아가는 함수 호출
+        backToMonth()
 
-            calendarMonthChanged(currentYear, currentMonth)
-            calendarComponent.setCurrentDate(currentYear, currentMonth)
-        }
-
-        binding.dateLeftIcon.setOnClickListener {
-            currentMonth--
-
-            if(currentMonth < 1) {
-                currentMonth = 12
-                currentYear--
-            }
-
-            calendarMonthChanged(currentYear, currentMonth)
-            calendarComponent.setCurrentDate(currentYear, currentMonth)
-        }
+        // 다음 달로 넘어가는 함수 호출
+        frontToMonth()
 
         return binding.root
     }
 
-    // 달력 셋업 함수
-    private fun calendarInit() {
-        binding.planMainTextView.text = currentYear.toString() + "년 " + currentMonth.toString() + "월"
-        calendarComponent.setCurrentDate(currentYear, currentMonth)
+    // 년월 포맷 형식을 리턴하는 함수
+    private fun monthYearFromDate(date : LocalDate): String? {
+        val formatter : DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월")
+        return date.format(formatter)
     }
 
     // 할 일 목록 셋업 함수
     private fun calendarMonthChanged(year: Int, month: Int) {
         binding.planMainTextView.text = year.toString() + "년 " + month.toString() + "월"
+    }
+
+    // 달력 adapter 연결하는 함수
+    private fun setMonthYear(){
+        binding.planMainTextView.text = monthYearFromDate(selectedDate)
+
+        val dayList = calendarArray(selectedDate)
+        val planCalendarRvAdapter = PlanCalendarRvAdapter(requireContext(), dayList)
+
+        val planCalendarRv = binding.planCalendarRv
+
+        planCalendarRv.adapter = planCalendarRvAdapter
+
+        planCalendarRv.layoutManager = GridLayoutManager(requireContext(), 7)
+    }
+
+    // array에 실제 날짜를 연결하는 함수
+    private fun calendarArray(date : LocalDate) : ArrayList<String> {
+        val dayList = ArrayList<String>()
+        val yearMonth = YearMonth.from(date)
+        val lastDay : Int = yearMonth.lengthOfMonth()
+        val firstDay : LocalDate = selectedDate.withDayOfMonth(1)
+
+        val dayOfWeek : Int = firstDay.dayOfWeek.value
+
+        for (i : Int in 1..42){
+            if (i <= dayOfWeek || i > lastDay + dayOfWeek){
+                dayList.add("")
+            }
+            else{
+                dayList.add((i-dayOfWeek).toString())
+            }
+        }
+
+        return dayList
+
+    }
+
+    // 이전 달로 돌아가는 함수
+    private fun backToMonth(){
+        binding.dateLeftIcon.setOnClickListener {
+
+            selectedDate = selectedDate.minusMonths(1)
+            setMonthYear()
+        }
+    }
+
+    // 다음 달로 넘어가는 함수
+    private fun frontToMonth(){
+        binding.dateRightIcon.setOnClickListener {
+
+            selectedDate = selectedDate.plusMonths(1)
+            setMonthYear()
+        }
     }
 
     private fun todoListInit() {
