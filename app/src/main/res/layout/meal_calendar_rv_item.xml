@@ -11,22 +11,36 @@
         android:layout_height="wrap_content">
 
         <!-- 날짜를 나타내는 텍스트 뷰 -->
-        <TextView
-            android:id="@+id/mealCalendarRvTextView"
+        <RelativeLayout
+            android:id="@+id/mealCalendarRvLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="12dp"
-            android:fontFamily="@font/pretendard"
-            android:text="1"
-            android:textSize="18sp"
-            android:textColor="@color/gray_1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/mealCalendarCircle"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/button_circle" />
+
+            <TextView
+                android:id="@+id/mealCalendarRvTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/pretendard"
+                android:text="1"
+                android:textSize="18sp"
+                android:textColor="@color/gray_1" />
+
+        </RelativeLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
