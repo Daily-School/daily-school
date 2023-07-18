@@ -2,7 +2,9 @@ package com.daily_school.daily_school.ui.meal
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -11,11 +13,14 @@ import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.MealCalendarRvItemBinding
 
 // mealCalendar 연결 Adapter
-class MealCalendarRvAdapter(val context : Context, private val items : ArrayList<String>) : RecyclerView.Adapter<MealCalendarRvAdapter.ViewHolder>(){
+class MealCalendarRvAdapter(val context : Context, private val items : ArrayList<String>, private val onItemListener: OnItemListener) : RecyclerView.Adapter<MealCalendarRvAdapter.ViewHolder>(){
+    private var selectedPosition : Int = -1
     class ViewHolder(binding : MealCalendarRvItemBinding) : RecyclerView.ViewHolder(binding.root){
 
         val dayText : TextView = binding.mealCalendarRvTextView
         val layout : ConstraintLayout = binding.mealCalendarLayout
+        val circleImage : ImageView = binding.mealCalendarCircle
+
 
     }
 
@@ -37,22 +42,34 @@ class MealCalendarRvAdapter(val context : Context, private val items : ArrayList
         val item = items[position]
 
         // item이 null이면 text를 비워두고 아니면 날짜를 불러옴
-        if(item == null){
-            holder.dayText.text = ""
-        }
-        else{
-            holder.dayText.text = item
+        holder.dayText.text = item
+
+        holder.itemView.setOnClickListener {
+
+            onItemListener.onItemClick(item, position)
+            val previousPosition = selectedPosition
+            selectedPosition = holder.adapterPosition
+            notifyItemChanged(previousPosition)
+            notifyItemChanged(selectedPosition)
         }
 
-        // 평소에는 검은색, 토요일은 파랑색 일요일은 빨간색으로 표시
-        if ((position + 1) % 7 == 0){
-            holder.dayText.setTextColor(ContextCompat.getColor(context, R.color.saturday_color))
+        // 이미지 및 텍스트 색상 변경
+        if (selectedPosition == holder.adapterPosition) {
+            holder.circleImage.visibility = View.VISIBLE
+            holder.dayText.setTextColor(ContextCompat.getColor(context, R.color.white))
         }
-        else if (position == 0 || position % 7 == 0){
-            holder.dayText.setTextColor(ContextCompat.getColor(context, R.color.sunday_color))
-        }
-        else{
-            holder.dayText.setTextColor(ContextCompat.getColor(context, R.color.gray_1))
+        else {
+            holder.circleImage.visibility = View.INVISIBLE
+
+            if ((holder.adapterPosition + 1) % 7 == 0){
+                holder.dayText.setTextColor(ContextCompat.getColor(context, R.color.saturday_color))
+            }
+            else if (holder.adapterPosition == 0 || holder.adapterPosition % 7 == 0){
+                holder.dayText.setTextColor(ContextCompat.getColor(context, R.color.sunday_color))
+            }
+            else{
+                holder.dayText.setTextColor(ContextCompat.getColor(context, R.color.gray_1))
+            }
         }
 
     }

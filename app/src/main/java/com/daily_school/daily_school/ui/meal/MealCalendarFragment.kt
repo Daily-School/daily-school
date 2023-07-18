@@ -1,32 +1,55 @@
 package com.daily_school.daily_school.ui.meal
 
+import FirebaseManager
 import android.app.Activity
 import android.app.Dialog
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.*
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.transition.FragmentTransitionSupport
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.FragmentMealCalendarBinding
+import com.daily_school.daily_school.ui.meal.launch.MealLaunchTodayModel
+import com.daily_school.daily_school.ui.meal.launch.MealLaunchTodayRvAdapter
+import com.daily_school.daily_school.ui.page.MealFragment
+import com.daily_school.daily_school.ui.page.MealLaunchFragment
+import com.daily_school.daily_school.utils.NeisRef
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.kakao.sdk.user.UserApiClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MealCalendarFragment : BottomSheetDialogFragment(){
+class MealCalendarFragment : BottomSheetDialogFragment(), OnItemListener{
+
+    private var TAG = MealCalendarFragment::class.java.simpleName
+
+    private var prePosition : Int = -1
 
     private var selectedDate = LocalDate.now()
 
     private var currentDate = LocalDate.now()
 
     private lateinit var binding : FragmentMealCalendarBinding
+
+    private var firebaseManager = FirebaseManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +79,37 @@ class MealCalendarFragment : BottomSheetDialogFragment(){
         finishFragment()
 
         return binding.root
+    }
+
+    override fun onItemClick(dayText: String, position : Int) {
+
+        if(prePosition == position){
+            prePosition = -1
+            var yearMonthDay = yearMonthFromDate(selectedDate) + dayText
+            var monthYearDay = monthYearFromDate(selectedDate) + " " + dayText + "일"
+            UserApiClient.instance.accessTokenInfo{ tokenInfo, error ->
+                if (error != null){
+                    Log.e(TAG, "토큰 정보 보기 실패", error)
+                }
+                else if (tokenInfo != null){
+
+                    firebaseManager.saveDateInfoData(tokenInfo.id.toString(), monthYearDay, yearMonthDay)
+
+                }
+            }
+            val result = "hello"
+
+            setFragmentResult("requestKey", bundleOf("bundleKey" to monthYearDay))
+            setFragmentResult("monthKey", bundleOf("bundleMonthKey" to yearMonthDay))
+
+            dismiss()
+        }
+        else{
+            var yearMonthDay = monthYearFromDate(selectedDate) + " " + dayText + "일"
+            binding.mealCalendarDateTextView.text = yearMonthDay
+            prePosition = position
+        }
+
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -109,12 +163,18 @@ class MealCalendarFragment : BottomSheetDialogFragment(){
         return date.format(formatter)
     }
 
+    // 년월 포맷 형식을 리턴하는 함수
+    private fun yearMonthFromDate(date : LocalDate): String? {
+        val formatter : DateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMM")
+        return date.format(formatter)
+    }
+
     // 달력 adapter 연결하는 함수
     private fun setMonthYear(){
         binding.mealCalendarYearTextView.text = monthYearFromDate(selectedDate)
 
         val dayList = calendarArray(selectedDate)
-        val mealCalendarRvAdapter = MealCalendarRvAdapter(requireContext(), dayList)
+        val mealCalendarRvAdapter = MealCalendarRvAdapter(requireContext(), dayList, this)
 
         val mealCalendarRv = binding.mealCalendarRv
 
@@ -159,7 +219,7 @@ class MealCalendarFragment : BottomSheetDialogFragment(){
 
     // 날짜를 불러오는 함수
     private fun loadCurrentDate(date : LocalDate) : String? {
-        val formatter : DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 (E)").withLocale(
+        val formatter : DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일").withLocale(
             Locale.forLanguageTag("ko"))
         return date.format(formatter)
     }
@@ -173,13 +233,13 @@ class MealCalendarFragment : BottomSheetDialogFragment(){
     private fun calendarArray(date : LocalDate) : ArrayList<String> {
         val dayList = ArrayList<String>()
         val yearMonth = YearMonth.from(date)
-        val lastDay : Int = yearMonth.lengthOfMonth()
+        val lastDay = yearMonth.lengthOfMonth()
         val firstDay : LocalDate = selectedDate.withDayOfMonth(1)
 
-        val dayOfWeek : Int = firstDay.dayOfWeek.value
+        val dayOfWeek= firstDay.dayOfWeek.value
 
-        for (i : Int in 1..42){
-            if (i <= dayOfWeek || i > lastDay + dayOfWeek){
+        for (i : Int in 1..41){
+            if (i <= dayOfWeek || i > (lastDay + dayOfWeek)){
                 dayList.add("")
             }
             else{

@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.daily_school.daily_school.R
@@ -41,6 +42,8 @@ class MealLaunchTodayDialogFragment : DialogFragment() {
 
     private var firebaseManager = FirebaseManager()
 
+    private var dateValue : String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -52,6 +55,8 @@ class MealLaunchTodayDialogFragment : DialogFragment() {
     ): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_meal_launch_today_dialog, container, false)
+
+        loadMealDate()
 
         todayMeal()
 
@@ -84,9 +89,6 @@ class MealLaunchTodayDialogFragment : DialogFragment() {
 
         val service = RetrofitApi.mealInfoService
 
-        val todayTime = SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(Calendar.getInstance().timeInMillis)
-
-        val todayDialogTime = SimpleDateFormat("MM월 dd일 (E)", Locale.getDefault()).format(Calendar.getInstance().timeInMillis)
 
         KakaoSdk.init(requireContext(), KakaoRef.APP_KEY)
 
@@ -110,7 +112,7 @@ class MealLaunchTodayDialogFragment : DialogFragment() {
 
                                     CoroutineScope(Dispatchers.IO).launch {
                                         val response = service.todayMealData( "json", 1,100, userCityCode.toString(), userSchoolCode.toString()
-                                            , todayTime, todayTime, NeisRef.api_key)
+                                            , dateValue, dateValue, NeisRef.api_key)
 
                                         withContext(Dispatchers.Main) {
                                             if (response.isSuccessful) {
@@ -132,8 +134,6 @@ class MealLaunchTodayDialogFragment : DialogFragment() {
                                                         for (element in arr) {
                                                             todayItems.add(MealLaunchTodayModel(element))
                                                         }
-
-                                                        binding.mealLaunchTodayDialogDateTxt.text = todayDialogTime
 
                                                         binding.mealLaunchDialogNotionIc.visibility = View.INVISIBLE
                                                         binding.mealLaunchNotionDialogTextView.visibility = View.INVISIBLE
@@ -160,6 +160,33 @@ class MealLaunchTodayDialogFragment : DialogFragment() {
                         }
                     }
                     catch (e: Exception) {
+                        Log.e(TAG, "Failed to Read", e)
+                    }
+                }
+
+            }
+        }
+    }
+
+    private fun loadMealDate(){
+        UserApiClient.instance.accessTokenInfo{ tokenInfo, error ->
+            if (error != null){
+                Log.e(TAG, "토큰 정보 보기 실패", error)
+            }
+            else if (tokenInfo != null){
+
+                lifecycleScope.launch {
+                    try {
+                        val dateInfo = firebaseManager.readDateInfoData(tokenInfo.id.toString())
+                        if(dateInfo != null){
+                            val dateText = dateInfo["dateText"]
+                            val mealDateInfo = dateInfo["mealDateInfo"]
+
+                            binding.mealLaunchTodayDialogDateTxt.text = dateText.toString()
+                            dateValue = mealDateInfo.toString()
+                        }
+
+                    } catch (e: Exception) {
                         Log.e(TAG, "Failed to Read", e)
                     }
                 }
