@@ -30,6 +30,11 @@ class FirebaseManager {
     private val cityCodeKey = "cityCode"
     private val schoolCodeKey = "schoolCode"
 
+    // 날짜 정조 DB 모델
+    private val dateInfoDocument = "dateInfo"
+    private val dateTextKey = "dateText"
+    private val mealDateInfoKey = "mealDateInfo"
+
     fun saveCurrentUser(uid: String) {
         if (uid.isNotEmpty()) {
             val db = FirebaseFirestore.getInstance()
@@ -302,6 +307,76 @@ class FirebaseManager {
                 if (document != null && document.exists()) {
                     val schoolInfo = document.data
                     schoolInfo as? Map<String, Any>
+                } else {
+                    null
+                }
+            } catch (e: Exception) {
+                null
+            }
+        } else {
+            null
+        }
+    }
+
+    fun saveDateInfoData(uid: String, dateText : String, mealDateInfo: String){
+
+        // uid가 존재할 때
+        if(uid.isNotEmpty()){
+            val db = FirebaseFirestore.getInstance()
+            val dateInfoRef = db.collection(usersCollection)
+                .document(uid)
+                .collection(dataCollection)
+                .document(dateInfoDocument)
+
+            val dateInfoData = mutableMapOf<String, Any>()
+            dateInfoData[dateTextKey] = dateText
+            dateInfoData[mealDateInfoKey] = mealDateInfo
+
+            dateInfoRef.get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val document = task.result
+                        if (document != null && document.exists()) {
+                            dateInfoRef.update(dateInfoData)
+                                .addOnSuccessListener {
+                                    Log.d(TAG, "SchoolInfo Data Saved Successfully")
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.e(TAG, "Failed to Save SchoolInfo Data", e)
+                                }
+                        } else {
+                            dateInfoRef.set(dateInfoData)
+                                .addOnSuccessListener {
+                                    Log.d(TAG, "SchoolInfo Data Saved Successfully")
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.e(TAG, "Failed to Save SchoolInfo Data", e)
+                                }
+                        }
+                    } else {
+                        Log.e(TAG, "Failed to Access Document", task.exception)
+                    }
+                }
+        }
+        // uid가 존재하지 않을 때
+        else {
+            Log.e(TAG, "User UID is empty")
+        }
+    }
+    suspend fun readDateInfoData(uid : String): Map<String, Any>? {
+
+        return if (uid.isNotEmpty()) {
+            val db = FirebaseFirestore.getInstance()
+            val dateInfoRef = db.collection(usersCollection)
+                .document(uid)
+                .collection(dataCollection)
+                .document(dateInfoDocument)
+
+            try {
+                val document = dateInfoRef.get().await()
+                if (document != null && document.exists()) {
+                    val dateInfo = document.data
+                    dateInfo as? Map<String, Any>
                 } else {
                     null
                 }
