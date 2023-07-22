@@ -5,6 +5,7 @@ import com.daily_school.daily_school.ui.schedule.AddSubjectActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
+import com.kakao.sdk.user.UserApiClient
 import kotlinx.coroutines.tasks.await
 import java.util.*
 
@@ -58,55 +59,65 @@ class FirebaseManager {
         }
     }
 
-    private fun getUserId(): String {
-        return FirebaseAuth.getInstance().currentUser?.uid ?: ""
+    private fun getUserId(callback: (String) -> Unit) {
+        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
+            if (error != null) {
+                callback("")
+            } else {
+                val id = tokenInfo?.id.toString()
+                callback(id ?: "")
+            }
+        }
     }
 
     fun saveSubjectData(subjectName: String, subjectColor: String) {
-        val uid = getUserId()
+        getUserId { uid ->
+            if (uid.isNotEmpty()) {
+                val db = FirebaseFirestore.getInstance()
+                val subjectRef = db.collection(usersCollection)
+                    .document(uid)
+                    .collection(dataCollection)
+                    .document(subjectDocument)
 
-        if (uid.isNotEmpty()) {
-            val db = FirebaseFirestore.getInstance()
-            val subjectRef = db.collection(usersCollection)
-                .document(uid)
-                .collection(dataCollection)
-                .document(subjectDocument)
+                val subjectData = mutableMapOf<String, Any>()
+                subjectData[subjectName] = subjectColor
 
-            val subjectData = mutableMapOf<String, Any>()
-            subjectData[subjectName] = subjectColor
-
-            subjectRef.get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val document = task.result
-                        if (document != null && document.exists()) {
-                            subjectRef.update(subjectData)
-                                .addOnSuccessListener {
-                                    Log.d(TAG, "Subject Data Saved Successfully")
-                                }
-                                .addOnFailureListener { e ->
-                                    Log.e(TAG, "Failed to Save Subject Data", e)
-                                }
+                subjectRef.get()
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val document = task.result
+                            if (document != null && document.exists()) {
+                                subjectRef.update(subjectData)
+                                    .addOnSuccessListener {
+                                        Log.d(TAG, "Subject Data Saved Successfully")
+                                    }
+                                    .addOnFailureListener { e ->
+                                        Log.e(TAG, "Failed to Save Subject Data", e)
+                                    }
+                            } else {
+                                subjectRef.set(subjectData)
+                                    .addOnSuccessListener {
+                                        Log.d(TAG, "Subject Data Saved Successfully")
+                                    }
+                                    .addOnFailureListener { e ->
+                                        Log.e(TAG, "Failed to Save Subject Data", e)
+                                    }
+                            }
                         } else {
-                            subjectRef.set(subjectData)
-                                .addOnSuccessListener {
-                                    Log.d(TAG, "Subject Data Saved Successfully")
-                                }
-                                .addOnFailureListener { e ->
-                                    Log.e(TAG, "Failed to Save Subject Data", e)
-                                }
+                            Log.e(TAG, "Failed to Access Document", task.exception)
                         }
-                    } else {
-                        Log.e(TAG, "Failed to Access Document", task.exception)
                     }
-                }
-        } else {
-            Log.e(TAG, "User UID is empty")
+            } else {
+                Log.e(TAG, "User UID is empty")
+            }
         }
     }
 
     suspend fun readSubjectData(subjectName: String): Any? {
-        val uid = getUserId()
+        var uid = ""
+        getUserId { id ->
+            uid = id
+        }
 
         return if (uid.isNotEmpty()) {
             val db = FirebaseFirestore.getInstance()
@@ -132,52 +143,55 @@ class FirebaseManager {
     }
 
     fun saveTodoListData(todoName: String, todoRepeat: TodoRepeat, todoColor: TodoColor) {
-        val uid = getUserId()
+        getUserId { uid ->
+            if (uid.isNotEmpty()) {
+                val db = FirebaseFirestore.getInstance()
+                val subjectRef = db.collection(usersCollection)
+                    .document(uid)
+                    .collection(dataCollection)
+                    .document(todoListDocument)
 
-        if (uid.isNotEmpty()) {
-            val db = FirebaseFirestore.getInstance()
-            val subjectRef = db.collection(usersCollection)
-                .document(uid)
-                .collection(dataCollection)
-                .document(todoListDocument)
+                val subjectData = mutableMapOf<String, Any>()
+                subjectData[todoNameKey] = todoName
+                subjectData[todoRepeatKey] = todoRepeat.name
+                subjectData[todoColorKey] = todoColor.name
 
-            val subjectData = mutableMapOf<String, Any>()
-            subjectData[todoNameKey] = todoName
-            subjectData[todoRepeatKey] = todoRepeat.name
-            subjectData[todoColorKey] = todoColor.name
-
-            subjectRef.get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val document = task.result
-                        if (document != null && document.exists()) {
-                            subjectRef.update(subjectData)
-                                .addOnSuccessListener {
-                                    Log.d(TAG, "Subject Data Saved Successfully")
-                                }
-                                .addOnFailureListener { e ->
-                                    Log.e(TAG, "Failed to Save Subject Data", e)
-                                }
+                subjectRef.get()
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val document = task.result
+                            if (document != null && document.exists()) {
+                                subjectRef.update(subjectData)
+                                    .addOnSuccessListener {
+                                        Log.d(TAG, "Subject Data Saved Successfully")
+                                    }
+                                    .addOnFailureListener { e ->
+                                        Log.e(TAG, "Failed to Save Subject Data", e)
+                                    }
+                            } else {
+                                subjectRef.set(subjectData)
+                                    .addOnSuccessListener {
+                                        Log.d(TAG, "Subject Data Saved Successfully")
+                                    }
+                                    .addOnFailureListener { e ->
+                                        Log.e(TAG, "Failed to Save Subject Data", e)
+                                    }
+                            }
                         } else {
-                            subjectRef.set(subjectData)
-                                .addOnSuccessListener {
-                                    Log.d(TAG, "Subject Data Saved Successfully")
-                                }
-                                .addOnFailureListener { e ->
-                                    Log.e(TAG, "Failed to Save Subject Data", e)
-                                }
+                            Log.e(TAG, "Failed to Access Document", task.exception)
                         }
-                    } else {
-                        Log.e(TAG, "Failed to Access Document", task.exception)
                     }
-                }
-        } else {
-            Log.e(TAG, "User UID is empty")
+            } else {
+                Log.e(TAG, "User UID is empty")
+            }
         }
     }
 
     suspend fun readTodoListData(): Map<String, Any>? {
-        val uid = getUserId()
+        var uid = ""
+        getUserId { id ->
+            uid = id
+        }
 
         return if (uid.isNotEmpty()) {
             val db = FirebaseFirestore.getInstance()
@@ -203,43 +217,43 @@ class FirebaseManager {
     }
 
     fun deleteSubjectData(subjectName: String) {
-        val uid = getUserId()
+        getUserId { uid ->
+            if (uid.isNotEmpty()) {
+                val db = FirebaseFirestore.getInstance()
+                val subjectRef = db.collection(usersCollection)
+                    .document(uid)
+                    .collection(dataCollection)
+                    .document(subjectDocument)
 
-        if (uid.isNotEmpty()) {
-            val db = FirebaseFirestore.getInstance()
-            val subjectRef = db.collection(usersCollection)
-                .document(uid)
-                .collection(dataCollection)
-                .document(subjectDocument)
+                subjectRef.get()
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val document = task.result
+                            if (document != null && document.exists()) {
+                                val subjectData = document.data
+                                if (subjectData?.containsKey(subjectName) == true) {
+                                    subjectData.remove(subjectName)
 
-            subjectRef.get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val document = task.result
-                        if (document != null && document.exists()) {
-                            val subjectData = document.data
-                            if (subjectData?.containsKey(subjectName) == true) {
-                                subjectData.remove(subjectName)
-
-                                subjectRef.set(subjectData)
-                                    .addOnSuccessListener {
-                                        Log.d(TAG, "Subject Data Deleted Successfully")
-                                    }
-                                    .addOnFailureListener { e ->
-                                        Log.e(TAG, "Failed to Delete Subject Data", e)
-                                    }
+                                    subjectRef.set(subjectData)
+                                        .addOnSuccessListener {
+                                            Log.d(TAG, "Subject Data Deleted Successfully")
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Log.e(TAG, "Failed to Delete Subject Data", e)
+                                        }
+                                } else {
+                                    Log.d(TAG, "Subject Data with key $subjectName does not exist")
+                                }
                             } else {
-                                Log.d(TAG, "Subject Data with key $subjectName does not exist")
+                                Log.d(TAG, "Subject Data does not exist")
                             }
                         } else {
-                            Log.d(TAG, "Subject Data does not exist")
+                            Log.e(TAG, "Failed to Access Document", task.exception)
                         }
-                    } else {
-                        Log.e(TAG, "Failed to Access Document", task.exception)
                     }
-                }
-        } else {
-            Log.e(TAG, "User UID is empty")
+            } else {
+                Log.e(TAG, "User UID is empty")
+            }
         }
     }
 
