@@ -1,10 +1,12 @@
 package com.daily_school.daily_school.ui.plan
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -15,12 +17,16 @@ import com.daily_school.daily_school.databinding.PlanCalendarRvItemBinding
 // PlanCalendar 연결 Adapter
 class PlanCalendarRvAdapter(val context : Context, private val items : ArrayList<String>) : RecyclerView.Adapter<PlanCalendarRvAdapter.ViewHolder>(){
     private var selectedPosition: Int = -1
+    private var firstPosition: Int = 0
+    private var lastPosition: Int = 0
 
     class ViewHolder(binding : PlanCalendarRvItemBinding) : RecyclerView.ViewHolder(binding.root){
-
         val dayText : TextView = binding.planCalendarRvTextView
-        val layout : ConstraintLayout = binding.planCalendarLayout
+        val layout : LinearLayout = binding.planCalendarLayout
         val circleImage : ImageView = binding.planCalendarCircle
+        val firstPlanTodoArea: LinearLayout = binding.firstPlanTodoArea
+        val secondPlanTodoArea: LinearLayout = binding.secondPlanTodoArea
+        val thirdPlanTodoArea: LinearLayout = binding.thirdPlanTodoArea
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,7 +40,7 @@ class PlanCalendarRvAdapter(val context : Context, private val items : ArrayList
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items[holder.adapterPosition] // holder.getAdapterPosition() 사용
+        val item = items[holder.adapterPosition]
 
         // item이 null이면 text를 비워두고 아니면 날짜를 불러옴
         if(item == null){
@@ -42,21 +48,26 @@ class PlanCalendarRvAdapter(val context : Context, private val items : ArrayList
         }
         else{
             holder.dayText.text = item
-        }
 
-        // 두 번째 영역부터 마진 조정
-        if (holder.adapterPosition > 6) {
-            val layoutParams = holder.layout.layoutParams as RecyclerView.LayoutParams
-            layoutParams.setMargins(0, 82, 0, 0)
-            holder.layout.layoutParams = layoutParams
+            // 달력 첫 번째 날짜 인덱스 값
+            if(item == "1") {
+                firstPosition = holder.adapterPosition
+            }
+
+            // 달력 마지막 날짜 인덱스 값
+            if(item == "" && lastPosition == 0 && firstPosition != 0) {
+                lastPosition = holder.adapterPosition
+            }
         }
 
         // 달력 클릭 이벤트
-        holder.itemView.setOnClickListener {
-            val previousPosition = selectedPosition
-            selectedPosition = holder.adapterPosition
-            notifyItemChanged(previousPosition)
-            notifyItemChanged(selectedPosition)
+        holder.dayText.setOnClickListener {
+            if(position > firstPosition - 1 && position < lastPosition) {
+                val previousPosition = selectedPosition
+                selectedPosition = holder.adapterPosition
+                notifyItemChanged(previousPosition)
+                notifyItemChanged(selectedPosition)
+            }
         }
 
         // 이미지 및 텍스트 색상 변경
@@ -77,5 +88,9 @@ class PlanCalendarRvAdapter(val context : Context, private val items : ArrayList
                 holder.dayText.setTextColor(ContextCompat.getColor(context, R.color.gray_1))
             }
         }
+
+        holder.firstPlanTodoArea.visibility = View.GONE
+        holder.secondPlanTodoArea.visibility = View.GONE
+        holder.thirdPlanTodoArea.visibility = View.GONE
     }
 }
