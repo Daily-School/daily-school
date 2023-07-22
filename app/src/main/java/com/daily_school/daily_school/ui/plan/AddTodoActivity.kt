@@ -16,8 +16,8 @@ import com.daily_school.daily_school.databinding.ActivityAddtodoBinding
 import com.daily_school.daily_school.ui.schedule.AddSubjectActivity
 
 enum class TodoColor {
-    BLACK,
     BLUE,
+    YELLOW,
     RED,
     ORANGE,
     GREEN,
@@ -38,7 +38,7 @@ class AddTodoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddtodoBinding
     private val firebaseManager = FirebaseManager()
 
-    private var selectTodoColor: TodoColor = TodoColor.BLACK
+    private var selectTodoColor: TodoColor = TodoColor.BLUE
     private var selectTodoRepeat: TodoRepeat = TodoRepeat.NONE
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +60,7 @@ class AddTodoActivity : AppCompatActivity() {
         addTodoEditorHandler()
 
         selectRepeat(binding.addTodoRepeatNoneButton, binding.addTodoRepeatNoneText, TodoRepeat.NONE)
-        selectColor(binding.addTodoBlackColorCheckImage, TodoColor.BLACK)
+        selectColor(binding.addTodoBlackColorCheckImage, TodoColor.BLUE)
         imageInit()
     }
 
@@ -96,8 +96,8 @@ class AddTodoActivity : AppCompatActivity() {
         }
 
         // 색상 선택 이미지
-        binding.addTodoBlackColorImage.imageTintList = ContextCompat.getColorStateList(this, R.color.black)
-        binding.addTodoBlueColorImage.imageTintList = ContextCompat.getColorStateList(this, R.color.main_color)
+        binding.addTodoBlackColorImage.imageTintList = ContextCompat.getColorStateList(this, R.color.main_color)
+        binding.addTodoBlueColorImage.imageTintList = ContextCompat.getColorStateList(this, R.color.yellow_color)
         binding.addTodoRedColorImage.imageTintList = ContextCompat.getColorStateList(this, R.color.red_color)
         binding.addTodoOrangeColorImage.imageTintList = ContextCompat.getColorStateList(this, R.color.orange_color)
         binding.addTodoLightGreenColorImage.imageTintList = ContextCompat.getColorStateList(this, R.color.light_green_color)
@@ -105,10 +105,10 @@ class AddTodoActivity : AppCompatActivity() {
 
         // 색상 선택 이미지 클릭 리스너 설정
         binding.addTodoBlackColorImage.setOnClickListener {
-            selectColor(binding.addTodoBlackColorCheckImage, TodoColor.BLACK)
+            selectColor(binding.addTodoBlackColorCheckImage, TodoColor.BLUE)
         }
         binding.addTodoBlueColorImage.setOnClickListener {
-            selectColor(binding.addTodoBlueColorCheckImage, TodoColor.BLUE)
+            selectColor(binding.addTodoBlueColorCheckImage, TodoColor.YELLOW)
         }
         binding.addTodoRedColorImage.setOnClickListener {
             selectColor(binding.addTodoRedColorCheckImage, TodoColor.RED)
