@@ -12,7 +12,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
             <!-- 목업 화면 건너뛰기 텍스트뷰-->
             <TextView
@@ -23,7 +24,7 @@
                 android:layout_marginRight="20dp"
                 android:fontFamily="@font/pretendard"
                 android:text="건너뛰기"
-                android:textColor="#9E9E9E"
+                android:textColor="@color/gray_5"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -70,7 +71,7 @@
                 android:layout_marginTop="21dp"
                 android:fontFamily="@font/pretendard"
                 android:text="우리 반의 시간표가 자동으로 입력돼요!"
-                android:textColor="#757575"
+                android:textColor="@color/gray_4"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -84,7 +85,7 @@
                 android:layout_marginTop="14dp"
                 android:fontFamily="@font/pretendard_extrabold"
                 android:text="간편한 시간표 확인"
-                android:textColor="#212121"
+                android:textColor="@color/gray_1"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
