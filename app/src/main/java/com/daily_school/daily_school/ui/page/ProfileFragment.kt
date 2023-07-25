@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.FragmentProfileBinding
 import com.daily_school.daily_school.ui.AccountActivity
+import com.daily_school.daily_school.ui.LoginActivity
 import com.daily_school.daily_school.ui.search.SchoolInfoActivity
 import com.daily_school.daily_school.ui.profile.QuestionActivity
 import com.daily_school.daily_school.utils.KakaoRef
@@ -45,6 +46,9 @@ class ProfileFragment : Fragment() {
         // SchoolInfoActivity 화면 이동 함수 호출
         profileToSchoolInfo()
 
+        // 로그아웃 기능 함수 호출
+        logoutBtn()
+
         // QuestionActivity 화면 이동 함수 호출
         profileToQuestionActivity()
 
@@ -75,6 +79,24 @@ class ProfileFragment : Fragment() {
         binding.profileIcToProfile.setOnClickListener {
             var intent = Intent(context, SchoolInfoActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    // 로그아웃 기능 함수
+    private fun logoutBtn(){
+        binding.profileIcToLogout.setOnClickListener {
+            KakaoSdk.init(requireContext(), KakaoRef.APP_KEY)
+
+            UserApiClient.instance.logout { error ->
+                if (error != null) {
+                    Log.e(TAG, "로그아웃 실패. SDK에서 토큰 삭제됨", error)
+                }
+                else {
+                    Log.i(TAG, "로그아웃 성공. SDK에서 토큰 삭제됨")
+                }
+                val intent = Intent(context, LoginActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 
