@@ -32,6 +32,8 @@ class PlanFragment : Fragment() {
     private var selectedDate = LocalDate.now()
     private lateinit var planCalendarRvAdapter: PlanCalendarRvAdapter
 
+    private var todoList: List<Map<String, Any>>? = null
+
     val firebaseManager = FirebaseManager()
 
     override fun onCreateView(
@@ -40,11 +42,11 @@ class PlanFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_plan, container, false)
 
-        // 할 일 목록 셋업 함수
+        // 할 일 목록 셋업 함수 호출
         todoListInit()
 
         // 달력 adapter 연결하는 함수 호출
-        setMonthYear()
+        //setMonthYear()
 
         // 이전 달로 돌아가는 함수 호출
         backToMonth()
@@ -68,8 +70,10 @@ class PlanFragment : Fragment() {
     private fun setMonthYear(){
         binding.planMainTextView.text = monthYearFromDate(selectedDate)
 
+        val currentYearMonth = selectedDate.toString().substringBeforeLast("-")
+
         val dayList = calendarArray(selectedDate)
-        planCalendarRvAdapter = PlanCalendarRvAdapter(requireContext(), dayList)
+        planCalendarRvAdapter = PlanCalendarRvAdapter(requireContext(), dayList, todoList, currentYearMonth)
 
         val planCalendarRv = binding.planCalendarRv
         planCalendarRv.adapter = planCalendarRvAdapter
@@ -95,7 +99,6 @@ class PlanFragment : Fragment() {
         }
 
         return dayList
-
     }
 
     // 이전 달로 돌아가는 함수
@@ -116,6 +119,7 @@ class PlanFragment : Fragment() {
         }
     }
 
+    // 할 일 목록 셋업 함수
     private fun todoListInit() {
         KakaoSdk.init(requireContext(), KakaoRef.APP_KEY)
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
@@ -124,10 +128,10 @@ class PlanFragment : Fragment() {
             } else if (tokenInfo != null) {
                 lifecycleScope.launch {
                     try {
-                        val todoList = firebaseManager.readTodoListData(tokenInfo.id.toString())
+                        todoList = firebaseManager.readTodoListData(tokenInfo.id.toString())
                         if (todoList != null) {
                             Log.d(TAG, "TodoList : $todoList")
-
+                            setMonthYear()
                         } else {
                             Log.d(TAG, "TodoList is Null")
                         }
