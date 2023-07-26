@@ -22,6 +22,9 @@ import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.FragmentScheduleBinding
 import com.daily_school.daily_school.ui.schedule.AddSubjectActivity
 import com.daily_school.daily_school.ui.schedule.EditSubjectFragment
+import com.daily_school.daily_school.utils.KakaoRef
+import com.kakao.sdk.common.KakaoSdk
+import com.kakao.sdk.user.UserApiClient
 import kotlinx.coroutines.launch
 
 
@@ -97,7 +100,41 @@ class ScheduleFragment : Fragment() {
             startActivity(intent)
         }
 
+        // 유저 정보를 입력시키는 함수 호출
+        getSchoolInfoData()
+
         return binding.root
+    }
+
+    // 유저 정보를 입력시키는 함수
+    private fun getSchoolInfoData(){
+        KakaoSdk.init(requireContext(), KakaoRef.APP_KEY)
+        UserApiClient.instance.accessTokenInfo{ tokenInfo, error ->
+            if (error != null){
+                Log.e(TAG, "토큰 정보 보기 실패", error)
+            }
+            else if (tokenInfo != null){
+                lifecycleScope.launch{
+                    try {
+                        val userInfo = firebaseManager.readSchoolInfoData(tokenInfo.id.toString())
+                        if (userInfo != null) {
+                            val userSchoolName = userInfo["schoolName"]
+                            val userGrade = userInfo["grade"]
+                            val userClass = userInfo["class"]
+                            binding.scheduleMainTextView.text = "$userSchoolName $userGrade $userClass"
+
+                        } else {
+                            Log.d(TAG, "TodoList is Null")
+                        }
+                    }
+                    catch (e: Exception) {
+                        Log.e(TAG, "Failed to Read", e)
+                    }
+                }
+
+            }
+        }
+
     }
 
     // 각 요일 Cell Init 함수

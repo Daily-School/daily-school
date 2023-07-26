@@ -19,7 +19,7 @@
             android:layout_marginTop="58dp"
             android:fontFamily="@font/pretendard_extrabold"
             android:gravity="center"
-            android:text="데일중학교 1학년 1반"
+            android:text=""
             android:textColor="@color/gray_2"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
