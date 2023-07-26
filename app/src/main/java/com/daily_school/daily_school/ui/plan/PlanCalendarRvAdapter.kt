@@ -133,13 +133,13 @@ class PlanCalendarRvAdapter(
         // 할 일이 있는 경우에만 보여줌
         if (filteredTodoList.isNotEmpty()) {
             holder.firstPlanTodoArea.visibility = View.VISIBLE
-            holder.firstPlanTodoTextView.text = filteredTodoList[0]["todoName"].toString()
+            setEllipsizedText(holder.firstPlanTodoTextView, filteredTodoList[0]["todoName"].toString(), 4)
             holder.firstPlanTodoColorImageView.setBackgroundResource(getTodoColorResourceId(filteredTodoList[0]["todoColor"].toString()))
 
             // 두 번째 할 일이 있는 경우 보여줌
             if (filteredTodoList.size >= 2) {
                 holder.secondPlanTodoArea.visibility = View.VISIBLE
-                holder.secondPlanTodoTextView.text = filteredTodoList[1]["todoName"].toString()
+                setEllipsizedText(holder.secondPlanTodoTextView, filteredTodoList[1]["todoName"].toString(), 4)
                 holder.secondPlanTodoColorImageView.setBackgroundResource(getTodoColorResourceId(filteredTodoList[1]["todoColor"].toString()))
             }
             else {
@@ -151,7 +151,7 @@ class PlanCalendarRvAdapter(
             // 세 번째 할 일이 있는 경우 보여줌
             if (filteredTodoList.size >= 3) {
                 holder.thirdPlanTodoArea.visibility = View.VISIBLE
-                holder.thirdPlanTodoTextView.text = filteredTodoList[2]["todoName"].toString()
+                setEllipsizedText(holder.thirdPlanTodoTextView, filteredTodoList[2]["todoName"].toString(), 4)
                 holder.thirdPlanTodoColorImageView.setBackgroundResource(getTodoColorResourceId(filteredTodoList[2]["todoColor"].toString()))
             }
             else {
@@ -211,6 +211,15 @@ class PlanCalendarRvAdapter(
             TodoColor.GREEN.name -> R.color.light_green_color
             TodoColor.PURPLE.name -> R.color.pink_color
             else -> R.color.main_color
+        }
+    }
+
+    // 글자 길이 지정 함수
+    private fun setEllipsizedText(textView: TextView, text: String, maxLength: Int) {
+        if (text.length <= maxLength) {
+            textView.text = text
+        } else {
+            textView.text = text.take(maxLength - 1).trimEnd() + "..."
         }
     }
 }
