@@ -93,4 +93,12 @@ class PlanCalendarRvAdapter(val context : Context, private val items : ArrayList
         holder.secondPlanTodoArea.visibility = View.GONE
         holder.thirdPlanTodoArea.visibility = View.GONE
     }
+
+    fun getSelectedDate(): String? {
+        return if (selectedPosition >= 0 && selectedPosition < items.size) {
+            items[selectedPosition]
+        } else {
+            null
+        }
+    }
 }

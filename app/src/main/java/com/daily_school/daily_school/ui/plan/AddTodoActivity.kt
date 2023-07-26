@@ -41,10 +41,14 @@ class AddTodoActivity : AppCompatActivity() {
     private var selectTodoColor: TodoColor = TodoColor.BLUE
     private var selectTodoRepeat: TodoRepeat = TodoRepeat.NONE
 
+    private lateinit var selectedDate : String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_addtodo)
+
+        selectedDate = intent.getStringExtra("selectedDate") ?: "0"
 
         // 뒤로 가기 아이콘 클릭 이벤트
         binding.addTodoIcToPlan.setOnClickListener {
@@ -165,7 +169,6 @@ class AddTodoActivity : AppCompatActivity() {
     private fun addTodoEditorHandler() {
         binding.addTodoPlanNameEdit.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -190,7 +193,7 @@ class AddTodoActivity : AppCompatActivity() {
         Log.d(TAG, "todoName: $todoName, selectTodoRepeat : $selectTodoRepeat, selectTodoColor : $selectTodoColor")
 
         if(todoName.isNotEmpty()) {
-            firebaseManager.saveTodoListData(todoName, selectTodoRepeat, selectTodoColor)
+            firebaseManager.saveTodoListData(selectedDate, todoName, selectTodoRepeat.toString(), selectTodoColor.toString())
         }
     }
 }

@@ -15,6 +15,9 @@ import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.FragmentPlanBinding
 import com.daily_school.daily_school.ui.plan.AddTodoActivity
 import com.daily_school.daily_school.ui.plan.PlanCalendarRvAdapter
+import com.daily_school.daily_school.utils.KakaoRef
+import com.kakao.sdk.common.KakaoSdk
+import com.kakao.sdk.user.UserApiClient
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.YearMonth
@@ -27,6 +30,7 @@ class PlanFragment : Fragment() {
     private lateinit var binding: FragmentPlanBinding
 
     private var selectedDate = LocalDate.now()
+    private lateinit var planCalendarRvAdapter: PlanCalendarRvAdapter
 
     val firebaseManager = FirebaseManager()
 
@@ -39,12 +43,6 @@ class PlanFragment : Fragment() {
         // 할 일 목록 셋업 함수
         todoListInit()
 
-        // Add 버튼 클릭 이벤트
-        binding.addIcon.setOnClickListener {
-            val intent = Intent(context, AddTodoActivity::class.java)
-            startActivity(intent)
-        }
-
         // 달력 adapter 연결하는 함수 호출
         setMonthYear()
 
@@ -53,6 +51,9 @@ class PlanFragment : Fragment() {
 
         // 다음 달로 넘어가는 함수 호출
         frontToMonth()
+
+        // 할 일 추가 함수 호출
+        showAddTodo()
 
         return binding.root
     }
@@ -63,22 +64,15 @@ class PlanFragment : Fragment() {
         return date.format(formatter)
     }
 
-    // 할 일 목록 셋업 함수
-    private fun calendarMonthChanged(year: Int, month: Int) {
-        binding.planMainTextView.text = year.toString() + "년 " + month.toString() + "월"
-    }
-
     // 달력 adapter 연결하는 함수
     private fun setMonthYear(){
         binding.planMainTextView.text = monthYearFromDate(selectedDate)
 
         val dayList = calendarArray(selectedDate)
-        val planCalendarRvAdapter = PlanCalendarRvAdapter(requireContext(), dayList)
+        planCalendarRvAdapter = PlanCalendarRvAdapter(requireContext(), dayList)
 
         val planCalendarRv = binding.planCalendarRv
-
         planCalendarRv.adapter = planCalendarRvAdapter
-
         planCalendarRv.layoutManager = GridLayoutManager(requireContext(), 7)
     }
 
@@ -123,17 +117,41 @@ class PlanFragment : Fragment() {
     }
 
     private fun todoListInit() {
-        lifecycleScope.launch {
-            try {
-                val todoList = firebaseManager.readTodoListData()
-                if (todoList != null) {
-                    Log.d(TAG, "TodoList : $todoList")
-                } else {
-                    Log.d(TAG, "TodoList is Null")
+        KakaoSdk.init(requireContext(), KakaoRef.APP_KEY)
+        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
+            if (error != null) {
+                Log.e(TAG, "토큰 정보 보기 실패", error)
+            } else if (tokenInfo != null) {
+                lifecycleScope.launch {
+                    try {
+                        val todoList = firebaseManager.readTodoListData(tokenInfo.id.toString())
+                        if (todoList != null) {
+                            Log.d(TAG, "TodoList : $todoList")
+
+                        } else {
+                            Log.d(TAG, "TodoList is Null")
+                        }
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Failed to Read", e)
+                    }
                 }
-            } catch (e: Exception) {
-                Log.e(TAG, "Failed to Read", e)
             }
+        }
+    }
+
+    // 할 일 추가 함수
+    private fun showAddTodo() {
+        binding.addIcon.setOnClickListener {
+            val intent = Intent(context, AddTodoActivity::class.java)
+
+            val selectedDate = selectedDate.toString().substringBeforeLast("-")
+            val currentSelectedDate = planCalendarRvAdapter.getSelectedDate()
+
+            val date = "$selectedDate-$currentSelectedDate"
+
+            intent.putExtra("selectedDate", date)
+
+            startActivity(intent)
         }
     }
 }

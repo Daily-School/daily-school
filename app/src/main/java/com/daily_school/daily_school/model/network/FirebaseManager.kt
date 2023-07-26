@@ -19,9 +19,12 @@ class FirebaseManager {
 
     private val subjectDocument = "subject"
     private val todoListDocument = "todoList"
+
+    private val todoDateKey = "todoDate"
     private val todoNameKey = "todoName"
     private val todoRepeatKey = "todoRepeat"
     private val todoColorKey = "todoColor"
+    private val todoCollection = "todos"
 
     // 학교 정보 DB 모델
     private val schoolInfoDocument = "schoolInfo"
@@ -142,44 +145,28 @@ class FirebaseManager {
         }
     }
 
-    fun saveTodoListData(todoName: String, todoRepeat: TodoRepeat, todoColor: TodoColor) {
+    fun saveTodoListData(todoDate: String, todoName: String, todoRepeat: String, todoColor: String) {
         getUserId { uid ->
             if (uid.isNotEmpty()) {
                 val db = FirebaseFirestore.getInstance()
-                val subjectRef = db.collection(usersCollection)
+                val todoListRef = db.collection(usersCollection)
                     .document(uid)
                     .collection(dataCollection)
                     .document(todoListDocument)
 
-                val subjectData = mutableMapOf<String, Any>()
-                subjectData[todoNameKey] = todoName
-                subjectData[todoRepeatKey] = todoRepeat.name
-                subjectData[todoColorKey] = todoColor.name
+                val task = hashMapOf(
+                    todoDateKey to todoDate,
+                    todoNameKey to todoName,
+                    todoRepeatKey to todoRepeat,
+                    todoColorKey to todoColor
+                )
 
-                subjectRef.get()
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            val document = task.result
-                            if (document != null && document.exists()) {
-                                subjectRef.update(subjectData)
-                                    .addOnSuccessListener {
-                                        Log.d(TAG, "Subject Data Saved Successfully")
-                                    }
-                                    .addOnFailureListener { e ->
-                                        Log.e(TAG, "Failed to Save Subject Data", e)
-                                    }
-                            } else {
-                                subjectRef.set(subjectData)
-                                    .addOnSuccessListener {
-                                        Log.d(TAG, "Subject Data Saved Successfully")
-                                    }
-                                    .addOnFailureListener { e ->
-                                        Log.e(TAG, "Failed to Save Subject Data", e)
-                                    }
-                            }
-                        } else {
-                            Log.e(TAG, "Failed to Access Document", task.exception)
-                        }
+                todoListRef.collection(todoCollection).add(task)
+                    .addOnSuccessListener { documentReference ->
+                        Log.d(TAG, "할 일 추가 완료: ${documentReference.id}")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e(TAG, "할 일 추가 실패", e)
                     }
             } else {
                 Log.e(TAG, "User UID is empty")
@@ -187,31 +174,25 @@ class FirebaseManager {
         }
     }
 
-    suspend fun readTodoListData(): Map<String, Any>? {
-        var uid = ""
-        getUserId { id ->
-            uid = id
-        }
-
+    suspend fun readTodoListData(uid: String): List<Map<String, Any>>? {
         return if (uid.isNotEmpty()) {
             val db = FirebaseFirestore.getInstance()
-            val subjectRef = db.collection(usersCollection)
+            val todoListRef = db.collection(usersCollection)
                 .document(uid)
                 .collection(dataCollection)
                 .document(todoListDocument)
 
             try {
-                val document = subjectRef.get().await()
-                if (document != null && document.exists()) {
-                    val todoData = document.data
-                    todoData as? Map<String, Any>
-                } else {
-                    null
+                val querySnapshot = todoListRef.collection(todoCollection).get().await()
+                return querySnapshot.documents.mapNotNull { document ->
+                    document.data
                 }
             } catch (e: Exception) {
+                Log.e(TAG, "할 일 목록 보기 실패.", e)
                 null
             }
         } else {
+            Log.e(TAG, "토큰 정보 보기 실패.")
             null
         }
     }
