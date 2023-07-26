@@ -1,7 +1,9 @@
 package com.daily_school.daily_school.ui.plan
 
 import FirebaseManager
+import android.app.Activity
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
@@ -18,7 +21,9 @@ import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.PlanCalendarRvItemBinding
 import com.daily_school.daily_school.ui.meal.MealCalendarModel.Companion.selectedDate
 import com.daily_school.daily_school.ui.page.PlanFragment
+import com.daily_school.daily_school.ui.schedule.EditSubjectFragment
 import com.daily_school.daily_school.utils.KakaoRef
+import com.google.gson.Gson
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.user.UserApiClient
 import kotlinx.coroutines.launch
@@ -92,6 +97,25 @@ class PlanCalendarRvAdapter(
 
         // 달력 클릭 이벤트
         holder.dayText.setOnClickListener {
+            if (item.isNotEmpty()) {
+                val todoDate = "$currentDate-$item"
+                val filteredTodoList = todoListArray.filter { todoItem ->
+                    todoDate == todoItem["todoDate"]
+                }
+
+                if (filteredTodoList.isNotEmpty()) {
+                    val bottomSheet = PlanListFragment()
+                    val bundle = Bundle()
+                    val gson = Gson()
+                    val filteredTodoListJson = gson.toJson(filteredTodoList)
+                    bundle.putString("todoInfo", filteredTodoListJson)
+                    bundle.putString("todoDate", todoDate)
+                    bottomSheet.arguments = bundle
+                    val fragmentManager = (context as AppCompatActivity).supportFragmentManager
+                    bottomSheet.show(fragmentManager, bottomSheet.tag)
+                }
+            }
+
             if(position > firstPosition - 1 && position < lastPosition) {
                 val previousPosition = selectedPosition
                 selectedPosition = holder.adapterPosition
@@ -201,7 +225,7 @@ class PlanCalendarRvAdapter(
         }
     }
 
-    // 배경화면 지정 함수
+    // 할 일 목록 색상 지정 함수
     private fun getTodoColorResourceId(todoColor: String): Int {
         return when (todoColor) {
             TodoColor.RED.name -> R.color.red_color

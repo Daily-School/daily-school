@@ -15,6 +15,8 @@ import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.FragmentPlanBinding
 import com.daily_school.daily_school.ui.plan.AddTodoActivity
 import com.daily_school.daily_school.ui.plan.PlanCalendarRvAdapter
+import com.daily_school.daily_school.ui.plan.PlanListFragment
+import com.daily_school.daily_school.ui.schedule.EditSubjectFragment
 import com.daily_school.daily_school.utils.KakaoRef
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.user.UserApiClient
