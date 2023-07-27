@@ -19,7 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.PlanCalendarRvItemBinding
-import com.daily_school.daily_school.ui.meal.MealCalendarModel.Companion.selectedDate
+//import com.daily_school.daily_school.ui.meal.MealCalendarModel.Companion.selectedDate
 import com.daily_school.daily_school.ui.page.PlanFragment
 import com.daily_school.daily_school.ui.schedule.EditSubjectFragment
 import com.daily_school.daily_school.utils.KakaoRef
