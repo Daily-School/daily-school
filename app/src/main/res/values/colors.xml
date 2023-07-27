@@ -35,6 +35,8 @@
 
     <color name="naver_green_color">#03C75A</color>
 
+    <color name="home_border_gray_color">#F1F1F1</color>
+
     <color name="subject_default_color">#FFE0E0E0</color>
     <color name="subject_light_blue_color">#C8DBFF</color>
     <color name="subject_light_pink_color">#FFF2FC</color>
