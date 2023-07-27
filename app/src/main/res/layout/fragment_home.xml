@@ -1,252 +1,310 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!--    Fragment 화면-->
     <FrameLayout
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/homeFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.page.ProfileFragment">
+        tools:context=".ui.page.HomeFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/homeSwipeLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white">
+            android:layout_height="match_parent">
 
-            <!--    프로필 메인 텍스트뷰-->
-            <TextView
-                android:id="@+id/homeMainTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="58dp"
-                android:fontFamily="@font/pretendard_extrabold"
-                android:gravity="center"
-                android:text=""
-                android:textColor="@color/gray_2"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <!--   프로필 수정 아이콘-->
-            <ImageView
-                android:id="@+id/homeIcFilter"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="60dp"
-                android:src="@drawable/ic_profile_filter"
-                app:layout_constraintStart_toEndOf="@+id/homeMainTextView"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <!--   첫번째 선-->
-            <LinearLayout
-                android:id="@+id/homeFirstLine"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/homeLayout"
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:layout_marginTop="15dp"
-                android:background="@color/gray_8"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/homeMainTextView"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:background="@color/white">
 
-            </LinearLayout>
-
-            <!-- 현재 날짜 정보 -->
-            <TextView
-                android:id="@+id/homeTodayInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="109dp"
-                android:layout_marginRight="139dp"
-                android:layout_marginTop="28dp"
-                android:fontFamily="@font/pretendard_extrabold"
-                android:gravity="center"
-                android:text="2023년 04월 20일"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/homeFirstLine" />
-
-            <!-- 소개 글 텍스트 -->
-            <TextView
-                android:id="@+id/homeNameTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="21dp"
-                android:fontFamily="@font/pretendard_extrabold"
-                android:gravity="start"
-                android:maxLines="2"
-                android:text="김아름님,\n오늘도 힘차게 학교 생활 해볼까요?"
-                android:textColor="@color/gray_1"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/homeTodayInfo" />
-
-            <!-- 중간고사 박스 레이아웃 -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/homeMidtermArea"
-                android:layout_width="174dp"
-                android:layout_height="75dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="21dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/homeNameTextView">
-
-                <!-- 중간고사 영역 이미지-->
-                <ImageView
-                    android:id="@+id/homeMidtermImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/radius_white_rectangle" />
-
-                <!-- 중간고사 텍스트 -->
+                <!--    프로필 메인 텍스트뷰-->
                 <TextView
-                    android:id="@+id/homeMidtermTopText"
+                    android:id="@+id/homeMainTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="중간고사"
-                    android:textColor="@color/gray_1"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/pretendard_extrabold"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="13dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <!-- 디데이 설정하기 텍스트 -->
-                <TextView
-                    android:id="@+id/homeMidtermBottomText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="디데이 설정하기"
-                    android:textColor="@color/gray_1"
-                    android:textSize="14sp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginBottom="14dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <!-- 설정 이미지 -->
-                <ImageView
-                    android:id="@+id/homeMidtermSetting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_profile_right"
-                    app:layout_constraintStart_toEndOf="@id/homeMidtermBottomText"
-                    app:layout_constraintTop_toTopOf="@id/homeMidtermBottomText" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- 기말고사 박스 레이아웃 -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/homeFinalArea"
-                android:layout_width="174dp"
-                android:layout_height="75dp"
-                android:layout_marginLeft="12dp"
-                app:layout_constraintStart_toEndOf="@id/homeMidtermArea"
-                app:layout_constraintTop_toTopOf="@id/homeMidtermArea">
-
-                <!-- 기말고사 영역 이미지-->
-                <ImageView
-                    android:id="@+id/homeFinalImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/radius_white_rectangle"
-                    android:scaleType="fitXY" />
-
-                <!-- 기말고사 텍스트 -->
-                <TextView
-                    android:id="@+id/homeFinalTopText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="기말고사"
-                    android:textColor="@color/gray_1"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/pretendard_extrabold"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="13dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <!-- 디데이 설정하기 텍스트 -->
-                <TextView
-                    android:id="@+id/homeFinalBottomText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="디데이 설정하기"
-                    android:textColor="@color/gray_1"
-                    android:textSize="14sp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginBottom="14dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <!-- 설정 이미지 -->
-                <ImageView
-                    android:id="@+id/homeFinalSetting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_profile_right"
-                    app:layout_constraintStart_toEndOf="@id/homeFinalBottomText"
-                    app:layout_constraintTop_toTopOf="@id/homeFinalBottomText" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- 오늘의 할 일 영역 -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/homeMidtermArea">
-
-
-                <!-- 오늘의 할 일 이미지-->
-                <ImageView
-                    android:id="@+id/homeTodoImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/radius_white_rectangle" />
-
-                <!-- 오늘의 할 일 텍스트 -->
-                <TextView
-                    android:id="@+id/homeTodoText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="오늘의 할일"
-                    android:textColor="@color/gray_1"
-                    android:textSize="20sp"
-                    android:layout_marginLeft="36dp"
+                    android:layout_marginLeft="100dp"
                     android:layout_marginTop="58dp"
                     android:fontFamily="@font/pretendard_extrabold"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/gray_2"
+                    android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <!-- 오늘의 할 일이 없을 경우의 텍스트 -->
+
+                <!--   프로필 수정 아이콘-->
+                <ImageView
+                    android:id="@+id/homeIcFilter"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="60dp"
+                    android:src="@drawable/ic_profile_filter"
+                    app:layout_constraintStart_toEndOf="@+id/homeMainTextView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <!--   첫번째 선-->
+                <LinearLayout
+                    android:id="@+id/homeFirstLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/gray_8"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/homeMainTextView">
+
+                </LinearLayout>
+
+                <!-- 현재 날짜 정보 -->
                 <TextView
-                    android:id="@+id/homeNotTodoText"
+                    android:id="@+id/homeTodayTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="오늘의 할일이 없어요."
-                    android:textColor="@color/gray_5"
+                    android:layout_marginTop="28dp"
+                    android:fontFamily="@font/pretendard"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:gravity="center" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/homeFirstLine" />
 
+
+                <TextView
+                    android:id="@+id/homeNicknameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="21dp"
+                    android:fontFamily="@font/pretendard"
+                    android:text=""
+                    android:textColor="@color/main_color"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/homeTodayTextView" />
+
+                <!-- 소개 글 텍스트 -->
+                <TextView
+                    android:id="@+id/homeNimTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="21dp"
+                    android:fontFamily="@font/pretendard"
+                    android:text="님,"
+                    android:textColor="@color/gray_1"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/homeNicknameTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/homeTodayTextView" />
+
+                <TextView
+                    android:id="@+id/homeNameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="@font/pretendard"
+                    android:gravity="start"
+                    android:maxLines="2"
+                    android:text="오늘도 힘차게 학교 생활 해볼까요?"
+                    android:textColor="@color/gray_1"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/homeNimTextView" />
+
+                <LinearLayout
+                    android:id="@+id/homeDayLinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="21dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/homeNameTextView">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="64dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/radius_border_light_gray_rectangle">
+
+                        <TextView
+                            android:id="@+id/homeMidTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/pretendard"
+                            android:text="중간고사"
+                            android:textColor="@color/gray_1"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/homeMidDayTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/pretendard"
+                            android:text="디데이 설정하기"
+                            android:textColor="@color/gray_2"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/homeMidTextView" />
+
+                        <TextView
+                            android:id="@+id/homeMidDDayTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="1dp"
+                            android:fontFamily="@font/pretendard"
+                            android:text=""
+                            android:textColor="@color/gray_1"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/homeMidTextView" />
+
+                        <ImageView
+                            android:id="@+id/homeIcMidToCalendar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="3dp"
+                            android:src="@drawable/ic_home_d_day_right"
+                            app:layout_constraintStart_toEndOf="@+id/homeMidDayTextView"
+                            app:layout_constraintTop_toTopOf="@+id/homeMidDayTextView" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="64dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/radius_border_light_gray_rectangle">
+
+                        <TextView
+                            android:id="@+id/homeFinalTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/pretendard"
+                            android:text="기말고사"
+                            android:textColor="@color/gray_1"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/homeFinalDayTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/pretendard"
+                            android:text="디데이 설정하기"
+                            android:textColor="@color/gray_2"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/homeFinalTextView" />
+
+                        <TextView
+                            android:id="@+id/homeFinalDDayTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="1dp"
+                            android:fontFamily="@font/pretendard"
+                            android:text=""
+                            android:textColor="@color/gray_1"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/homeFinalTextView" />
+
+                        <ImageView
+                            android:id="@+id/homeIcFinalToCalendar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="3dp"
+                            android:src="@drawable/ic_home_d_day_right"
+                            app:layout_constraintStart_toEndOf="@+id/homeFinalDayTextView"
+                            app:layout_constraintTop_toTopOf="@+id/homeFinalDayTextView" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/homeToDoLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="21dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="45dp"
+                    android:background="@drawable/radius_border_light_gray_rectangle"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/homeDayLinearLayout" />
+
+                <TextView
+                    android:id="@+id/homeToDoTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/pretendard"
+                    android:text="오늘의 할 일"
+                    android:textColor="@color/gray_1"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/homeToDoLayout"
+                    app:layout_constraintTop_toTopOf="@+id/homeToDoLayout" />
+
+                <TextView
+                    android:id="@+id/homeToDoDetailTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard"
+                    android:text="오늘의 할 일이 없어요"
+                    android:textColor="@color/gray_5"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/homeToDoLayout"
+                    app:layout_constraintEnd_toEndOf="@+id/homeToDoLayout"
+                    app:layout_constraintStart_toStartOf="@+id/homeToDoLayout"
+                    app:layout_constraintTop_toTopOf="@+id/homeToDoLayout" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </FrameLayout>
 </layout>
