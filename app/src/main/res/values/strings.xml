@@ -33,6 +33,10 @@
     <string name="add_todo_repeat_month_text">매월</string>
     <string name="add_todo_repeat_year_text">매년</string>
 
+    <string name="todo_complete_guide_text">할일을 클릭하면 달성 여부를 체크할 수 있어요.</string>
+
+    <string name="never_show_again">다시 보지 않기</string>
+
     <!-- 자주 묻는 질문 질문 내용 String-->
     <string name="question_rv_1">학교 변경은 어떻게 하나요?</string>
     <string name="question_rv_2">로그인 된 계정 확인은 어떻게 하나요?</string>

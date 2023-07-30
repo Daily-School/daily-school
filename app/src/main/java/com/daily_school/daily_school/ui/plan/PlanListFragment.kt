@@ -2,6 +2,7 @@ package com.daily_school.daily_school.ui.plan
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
@@ -42,7 +43,14 @@ class PlanListFragment : BottomSheetDialogFragment() {
         // 현재 날짜 요일 셋업 함수 호출
         currentDateInit()
 
+        // 할 일 목록을 보여주는 함수 호출
         showTodoList()
+
+        // 다시 보지 않기 설정 함수
+        neverShowGuideText()
+
+        // 다시 보기 상태 가져오는 함수
+        getNeverShowGuideText()
 
         return binding.root
     }
@@ -140,5 +148,39 @@ class PlanListFragment : BottomSheetDialogFragment() {
             TodoColor.PURPLE.name -> R.color.pink_color
             else -> R.color.main_color
         }
+    }
+
+    // 다시 보지 않기 설정 함수
+    private fun neverShowGuideText() {
+        binding.planTodoNeverShowTextView.setOnClickListener {
+            binding.planTodoGuideArea.visibility = View.GONE
+
+            setNeverShowAgainStatus(true)
+        }
+    }
+
+    // 다시 보기 상태 가져오는 함수
+    private fun getNeverShowGuideText() {
+        val neverShowAgainStatus = getNeverShowAgainStatus()
+        if (neverShowAgainStatus) {
+            binding.planTodoGuideArea.visibility = View.GONE
+        }
+        else {
+            binding.planTodoGuideArea.visibility = View.VISIBLE
+        }
+    }
+
+    // SharedPreferences Set 함수
+    private fun setNeverShowAgainStatus(status: Boolean) {
+        val sharedPreferences = requireContext().getSharedPreferences("todoGuide", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("show", status)
+        editor.apply()
+    }
+
+    // SharedPreferences Get 함수
+    private fun getNeverShowAgainStatus(): Boolean {
+        val sharedPreferences = requireContext().getSharedPreferences("todoGuide", Context.MODE_PRIVATE)
+        return sharedPreferences.getBoolean("show", false)
     }
 }
