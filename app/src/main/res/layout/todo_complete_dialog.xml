@@ -7,7 +7,7 @@
         android:id="@+id/frameArea"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.schedule.DeleteSubjectDialog">
+        tools:context=".ui.plan.TodoCompleteDialog">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -15,25 +15,25 @@
             android:background="@drawable/bg_blue">
 
             <ImageView
-                android:id="@+id/deleteIc"
+                android:id="@+id/completeIc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:src="@drawable/ic_subject_delete"
+                android:src="@drawable/ic_todo_complete"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/deleteText"
+                android:id="@+id/completeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/subject_delete_guide_text"
+                android:text="@string/todo_complete_dialog_guide_text"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:fontFamily="@font/pretendard"
-                app:layout_constraintTop_toBottomOf="@id/deleteIc"
+                app:layout_constraintTop_toBottomOf="@id/completeIc"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="15dp"
@@ -46,7 +46,7 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginStart="30dp"
-                app:layout_constraintTop_toBottomOf="@id/deleteText"
+                app:layout_constraintTop_toBottomOf="@id/completeText"
                 app:layout_constraintStart_toStartOf="parent">
 
                 <!-- 아니요 이미지 -->
@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/pretendard"
-                    android:text="@string/delete_dialog_button_no_text"
+                    android:text="@string/complete_dialog_button_no_text"
                     android:textColor="@color/main_color"
                     android:textStyle="bold"
                     android:textSize="14sp" />
@@ -77,7 +77,7 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="30dp"
-                app:layout_constraintTop_toBottomOf="@id/deleteText"
+                app:layout_constraintTop_toBottomOf="@id/completeText"
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <!-- 예 이미지 -->
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/pretendard"
-                    android:text="@string/delete_dialog_button_yes_text"
+                    android:text="@string/complete_dialog_button_yes_text"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="14sp" />

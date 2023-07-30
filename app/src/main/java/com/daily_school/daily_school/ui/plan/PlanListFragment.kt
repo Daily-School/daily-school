@@ -1,8 +1,10 @@
 package com.daily_school.daily_school.ui.plan
 
+import FirebaseManager
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Paint
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
@@ -11,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.FragmentPlanListBinding
@@ -27,6 +30,8 @@ class PlanListFragment : BottomSheetDialogFragment() {
 
     private var currentDate: String? = ""
     private var todoListArray: List<Map<String, Any>> = mutableListOf()
+
+    private val firebaseManager = FirebaseManager()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,10 +51,10 @@ class PlanListFragment : BottomSheetDialogFragment() {
         // 할 일 목록을 보여주는 함수 호출
         showTodoList()
 
-        // 다시 보지 않기 설정 함수
+        // 다시 보지 않기 설정 함수 호출
         neverShowGuideText()
 
-        // 다시 보기 상태 가져오는 함수
+        // 다시 보기 상태 가져오는 함수 호출
         getNeverShowGuideText()
 
         return binding.root
@@ -125,16 +130,46 @@ class PlanListFragment : BottomSheetDialogFragment() {
 
             val todoName = todoItem["todoName"] as? String
             val todoColor = todoItem["todoColor"] as? String
+            val todoComplete = todoItem["todoComplete"] as? Boolean
 
             todoColor?.let {
                 val colorResourceId = getTodoColorResourceId(it)
                 planTodoColorImageView.setBackgroundResource(colorResourceId)
             }
 
-            planTodoTextView.text = todoName
+            if(todoComplete == true) {
+                val textColorResourceId = R.color.gray_6
+                val textColor = ContextCompat.getColor(requireContext(), textColorResourceId)
 
+                planTodoTextView.paintFlags = planTodoTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                planTodoTextView.setTextColor(textColor)
+            }
+
+            planTodoItem.setOnClickListener {
+                // 완료 다이얼로그 호출
+                showTodoCompleteDialog(todoName.toString())
+            }
+
+            planTodoTextView.text = todoName
             planTodoLayout.addView(planTodoItem)
         }
+    }
+
+    // 달성 완료 다이얼로그 함수
+    private fun showTodoCompleteDialog(todoName: String) {
+        val completeDialog = TodoCompleteDialog()
+        completeDialog.setCompleteDialogListener(object : TodoCompleteDialog.TodoCompleteDialog {
+            // 아니요 버튼 클릭 시 동작
+            override fun onNoButtonClicked() {
+            }
+
+            // 예 버튼 클릭 시 동작
+            override fun onYesButtonClicked() {
+                dismiss()
+                firebaseManager.updateTodoComplete(todoName)
+            }
+        })
+        completeDialog.show(requireActivity().supportFragmentManager, completeDialog.tag)
     }
 
     // 할 일 목록 색상 지정 함수

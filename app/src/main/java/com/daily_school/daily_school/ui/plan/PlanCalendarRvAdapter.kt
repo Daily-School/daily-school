@@ -203,12 +203,14 @@ class PlanCalendarRvAdapter(
                 val todoDate = data["todoDate"] as? String ?: ""
                 val todoRepeat = data["todoRepeat"] as? String ?: ""
                 val todoColor = data["todoColor"] as? String ?: ""
+                val todoComplete = data["todoComplete"] as? Boolean ?: false
 
                 val todoItem = mapOf(
                     "todoName" to todoName,
                     "todoDate" to todoDate,
                     "todoRepeat" to todoRepeat,
-                    "todoColor" to todoColor
+                    "todoColor" to todoColor,
+                    "todoComplete" to todoComplete
                 )
 
                 todoListArray.add(todoItem)

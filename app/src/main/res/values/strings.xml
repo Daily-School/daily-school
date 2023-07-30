@@ -34,6 +34,9 @@
     <string name="add_todo_repeat_year_text">매년</string>
 
     <string name="todo_complete_guide_text">할일을 클릭하면 달성 여부를 체크할 수 있어요.</string>
+    <string name="todo_complete_dialog_guide_text">할일을 달성하셨나요?</string>
+    <string name="complete_dialog_button_no_text">아니요</string>
+    <string name="complete_dialog_button_yes_text">네, 달성했어요</string>
 
     <string name="never_show_again">다시 보지 않기</string>
 

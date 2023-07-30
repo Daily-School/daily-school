@@ -24,6 +24,7 @@ class FirebaseManager {
     private val todoNameKey = "todoName"
     private val todoRepeatKey = "todoRepeat"
     private val todoColorKey = "todoColor"
+    private val todoCompleteKey = "todoComplete"
     private val todoCollection = "todos"
 
     // 학교 정보 DB 모델
@@ -162,7 +163,8 @@ class FirebaseManager {
                     todoDateKey to todoDate,
                     todoNameKey to todoName,
                     todoRepeatKey to todoRepeat,
-                    todoColorKey to todoColor
+                    todoColorKey to todoColor,
+                    todoCompleteKey to false
                 )
 
                 todoListRef.collection(todoCollection).add(task)
@@ -171,6 +173,43 @@ class FirebaseManager {
                     }
                     .addOnFailureListener { e ->
                         Log.e(TAG, "할 일 추가 실패", e)
+                    }
+            } else {
+                Log.e(TAG, "User UID is empty")
+            }
+        }
+    }
+
+    fun updateTodoComplete(todoName: String) {
+        getUserId { uid ->
+            if (uid.isNotEmpty()) {
+                val db = FirebaseFirestore.getInstance()
+                val todoListRef = db.collection(usersCollection)
+                    .document(uid)
+                    .collection(dataCollection)
+                    .document(todoListDocument)
+
+                todoListRef.collection(todoCollection)
+                    .whereEqualTo(todoNameKey, todoName)
+                    .get()
+                    .addOnSuccessListener { querySnapshot ->
+                        if (!querySnapshot.isEmpty) {
+                            val documentId = querySnapshot.documents[0].id
+                            todoListRef.collection(todoCollection)
+                                .document(documentId)
+                                .update(todoCompleteKey, true)
+                                .addOnSuccessListener {
+                                    Log.d(TAG, "할 일 완료 처리 완료")
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.e(TAG, "할 일 완료 처리 실패", e)
+                                }
+                        } else {
+                            Log.e(TAG, "일치하는 할 일을 찾을 수 없음")
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e(TAG, "할 일 조회 실패", e)
                     }
             } else {
                 Log.e(TAG, "User UID is empty")
