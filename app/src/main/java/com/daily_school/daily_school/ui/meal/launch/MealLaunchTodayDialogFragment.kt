@@ -56,10 +56,13 @@ class MealLaunchTodayDialogFragment : DialogFragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_meal_launch_today_dialog, container, false)
 
+        // 파이어베이스에 저장 되어있는 날짜 연결 함수 호출
         loadMealDate()
 
+        // 오늘의 급식 함수 호출
         todayMeal()
 
+        // 프래그먼트 종료 함수 호출
         fragmentFinish()
 
         return binding.root
@@ -85,6 +88,35 @@ class MealLaunchTodayDialogFragment : DialogFragment() {
 
     }
 
+    // 파이어베이스에 저장 되어있는 날짜 연결 함수
+    private fun loadMealDate(){
+        UserApiClient.instance.accessTokenInfo{ tokenInfo, error ->
+            if (error != null){
+                Log.e(TAG, "토큰 정보 보기 실패", error)
+            }
+            else if (tokenInfo != null){
+
+                lifecycleScope.launch {
+                    try {
+                        val dateInfo = firebaseManager.readDateInfoData(tokenInfo.id.toString())
+                        if(dateInfo != null){
+                            val dateText = dateInfo["dateText"]
+                            val mealDateInfo = dateInfo["mealDateInfo"]
+
+                            binding.mealLaunchTodayDialogDateTxt.text = dateText.toString()
+                            dateValue = mealDateInfo.toString()
+                        }
+
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Failed to Read", e)
+                    }
+                }
+
+            }
+        }
+    }
+
+    // 오늘의 급식 함수
     private fun todayMeal(){
 
         val service = RetrofitApi.mealInfoService
@@ -168,33 +200,7 @@ class MealLaunchTodayDialogFragment : DialogFragment() {
         }
     }
 
-    private fun loadMealDate(){
-        UserApiClient.instance.accessTokenInfo{ tokenInfo, error ->
-            if (error != null){
-                Log.e(TAG, "토큰 정보 보기 실패", error)
-            }
-            else if (tokenInfo != null){
-
-                lifecycleScope.launch {
-                    try {
-                        val dateInfo = firebaseManager.readDateInfoData(tokenInfo.id.toString())
-                        if(dateInfo != null){
-                            val dateText = dateInfo["dateText"]
-                            val mealDateInfo = dateInfo["mealDateInfo"]
-
-                            binding.mealLaunchTodayDialogDateTxt.text = dateText.toString()
-                            dateValue = mealDateInfo.toString()
-                        }
-
-                    } catch (e: Exception) {
-                        Log.e(TAG, "Failed to Read", e)
-                    }
-                }
-
-            }
-        }
-    }
-
+    // 프래그먼트 종료 함수
     private fun fragmentFinish(){
         binding.mealLaunchIcFinish.setOnClickListener {
             dismiss()

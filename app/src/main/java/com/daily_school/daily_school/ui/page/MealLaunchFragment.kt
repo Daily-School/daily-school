@@ -47,8 +47,6 @@ class MealLaunchFragment : Fragment() {
 
     private var dateTextValue: String = ""
 
-    private var emptyString: String = ""
-
     private lateinit var weeklyItems: MutableList<MealLaunchWeeklyModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,6 +78,7 @@ class MealLaunchFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_meal_launch, container, false)
 
+        // 파이어베이스에 저장 되어있는 날짜 연결 함수 호출
         loadMealDate()
 
         // 오늘의 급식 함수 호출
@@ -97,6 +96,7 @@ class MealLaunchFragment : Fragment() {
         return binding.root
     }
 
+    // 파이어베이스에 저장 되어있는 날짜 연결 함수
     private fun loadMealDate() {
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
             if (error != null) {
@@ -554,57 +554,6 @@ class MealLaunchFragment : Fragment() {
 
             }
         }
-
-//        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
-//            if (error != null) {
-//                Log.e(TAG, "토큰 정보 보기 실패", error)
-//            } else if (tokenInfo != null) {
-//
-//                lifecycleScope.launch {
-//                    try {
-//                        val dateInfo = firebaseManager.readDateInfoData(tokenInfo.id.toString())
-//                        if (dateInfo != null) {
-//                            val dateText = dateInfo["dateText"]
-//                            val mealDateInfo = dateInfo["mealDateInfo"]
-//
-//                            dateValue = mealDateInfo.toString()
-//                            dateTextValue = dateText.toString()
-//
-//                            var weeklyDate = dateTextValue.replace("2023년","").trim()
-//                            var month = weeklyDate.substring(0,3)
-//                            var day = weeklyDate.substring(4,6)
-//
-//                            Log.d(TAG, day)
-//                            weeklyItems = mutableListOf(
-//                                MealLaunchWeeklyModel(month + " " + (day.toInt()) + "일", mutableListOf(
-//                                    MealLaunchWeeklyEachModel(weeklyDate)
-//                                ))
-//                            )
-//
-//                            for(i in 1..4){
-//                                weeklyItems.add(i, MealLaunchWeeklyModel(month + " " + (day.toInt() + i).toString() + "일", mutableListOf(
-//                                    MealLaunchWeeklyEachModel(i.toString()),
-//                                    MealLaunchWeeklyEachModel((i+1).toString()),
-//                                    MealLaunchWeeklyEachModel((i+2).toString()),
-//                                    MealLaunchWeeklyEachModel((i+3).toString()),
-//                                )))
-//
-//                            }
-//
-//                            Log.d(TAG, weeklyItems[0].innerList.size.toString())
-//                            Log.d(TAG, weeklyItems.toString())
-//                            binding.weeklyLaunchMealRv.adapter = MealLaunchWeeklyRvAdapter(requireContext(), weeklyItems)
-//                            binding.weeklyLaunchMealRv.layoutManager = GridLayoutManager(requireContext(), 2)
-//                        }
-//
-//                    } catch (e: Exception) {
-//                        Log.e(TAG, "Failed to Read", e)
-//                    }
-//                }
-//
-//            }
-//        }
-
 
     }
 
