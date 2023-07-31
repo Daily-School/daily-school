@@ -116,7 +116,7 @@
             android:orientation="horizontal"
             android:layout_marginTop="185dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+
             android:layout_marginBottom="34dp"
             app:layout_constraintTop_toBottomOf="@id/scheduleClassText"
             app:layout_constraintStart_toStartOf="parent"
@@ -132,7 +132,7 @@
 
             <LinearLayout
                 android:id="@+id/mondayLayout"
-                android:layout_width="58dp"
+                android:layout_width="62dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
@@ -140,7 +140,7 @@
 
             <LinearLayout
                 android:id="@+id/tuesdayLayout"
-                android:layout_width="58dp"
+                android:layout_width="62dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
@@ -148,7 +148,7 @@
 
             <LinearLayout
                 android:id="@+id/wednesdayLayout"
-                android:layout_width="58dp"
+                android:layout_width="62dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
@@ -156,7 +156,7 @@
 
             <LinearLayout
                 android:id="@+id/thursdayLayout"
-                android:layout_width="58dp"
+                android:layout_width="62dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
@@ -164,7 +164,7 @@
 
             <LinearLayout
                 android:id="@+id/fridayLayout"
-                android:layout_width="58dp"
+                android:layout_width="62dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 

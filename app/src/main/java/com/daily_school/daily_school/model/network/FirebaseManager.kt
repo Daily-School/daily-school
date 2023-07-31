@@ -120,13 +120,7 @@ class FirebaseManager {
             }
         }
     }
-
-    suspend fun readSubjectData(subjectName: String): Any? {
-        var uid = ""
-        getUserId { id ->
-            uid = id
-        }
-
+    suspend fun readSubjectData(uid: String, subjectName: String): Any? {
         return if (uid.isNotEmpty()) {
             val db = FirebaseFirestore.getInstance()
             val subjectRef = db.collection(usersCollection)

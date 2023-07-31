@@ -4,6 +4,7 @@ import FirebaseManager
 import android.content.ComponentName
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -26,7 +27,6 @@ import com.daily_school.daily_school.utils.KakaoRef
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.user.UserApiClient
 import kotlinx.coroutines.launch
-
 
 class ScheduleFragment : Fragment() {
     private val TAG = ScheduleFragment::class.java.simpleName
@@ -51,28 +51,7 @@ class ScheduleFragment : Fragment() {
     val fridayArray = arrayOf("금", "영어", "영어", "국어", "국어", "", "영어", "영어", "", "")
 
     private val subjectArray = ArrayList<Pair<String, Any>>()
-
-    private val subjectColorStringArray = arrayOf(
-        "기본 색상",
-        "라이트 블루",
-        "라이트 핑크",
-        "라이트 레몬",
-        "라이트 바이올렛",
-        "라이트 퍼플",
-        "라이트 샐몬",
-        "라이트 그린",
-    )
-
-    private val subjectColorArray = arrayOf(
-        R.color.subject_default_color,
-        R.color.subject_light_blue_color,
-        R.color.subject_light_pink_color,
-        R.color.subject_light_lemon_color,
-        R.color.subject_light_violet_color,
-        R.color.subject_light_purple_color,
-        R.color.subject_light_salmon_color,
-        R.color.subject_light_green_color
-    )
+    private lateinit var subjectColors: Array<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -83,9 +62,7 @@ class ScheduleFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_schedule, container, false)
 
-        // 과목 셋업 함수
-        subjectInit()
-        subjectColorInit()
+        subjectColors = resources.getStringArray(R.array.subject_color_spinner_grade)
 
         titleLayout = binding.titleLayout
         mondayLayout = binding.mondayLayout
@@ -93,6 +70,10 @@ class ScheduleFragment : Fragment() {
         wednesdayLayout = binding.wednesdayLayout
         thursdayLayout = binding.thursdayLayout
         fridayLayout = binding.fridayLayout
+
+        // 과목 셋업 함수
+        subjectInit()
+        subjectColorInit()
 
         // 과목 추가 버튼 클릭 이벤트
         binding.scheduleAddArea.setOnClickListener {
@@ -139,15 +120,14 @@ class ScheduleFragment : Fragment() {
 
     // 각 요일 Cell Init 함수
     private fun classScheduleInit() {
-
         val width = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
-            58f,
+            62.5f,
             resources.displayMetrics
         ).toInt()
         val height = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
-            46f,
+            52.5f,
             resources.displayMetrics
         ).toInt()
         
@@ -173,42 +153,44 @@ class ScheduleFragment : Fragment() {
         }
     }
 
-    private fun mondayScheduleInit(width: Int, height : Int) {
+    private fun mondayScheduleInit(width: Int, height: Int) {
         val consecutiveIndexes = findConsecutiveIndexes(mondayArray)
-        val pairArray = mutableListOf<Pair<Int, Int>>()
-
-        for (pair in consecutiveIndexes) {
-            val startIndex = pair.first
-            val endIndex = pair.second
-            pairArray.add(startIndex to endIndex)
-        }
 
         for (i in 0 until mondayArray.size) {
             val mondayTextView = TextView(requireContext())
             mondayTextView.text = mondayArray[i]
             mondayTextView.gravity = Gravity.CENTER
-            if (i != 5) {
-                mondayTextView.setBackgroundResource(R.drawable.schedule_cell_border)
-            }
             mondayTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
             mondayTextView.setTextColor(Color.BLACK)
 
-            val matchedPair = pairArray.find { i in it.first..it.second }
-            if (i == matchedPair?.first) {
-                mondayTextView.layoutParams = LinearLayout.LayoutParams(width, height, 2f)
-            } else if (i == matchedPair?.second) {
-                continue
+            val matchedPair = consecutiveIndexes.find { i in it.first..it.second }
+            if (matchedPair != null) {
+                val (startIndex, endIndex) = matchedPair
+                if (i == startIndex) {
+                    val span = endIndex - startIndex + 1
+                    mondayTextView.layoutParams = LinearLayout.LayoutParams(width, height * span)
+                    mondayTextView.text = mondayArray[startIndex]
+                } else {
+                    continue
+                }
             } else {
                 mondayTextView.layoutParams = LinearLayout.LayoutParams(width, height)
             }
-
-            applySubjectColor(mondayArray[i], mondayTextView)
 
             mondayTextView.setOnClickListener {
                 val cellText = mondayTextView.text.toString()
                 Log.d(TAG, "cellText: $cellText")
 
-                showEditSubjectSheet(cellText)
+                if(cellText.isNotEmpty() && !(i == 0 || i == 5)) {
+                    showEditSubjectSheet(cellText)
+                }
+            }
+
+            if (i != 5) {
+                mondayTextView.setBackgroundResource(R.drawable.schedule_cell_border)
+                applySubjectColor(mondayArray[i], mondayTextView)
+            } else {
+                mondayTextView.setBackgroundResource(R.drawable.schedule_cell_left_border)
             }
 
             mondayLayout.addView(mondayTextView)
@@ -217,13 +199,6 @@ class ScheduleFragment : Fragment() {
 
     private fun tuesdayScheduleInit(width: Int, height: Int) {
         val consecutiveIndexes = findConsecutiveIndexes(tuesdayArray)
-        val pairArray = mutableListOf<Pair<Int, Int>>()
-
-        for (pair in consecutiveIndexes) {
-            val startIndex = pair.first
-            val endIndex = pair.second
-            pairArray.add(startIndex to endIndex)
-        }
 
         for (i in 0 until tuesdayArray.size) {
             val tuesdayTextView = TextView(requireContext())
@@ -233,103 +208,98 @@ class ScheduleFragment : Fragment() {
             if (i == 5) {
                 tuesdayTextView.text = "점심"
                 tuesdayTextView.gravity = Gravity.END or Gravity.CENTER_VERTICAL
-            }
-            else if (i != 5) {
+            } else {
                 tuesdayTextView.setBackgroundResource(R.drawable.schedule_cell_border)
             }
-            else {
-                tuesdayTextView.text = tuesdayArray[i]
-            }
-
 
             tuesdayTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
             tuesdayTextView.setTextColor(Color.BLACK)
 
-            val matchedPair = pairArray.find { i in it.first..it.second }
-            if (i == matchedPair?.first) {
-                tuesdayTextView.layoutParams = LinearLayout.LayoutParams(width, height, 2f)
-            }
-            else if (i == matchedPair?.second) {
-                continue
-            }
-            else {
+            val matchedPair = consecutiveIndexes.find { i in it.first..it.second }
+            if (matchedPair != null) {
+                val (startIndex, endIndex) = matchedPair
+                if (i == startIndex) {
+                    val span = endIndex - startIndex + 1
+                    tuesdayTextView.layoutParams = LinearLayout.LayoutParams(width, height * span)
+                    tuesdayTextView.text = tuesdayArray[startIndex]
+                } else {
+                    continue
+                }
+            } else {
                 tuesdayTextView.layoutParams = LinearLayout.LayoutParams(width, height)
             }
-
-            applySubjectColor(tuesdayArray[i], tuesdayTextView)
 
             tuesdayTextView.setOnClickListener {
                 val cellText = tuesdayTextView.text.toString()
                 Log.d(TAG, "cellText: $cellText")
 
-                showEditSubjectSheet(cellText)
+                if(cellText.isNotEmpty() && !(i == 0 || i == 5)) {
+                    showEditSubjectSheet(cellText)
+                }
+            }
+
+            // 테두리 그리기
+            if (i != 5) {
+                tuesdayTextView.setBackgroundResource(R.drawable.schedule_cell_border)
+                applySubjectColor(tuesdayArray[i], tuesdayTextView)
             }
 
             tuesdayLayout.addView(tuesdayTextView)
         }
     }
 
-    private fun wednesdayScheduleInit(width: Int, height : Int) {
+    private fun wednesdayScheduleInit(width: Int, height: Int) {
         val consecutiveIndexes = findConsecutiveIndexes(wednesdayArray)
-        val pairArray = mutableListOf<Pair<Int, Int>>()
-
-        for (pair in consecutiveIndexes) {
-            val startIndex = pair.first
-            val endIndex = pair.second
-            pairArray.add(startIndex to endIndex)
-        }
 
         for (i in 0 until wednesdayArray.size) {
             val wednesdayTextView = TextView(requireContext())
             wednesdayTextView.text = wednesdayArray[i]
             wednesdayTextView.gravity = Gravity.CENTER
+
             if (i == 5) {
                 wednesdayTextView.text = "시간"
                 wednesdayTextView.gravity = Gravity.START or Gravity.CENTER_VERTICAL
-            }
-            else if (i != 5) {
+            } else {
                 wednesdayTextView.setBackgroundResource(R.drawable.schedule_cell_border)
-            }
-            else {
-                wednesdayTextView.text = wednesdayArray[i]
             }
 
             wednesdayTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
             wednesdayTextView.setTextColor(Color.BLACK)
 
-            val matchedPair = pairArray.find { i in it.first..it.second }
-            if (i == matchedPair?.first) {
-                wednesdayTextView.layoutParams = LinearLayout.LayoutParams(width, height, 2f)
-            }
-            else if (i == matchedPair?.second) {
-                continue
-            }
-            else {
+            val matchedPair = consecutiveIndexes.find { i in it.first..it.second }
+            if (matchedPair != null) {
+                val (startIndex, endIndex) = matchedPair
+                if (i == startIndex) {
+                    val span = endIndex - startIndex + 1
+                    wednesdayTextView.layoutParams = LinearLayout.LayoutParams(width, height * span)
+                    wednesdayTextView.text = wednesdayArray[startIndex]
+                } else {
+                    continue
+                }
+            } else {
                 wednesdayTextView.layoutParams = LinearLayout.LayoutParams(width, height)
             }
-
-            applySubjectColor(wednesdayArray[i], wednesdayTextView)
 
             wednesdayTextView.setOnClickListener {
                 val cellText = wednesdayTextView.text.toString()
                 Log.d(TAG, "cellText: $cellText")
 
-                showEditSubjectSheet(cellText)
+                if(cellText.isNotEmpty() && !(i == 0 || i == 5)) {
+                    showEditSubjectSheet(cellText)
+                }
+            }
+
+            if (i != 5) {
+                wednesdayTextView.setBackgroundResource(R.drawable.schedule_cell_border)
+                applySubjectColor(wednesdayArray[i], wednesdayTextView)
             }
 
             wednesdayLayout.addView(wednesdayTextView)
         }
     }
 
-    private fun thursdayScheduleInit(width: Int, height : Int) {
+    private fun thursdayScheduleInit(width: Int, height: Int) {
         val consecutiveIndexes = findConsecutiveIndexes(thursdayArray)
-        val pairArray = mutableListOf<Pair<Int, Int>>()
-
-        for (pair in consecutiveIndexes) {
-            val startIndex = pair.first
-            val endIndex = pair.second
-            pairArray.add(startIndex to endIndex)
-        }
 
         for (i in 0 until thursdayArray.size) {
             val thursdayTextView = TextView(requireContext())
@@ -339,77 +309,83 @@ class ScheduleFragment : Fragment() {
             thursdayTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
             thursdayTextView.setTextColor(Color.BLACK)
 
-            if(i != 5) {
+            if (i != 5) {
                 thursdayTextView.setBackgroundResource(R.drawable.schedule_cell_border)
             }
 
-            val matchedPair = pairArray.find { i in it.first..it.second }
-            if (i == matchedPair?.first) {
-                thursdayTextView.layoutParams = LinearLayout.LayoutParams(width, height, 2f)
-            }
-            else if (i == matchedPair?.second) {
-                continue
-            }
-            else {
+            val matchedPair = consecutiveIndexes.find { i in it.first..it.second }
+            if (matchedPair != null) {
+                val (startIndex, endIndex) = matchedPair
+                if (i == startIndex) {
+                    val span = endIndex - startIndex + 1
+                    thursdayTextView.layoutParams = LinearLayout.LayoutParams(width, height * span)
+                    thursdayTextView.text = thursdayArray[startIndex]
+                } else {
+                    continue
+                }
+            } else {
                 thursdayTextView.layoutParams = LinearLayout.LayoutParams(width, height)
             }
-
-            applySubjectColor(thursdayArray[i], thursdayTextView)
 
             thursdayTextView.setOnClickListener {
                 val cellText = thursdayTextView.text.toString()
                 Log.d(TAG, "cellText: $cellText")
 
-                showEditSubjectSheet(cellText)
+                if(cellText.isNotEmpty() && !(i == 0 || i == 5)) {
+                    showEditSubjectSheet(cellText)
+                }
+            }
+
+            if (i != 5) {
+                thursdayTextView.setBackgroundResource(R.drawable.schedule_cell_border)
+                applySubjectColor(thursdayArray[i], thursdayTextView)
             }
 
             thursdayLayout.addView(thursdayTextView)
         }
     }
 
-    private fun fridayScheduleInit(width: Int, height : Int) {
+    private fun fridayScheduleInit(width: Int, height: Int) {
         val consecutiveIndexes = findConsecutiveIndexes(fridayArray)
-        val pairArray = mutableListOf<Pair<Int, Int>>()
-
-        for (pair in consecutiveIndexes) {
-            val startIndex = pair.first
-            val endIndex = pair.second
-            pairArray.add(startIndex to endIndex)
-        }
 
         for (i in 0 until fridayArray.size) {
             val fridayTextView = TextView(requireContext())
             fridayTextView.text = fridayArray[i]
             fridayTextView.gravity = Gravity.CENTER
+
             fridayTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
             fridayTextView.setTextColor(Color.BLACK)
             fridayTextView.setBackgroundResource(R.drawable.schedule_cell_right_border)
 
-            val matchedPair = pairArray.find { i in it.first..it.second }
-            if (i == matchedPair?.first) {
-                fridayTextView.layoutParams = LinearLayout.LayoutParams(width, height, 2f)
-            }
-            else if (i == matchedPair?.second) {
-                continue
-            }
-            else {
+            val matchedPair = consecutiveIndexes.find { i in it.first..it.second }
+            if (matchedPair != null) {
+                val (startIndex, endIndex) = matchedPair
+                if (i == startIndex) {
+                    val span = endIndex - startIndex + 1
+                    fridayTextView.layoutParams = LinearLayout.LayoutParams(width, height * span)
+                    fridayTextView.text = fridayArray[startIndex]
+                } else {
+                    continue
+                }
+            } else {
                 fridayTextView.layoutParams = LinearLayout.LayoutParams(width, height)
             }
-
-            applySubjectColor(fridayArray[i], fridayTextView)
 
             fridayTextView.setOnClickListener {
                 val cellText = fridayTextView.text.toString()
                 Log.d(TAG, "cellText: $cellText")
 
-                showEditSubjectSheet(cellText)
+                if(cellText.isNotEmpty() && !(i == 0 || i == 5)) {
+                    showEditSubjectSheet(cellText)
+                }
             }
+
+            fridayTextView.setBackgroundResource(R.drawable.schedule_cell_right_border)
+            applySubjectColor(fridayArray[i], fridayTextView)
 
             fridayLayout.addView(fridayTextView)
         }
     }
-
-
 
     // 중복되는 인덱스가 있는지 확인하는 함수
     private fun findConsecutiveIndexes(array: Array<String>): List<Pair<Int, Int>> {
@@ -450,25 +426,33 @@ class ScheduleFragment : Fragment() {
 
     // 과목 색상 셋업 함수
     private fun subjectColorInit() {
-        lifecycleScope.launch {
-            try {
-                for (index in subjectArray.indices) {
-                    val subject = subjectArray[index]
-                    val subjectName = subject.first
+        KakaoSdk.init(requireContext(), KakaoRef.APP_KEY)
+        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
+            if (error != null) {
+                Log.e(TAG, "토큰 정보 보기 실패", error)
+            } else if (tokenInfo != null) {
+                lifecycleScope.launch {
+                    try {
+                        for (index in subjectArray.indices) {
+                            val subject = subjectArray[index]
+                            val subjectName = subject.first
 
-                    val subjectColor = firebaseManager.readSubjectData(subjectName)
-                    if (subjectColor != null) {
-                        Log.d(TAG, "Subject Color: $subjectColor")
-                        subjectArray[index] = Pair(subjectName, subjectColor)
-                    } else {
-                        Log.d(TAG, "Subject Color is Null")
+                            val subjectColor = firebaseManager.readSubjectData(tokenInfo.id.toString(), subjectName)
+
+                            if (subjectColor != null) {
+                                Log.d(TAG, "Subject Color : $subjectColor")
+                                subjectArray[index] = Pair(subjectName, subjectColor)
+                            } else {
+                                Log.d(TAG, "Subject Color is Null")
+                            }
+                        }
+
+                        // 과목 색상 설정 후 각 요일 Cell 초기화
+                        classScheduleInit()
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Failed to Read", e)
                     }
                 }
-
-                // 과목 색상 설정 후 각 요일 Cell 초기화
-                classScheduleInit()
-            } catch (e: Exception) {
-                Log.e(TAG, "Failed to Read", e)
             }
         }
     }
@@ -479,19 +463,23 @@ class ScheduleFragment : Fragment() {
 
         if (matchedSubject != null) {
             val subjectColor = matchedSubject.second
-
             val color = when (subjectColor) {
-                subjectColorStringArray[0] -> ContextCompat.getColor(requireContext(), subjectColorArray[0])
-                subjectColorStringArray[1] -> ContextCompat.getColor(requireContext(), subjectColorArray[1])
-                subjectColorStringArray[2] -> ContextCompat.getColor(requireContext(), subjectColorArray[2])
-                subjectColorStringArray[3] -> ContextCompat.getColor(requireContext(), subjectColorArray[3])
-                subjectColorStringArray[4] -> ContextCompat.getColor(requireContext(), subjectColorArray[4])
-                subjectColorStringArray[5] -> ContextCompat.getColor(requireContext(), subjectColorArray[5])
-                subjectColorStringArray[6] -> ContextCompat.getColor(requireContext(), subjectColorArray[6])
-                subjectColorStringArray[7] -> ContextCompat.getColor(requireContext(), subjectColorArray[7])
+                subjectColors[0] -> ContextCompat.getColor(requireContext(), R.color.subject_default_color)
+                subjectColors[1] -> ContextCompat.getColor(requireContext(), R.color.subject_light_blue_color)
+                subjectColors[2] -> ContextCompat.getColor(requireContext(), R.color.subject_light_pink_color)
+                subjectColors[3] -> ContextCompat.getColor(requireContext(), R.color.subject_light_lemon_color)
+                subjectColors[4] -> ContextCompat.getColor(requireContext(), R.color.subject_light_violet_color)
+                subjectColors[5] -> ContextCompat.getColor(requireContext(), R.color.subject_light_purple_color)
+                subjectColors[6] -> ContextCompat.getColor(requireContext(), R.color.subject_light_salmon_color)
+                subjectColors[7] -> ContextCompat.getColor(requireContext(), R.color.subject_light_green_color)
                 else -> Color.WHITE // 기본값으로 설정할 색상
             }
-            textView.setBackgroundColor(color)
+
+            val drawable = GradientDrawable()
+            drawable.shape = GradientDrawable.RECTANGLE
+            drawable.setColor(color)
+            drawable.setStroke(1, ContextCompat.getColor(requireContext(), R.color.gray_7))
+            textView.background = drawable
         }
     }
 
