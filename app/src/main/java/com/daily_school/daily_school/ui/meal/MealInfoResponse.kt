@@ -32,5 +32,7 @@ data class Row(
     @SerializedName("DDISH_NM")
     val dDISHNM : String?,
     @SerializedName("CAL_INFO")
-    val cALINFO : String
+    val cALINFO : String,
+    @SerializedName("MLSV_FROM_YMD")
+    val mLSVFROMYMD : String
 )
