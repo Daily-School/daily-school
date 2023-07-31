@@ -40,7 +40,7 @@
                     android:layout_marginLeft="11dp"
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/pretendard"
-                    android:text="2023년 05월 22일"
+                    android:text=""
                     android:textColor="@color/gray_1"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@+id/mealBreakfastDateRectangle"
@@ -85,6 +85,30 @@
                     app:layout_constraintStart_toEndOf="@+id/mealBreakfastTodayTextView"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <!-- 칼로리 텍스트뷰 영역-->
+                <ImageView
+                    android:id="@+id/mealBreakfastCalorieRectangle"
+                    android:layout_width="77dp"
+                    android:layout_height="22dp"
+                    android:layout_marginTop="76dp"
+                    android:layout_marginLeft="9dp"
+                    android:src="@drawable/radius_gray8_rectangle"
+                    app:layout_constraintStart_toEndOf="@+id/mealBreakfastTodayIc"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- 칼로리 텍스트뷰-->
+                <TextView
+                    android:id="@+id/mealBreakfastCalorieTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard"
+                    android:text=""
+                    android:textColor="@color/gray_1"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/mealBreakfastCalorieRectangle"
+                    app:layout_constraintEnd_toEndOf="@+id/mealBreakfastCalorieRectangle"
+                    app:layout_constraintStart_toStartOf="@+id/mealBreakfastCalorieRectangle"
+                    app:layout_constraintTop_toTopOf="@+id/mealBreakfastCalorieRectangle" />
 
                 <!--    오늘의 급식 다이어로그로 가는 아이콘-->
                 <ImageView
@@ -170,12 +194,11 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/mealBreakfastPlanRectangle" />
 
-
                 <!--   이번주 급식 리사이클러뷰-->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/weeklyBreakfastMealRv"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
