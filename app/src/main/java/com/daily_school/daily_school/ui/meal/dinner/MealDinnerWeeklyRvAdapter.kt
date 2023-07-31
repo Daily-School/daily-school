@@ -23,7 +23,7 @@ class MealDinnerWeeklyRvAdapter(val context : Context, private val items : Mutab
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MealDinnerWeeklyRvAdapter.ViewHolder {
+    ): ViewHolder {
 
         val view = MealDinnerWeekRvItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
@@ -34,8 +34,10 @@ class MealDinnerWeeklyRvAdapter(val context : Context, private val items : Mutab
 
         val item = items[position]
 
+        holder.dinnerWeekDate.text = item.dinnerDate
+
         // itemCount가 0이 아니면 리사이클러뷰를 visible 상태로 바꿈
-        if (itemCount != 0){
+        if (item.innerList.size > 1){
             holder.dinnerWeekNotionIc.visibility = View.INVISIBLE
             holder.dinnerWeekMealInfoTextView.visibility = View.INVISIBLE
             holder.dinnerMealWeekEachInfoRv.visibility = View.VISIBLE

@@ -47,6 +47,12 @@ class MealBreakfastFragment : Fragment() {
 
     private lateinit var weeklyItems: MutableList<MealBreakfastWeeklyModel>
 
+    private var month : String = ""
+    private var day : String = ""
+
+    private var weeklyMonth : String = ""
+    private var weeklyDay : String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -65,6 +71,8 @@ class MealBreakfastFragment : Fragment() {
             dateValue = bundle.getString("bundleMonthKey")!!
             Log.d(TAG, dateValue)
 
+            todayMeal()
+
         }
 
     }
@@ -74,6 +82,15 @@ class MealBreakfastFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_meal_breakfast, container, false)
+
+        val swipe = binding.breakfastSwipe
+        swipe.setOnRefreshListener {
+            loadMealDate()
+            todayMeal()
+            weeklyMeal()
+
+            swipe.isRefreshing = false
+        }
 
         // 파이어베이스에 저장 되어있는 날짜 연결 함수 호출
         loadMealDate()
@@ -315,9 +332,18 @@ class MealBreakfastFragment : Fragment() {
                                 dateValue = mealDateInfo.toString()
                                 dateTextValue = dateText.toString()
 
-                                var weeklyDate = dateTextValue.replace("2023년", "").trim()
-                                var month = weeklyDate.substring(0, 3)
-                                var day = weeklyDate.substring(4, 6)
+                                val weeklyDate = dateTextValue.replace("2023년", "").trim()
+
+                                Log.d(TAG, weeklyDate.length.toString())
+
+                                if(weeklyDate.length == 7){
+                                    month = weeklyDate.substring(0, 3)
+                                    day = weeklyDate.substring(4, 6)
+                                }
+                                else if (weeklyDate.length == 6){
+                                    month = weeklyDate.substring(0, 3)
+                                    day = weeklyDate.substring(4, 5)
+                                }
 
                                 UserApiClient.instance.me { user, error ->
                                     if (error != null) {
@@ -379,11 +405,17 @@ class MealBreakfastFragment : Fragment() {
 
                                                                 Log.d(TAG, arr.toString())
 
-                                                                val month = date.substring(4, 6)
-                                                                val day = date.substring(6, 8)
+                                                                if(date.length == 7){
+                                                                    weeklyMonth = date.substring(4, 6)
+                                                                    weeklyDay = date.substring(6, 7)
+                                                                }
+                                                                else if(date.length == 8){
+                                                                    weeklyMonth = date.substring(4, 6)
+                                                                    weeklyDay = date.substring(6, 8)
+                                                                }
 
                                                                 val mealDay =
-                                                                    month + "월 " + day + "일"
+                                                                    weeklyMonth + "월 " + weeklyDay + "일"
 
 
                                                                 when (arr.size) {

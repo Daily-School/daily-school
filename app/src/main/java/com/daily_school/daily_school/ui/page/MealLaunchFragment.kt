@@ -47,6 +47,12 @@ class MealLaunchFragment : Fragment() {
 
     private var dateTextValue: String = ""
 
+    private var month : String = ""
+    private var day : String = ""
+
+    private var weeklyMonth : String = ""
+    private var weeklyDay : String = ""
+
     private lateinit var weeklyItems: MutableList<MealLaunchWeeklyModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,6 +73,8 @@ class MealLaunchFragment : Fragment() {
             dateValue = bundle.getString("bundleMonthKey")!!
             Log.d(TAG, dateValue)
 
+            todayMeal()
+
         }
 
     }
@@ -77,6 +85,15 @@ class MealLaunchFragment : Fragment() {
     ): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_meal_launch, container, false)
+
+        val swipe = binding.launchSwipe
+        swipe.setOnRefreshListener {
+            loadMealDate()
+            todayMeal()
+            weeklyMeal()
+
+            swipe.isRefreshing = false
+        }
 
         // 파이어베이스에 저장 되어있는 날짜 연결 함수 호출
         loadMealDate()
@@ -316,9 +333,20 @@ class MealLaunchFragment : Fragment() {
                                 dateValue = mealDateInfo.toString()
                                 dateTextValue = dateText.toString()
 
-                                var weeklyDate = dateTextValue.replace("2023년", "").trim()
-                                var month = weeklyDate.substring(0, 3)
-                                var day = weeklyDate.substring(4, 6)
+                                val weeklyDate = dateTextValue.replace("2023년", "").trim()
+
+                                Log.d(TAG, weeklyDate.length.toString())
+
+                                if(weeklyDate.length == 7){
+                                    month = weeklyDate.substring(0, 3)
+                                    day = weeklyDate.substring(4, 6)
+                                }
+                                else if (weeklyDate.length == 6){
+                                    month = weeklyDate.substring(0, 3)
+                                    day = weeklyDate.substring(4, 5)
+                                }
+
+
 
                                 UserApiClient.instance.me { user, error ->
                                     if (error != null) {
@@ -326,10 +354,9 @@ class MealLaunchFragment : Fragment() {
                                     } else if (user != null) {
                                         Log.e(TAG, "사용자 정보 요청 성공 : $user")
 
-
                                         weeklyItems = mutableListOf(
                                             MealLaunchWeeklyModel(
-                                                month + " " + (day.toInt()) + "일", mutableListOf(
+                                                month + " " + day.toInt() + "일", mutableListOf(
                                                     MealLaunchWeeklyEachModel(weeklyDate)
                                                 )
                                             )
@@ -380,11 +407,18 @@ class MealLaunchFragment : Fragment() {
 
                                                                 Log.d(TAG, arr.toString())
 
-                                                                val month = date.substring(4, 6)
-                                                                val day = date.substring(6, 8)
+
+                                                                if(date.length == 7){
+                                                                    weeklyMonth = date.substring(4, 6)
+                                                                    weeklyDay = date.substring(6, 7)
+                                                                }
+                                                                else if(date.length == 8){
+                                                                    weeklyMonth = date.substring(4, 6)
+                                                                    weeklyDay = date.substring(6, 8)
+                                                                }
 
                                                                 val mealDay =
-                                                                    month + "월 " + day + "일"
+                                                                    weeklyMonth + "월 " + weeklyDay + "일"
 
 
                                                                 when (arr.size) {
