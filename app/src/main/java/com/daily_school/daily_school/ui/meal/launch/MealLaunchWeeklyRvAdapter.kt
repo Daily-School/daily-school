@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.daily_school.daily_school.databinding.MealWeekRvItemBinding
 
@@ -39,7 +38,7 @@ class MealLaunchWeeklyRvAdapter(val context: Context, private val items : Mutabl
         holder.launchWeekDate.text = item.date
 
         // itemCount가 0이 아니면 리사이클러뷰를 visible 상태로 바꿈
-        if (itemCount != 0){
+        if (item.innerList.size > 1){
             holder.launchWeekNotionIc.visibility = View.INVISIBLE
             holder.launchWeekMealInfoTextView.visibility = View.INVISIBLE
             holder.launchMealWeekEachInfoRv.visibility = View.VISIBLE

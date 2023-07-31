@@ -97,7 +97,6 @@ class MealCalendarFragment : BottomSheetDialogFragment(), OnItemListener{
 
                 }
             }
-            val result = "hello"
 
             setFragmentResult("requestKey", bundleOf("bundleKey" to monthYearDay))
             setFragmentResult("monthKey", bundleOf("bundleMonthKey" to yearMonthDay))
