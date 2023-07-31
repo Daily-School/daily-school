@@ -20,7 +20,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/pretendard"
-            android:text="4월 21일 (월)"
+            android:text=""
             android:textColor="@color/main_color"
             android:textSize="18sp"
             android:textStyle="bold"

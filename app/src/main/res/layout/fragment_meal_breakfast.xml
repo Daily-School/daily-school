@@ -14,197 +14,203 @@
             android:layout_height="match_parent"
             tools:context=".ui.page.MealBreakfastFragment">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/breakfastSwipe"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white">
+                android:layout_height="match_parent">
 
-
-                <!--    날짜 감싸는 박스-->
-                <ImageView
-                    android:id="@+id/mealBreakfastDateRectangle"
-                    android:layout_width="160dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="20dp"
-                    android:src="@drawable/radius_gray6_rectangle"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                <!--    날짜 텍스트뷰-->
-                <TextView
-                    android:id="@+id/mealBreakfastDateTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="11dp"
-                    android:layout_marginTop="4dp"
-                    android:fontFamily="@font/pretendard"
-                    android:text=""
-                    android:textColor="@color/gray_1"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/mealBreakfastDateRectangle"
-                    app:layout_constraintTop_toTopOf="@+id/mealBreakfastDateRectangle" />
-
-
-
-                <!--    날짜 다이어로그로 가는 아이콘-->
-                <ImageView
-                    android:id="@+id/mealBreakfastIcToDateDialog"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="12dp"
-                    android:src="@drawable/ic_meal_down"
-                    app:layout_constraintStart_toEndOf="@+id/mealBreakfastDateTextView"
-                    app:layout_constraintTop_toTopOf="@+id/mealBreakfastDateRectangle" />
-
-
-                <!--     오늘의 급식 텍스트뷰-->
-                <TextView
-                    android:id="@+id/mealBreakfastTodayTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="74dp"
-                    android:fontFamily="@font/pretendard_extrabold"
-                    android:text="오늘의 급식"
-                    android:textColor="@color/gray_1"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <!--    오늘의 급식 아이콘-->
-                <ImageView
-                    android:id="@+id/mealBreakfastTodayIc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginTop="76dp"
-                    android:src="@drawable/ic_meal_food"
-                    app:layout_constraintStart_toEndOf="@+id/mealBreakfastTodayTextView"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <!-- 칼로리 텍스트뷰 영역-->
-                <ImageView
-                    android:id="@+id/mealBreakfastCalorieRectangle"
-                    android:layout_width="77dp"
-                    android:layout_height="22dp"
-                    android:layout_marginTop="76dp"
-                    android:layout_marginLeft="9dp"
-                    android:src="@drawable/radius_gray8_rectangle"
-                    app:layout_constraintStart_toEndOf="@+id/mealBreakfastTodayIc"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <!-- 칼로리 텍스트뷰-->
-                <TextView
-                    android:id="@+id/mealBreakfastCalorieTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/pretendard"
-                    android:text=""
-                    android:textColor="@color/gray_1"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/mealBreakfastCalorieRectangle"
-                    app:layout_constraintEnd_toEndOf="@+id/mealBreakfastCalorieRectangle"
-                    app:layout_constraintStart_toStartOf="@+id/mealBreakfastCalorieRectangle"
-                    app:layout_constraintTop_toTopOf="@+id/mealBreakfastCalorieRectangle" />
-
-                <!--    오늘의 급식 다이어로그로 가는 아이콘-->
-                <ImageView
-                    android:id="@+id/mealBreakfastIcToMealDialog"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="74dp"
-                    android:layout_marginRight="20dp"
-                    android:src="@drawable/ic_profile_right"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                <!--    오늘의 급식 감싸는 박스-->
-                <ImageView
-                    android:id="@+id/mealBreakfastPlanRectangle"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="140dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="17dp"
-                    android:layout_marginRight="20dp"
-                    android:src="@drawable/radius_blue_rectangle"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/mealBreakfastTodayTextView" />
+                    android:layout_height="match_parent"
+                    android:background="@color/white">
 
-                <!--    급식이 제공되지 않을 때 나오는 아이콘-->
-                <ImageView
-                    android:id="@+id/mealBreakfastNotionIc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="160dp"
-                    android:layout_marginTop="33dp"
-                    android:src="@drawable/ic_meal_notion"
-                    android:visibility="visible"
-                    app:layout_constraintStart_toStartOf="@+id/mealBreakfastPlanRectangle"
-                    app:layout_constraintTop_toTopOf="@+id/mealBreakfastPlanRectangle" />
+                    <!--    날짜 감싸는 박스-->
+                    <ImageView
+                        android:id="@+id/mealBreakfastDateRectangle"
+                        android:layout_width="160dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/radius_gray6_rectangle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
-                <!--    급식이 나오지 않을 때 나오는 텍스트뷰-->
-                <TextView
-                    android:id="@+id/mealBreakfastNotionTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="130dp"
-                    android:layout_marginTop="9dp"
-                    android:fontFamily="@font/pretendard"
-                    android:gravity="center"
-                    android:text="급식이 제공되지\n않는 날이에요"
-                    android:textColor="@color/gray_5"
-                    android:textSize="14sp"
-                    android:visibility="visible"
-                    app:layout_constraintStart_toStartOf="@+id/mealBreakfastPlanRectangle"
-                    app:layout_constraintTop_toBottomOf="@+id/mealBreakfastNotionIc" />
+                    <!--    날짜 텍스트뷰-->
+                    <TextView
+                        android:id="@+id/mealBreakfastDateTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="11dp"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/pretendard"
+                        android:text=""
+                        android:textColor="@color/gray_1"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="@+id/mealBreakfastDateRectangle"
+                        app:layout_constraintTop_toTopOf="@+id/mealBreakfastDateRectangle" />
 
 
-                <!--    오늘의 급식 리사이클러뷰-->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/todayBreakfastMealRv"
-                    android:layout_marginTop="22dp"
-                    android:layout_marginLeft="24dp"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/mealBreakfastPlanRectangle"
-                    app:layout_constraintEnd_toEndOf="@+id/mealBreakfastPlanRectangle"
-                    app:layout_constraintStart_toStartOf="@+id/mealBreakfastPlanRectangle"
-                    app:layout_constraintTop_toTopOf="@+id/mealBreakfastPlanRectangle" />
+
+                    <!--    날짜 다이어로그로 가는 아이콘-->
+                    <ImageView
+                        android:id="@+id/mealBreakfastIcToDateDialog"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="12dp"
+                        android:src="@drawable/ic_meal_down"
+                        app:layout_constraintStart_toEndOf="@+id/mealBreakfastDateTextView"
+                        app:layout_constraintTop_toTopOf="@+id/mealBreakfastDateRectangle" />
 
 
-                <!--    이번주 급식 텍스트뷰-->
-                <TextView
-                    android:id="@+id/mealBreakfastWeekTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="21dp"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/pretendard"
-                    android:text="이번주 급식"
-                    android:textColor="@color/gray_1"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/mealBreakfastPlanRectangle" />
+                    <!--     오늘의 급식 텍스트뷰-->
+                    <TextView
+                        android:id="@+id/mealBreakfastTodayTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="74dp"
+                        android:fontFamily="@font/pretendard_extrabold"
+                        android:text="오늘의 급식"
+                        android:textColor="@color/gray_1"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <!--   이번주 급식 리사이클러뷰-->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/weeklyBreakfastMealRv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/mealBreakfastWeekTextView" />
+                    <!--    오늘의 급식 아이콘-->
+                    <ImageView
+                        android:id="@+id/mealBreakfastTodayIc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginTop="76dp"
+                        android:src="@drawable/ic_meal_food"
+                        app:layout_constraintStart_toEndOf="@+id/mealBreakfastTodayTextView"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <!-- 칼로리 텍스트뷰 영역-->
+                    <ImageView
+                        android:id="@+id/mealBreakfastCalorieRectangle"
+                        android:layout_width="77dp"
+                        android:layout_height="22dp"
+                        android:layout_marginTop="76dp"
+                        android:layout_marginLeft="9dp"
+                        android:src="@drawable/radius_gray8_rectangle"
+                        app:layout_constraintStart_toEndOf="@+id/mealBreakfastTodayIc"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <!-- 칼로리 텍스트뷰-->
+                    <TextView
+                        android:id="@+id/mealBreakfastCalorieTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/pretendard"
+                        android:text=""
+                        android:textColor="@color/gray_1"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/mealBreakfastCalorieRectangle"
+                        app:layout_constraintEnd_toEndOf="@+id/mealBreakfastCalorieRectangle"
+                        app:layout_constraintStart_toStartOf="@+id/mealBreakfastCalorieRectangle"
+                        app:layout_constraintTop_toTopOf="@+id/mealBreakfastCalorieRectangle" />
+
+                    <!--    오늘의 급식 다이어로그로 가는 아이콘-->
+                    <ImageView
+                        android:id="@+id/mealBreakfastIcToMealDialog"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="74dp"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/ic_profile_right"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <!--    오늘의 급식 감싸는 박스-->
+                    <ImageView
+                        android:id="@+id/mealBreakfastPlanRectangle"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/radius_blue_rectangle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/mealBreakfastTodayTextView" />
+
+                    <!--    급식이 제공되지 않을 때 나오는 아이콘-->
+                    <ImageView
+                        android:id="@+id/mealBreakfastNotionIc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="160dp"
+                        android:layout_marginTop="33dp"
+                        android:src="@drawable/ic_meal_notion"
+                        android:visibility="visible"
+                        app:layout_constraintStart_toStartOf="@+id/mealBreakfastPlanRectangle"
+                        app:layout_constraintTop_toTopOf="@+id/mealBreakfastPlanRectangle" />
+
+
+                    <!--    급식이 나오지 않을 때 나오는 텍스트뷰-->
+                    <TextView
+                        android:id="@+id/mealBreakfastNotionTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="130dp"
+                        android:layout_marginTop="9dp"
+                        android:fontFamily="@font/pretendard"
+                        android:gravity="center"
+                        android:text="급식이 제공되지\n않는 날이에요"
+                        android:textColor="@color/gray_5"
+                        android:textSize="14sp"
+                        android:visibility="visible"
+                        app:layout_constraintStart_toStartOf="@+id/mealBreakfastPlanRectangle"
+                        app:layout_constraintTop_toBottomOf="@+id/mealBreakfastNotionIc" />
+
+
+                    <!--    오늘의 급식 리사이클러뷰-->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/todayBreakfastMealRv"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/mealBreakfastPlanRectangle"
+                        app:layout_constraintEnd_toEndOf="@+id/mealBreakfastPlanRectangle"
+                        app:layout_constraintStart_toStartOf="@+id/mealBreakfastPlanRectangle"
+                        app:layout_constraintTop_toTopOf="@+id/mealBreakfastPlanRectangle" />
+
+
+                    <!--    이번주 급식 텍스트뷰-->
+                    <TextView
+                        android:id="@+id/mealBreakfastWeekTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="21dp"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/pretendard"
+                        android:text="이번주 급식"
+                        android:textColor="@color/gray_1"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/mealBreakfastPlanRectangle" />
+
+                    <!--   이번주 급식 리사이클러뷰-->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/weeklyBreakfastMealRv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/mealBreakfastWeekTextView" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         </FrameLayout>
 
