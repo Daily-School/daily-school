@@ -38,27 +38,36 @@ class HomeFragment : Fragment() {
     private var midDateValue : String = ""
     private var finalDateValue : String = ""
 
-    private var todayDateValue : String? = ""
+    private var todayMidCal : Calendar = Calendar.getInstance()
+    private var dDayMidCal : Calendar = Calendar.getInstance()
 
-    private var midResultValue : String? = ""
-    private var finalResultValue : String? = ""
+    private var midYear : Int = 0
+    private var midMonth : Int = 0
+    private var midDay : Int = 0
+
+    private var todayFinalCal : Calendar = Calendar.getInstance()
+    private var dDayFinalCal : Calendar = Calendar.getInstance()
+
+    private var finalYear : Int = 0
+    private var finalMonth : Int = 0
+    private var finalDay : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setFragmentResultListener("MidDateKey") { _, bundle ->
-            midDateValue = bundle.getString("MidDateKey1")!!
-            Log.e(TAG, midDateValue)
-            changeMidTextView()
-
-        }
-
-        setFragmentResultListener("FinalDateKey") { _, bundle ->
-            finalDateValue = bundle.getString("FinalDateKey1")!!
-            Log.e(TAG, finalDateValue)
-
-            changeFinalTextView()
-        }
+//        setFragmentResultListener("MidDateKey") { _, bundle ->
+//            midDateValue = bundle.getString("MidDateKey1")!!
+//            Log.e(TAG, midDateValue)
+//            changeMidTextView()
+//
+//        }
+//
+//        setFragmentResultListener("FinalDateKey") { _, bundle ->
+//            finalDateValue = bundle.getString("FinalDateKey1")!!
+//            Log.e(TAG, finalDateValue)
+//
+//            changeFinalTextView()
+//        }
     }
 
     override fun onCreateView(
@@ -95,35 +104,67 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun changeMidTextView(){
-        todayDateValue = loadTodayDate(currentDate)
-        midResultValue = (midDateValue.toInt() - todayDateValue!!.toInt()).toString()
-        if(midResultValue!!.toInt() < 0){
-            binding.homeMidDDayTextView.visibility = View.VISIBLE
-            binding.homeMidDayTextView.visibility = View.INVISIBLE
-            binding.homeMidDDayTextView.text = "D+" + abs(midResultValue!!.toInt())
-        }
-        else{
-            binding.homeMidDDayTextView.visibility = View.VISIBLE
-            binding.homeMidDayTextView.visibility = View.INVISIBLE
-            binding.homeMidDDayTextView.text = "D-" + midResultValue!!
-        }
-    }
-
-    private fun changeFinalTextView(){
-        todayDateValue = loadTodayDate(currentDate)
-        finalResultValue = (finalDateValue.toInt() - todayDateValue!!.toInt()).toString()
-        if(finalResultValue!!.toInt() < 0){
-            binding.homeFinalDDayTextView.visibility = View.VISIBLE
-            binding.homeFinalDayTextView.visibility = View.INVISIBLE
-            binding.homeFinalDDayTextView.text = "D+" + abs(finalResultValue!!.toInt())
-        }
-        else{
-            binding.homeFinalDDayTextView.visibility = View.VISIBLE
-            binding.homeFinalDayTextView.visibility = View.INVISIBLE
-            binding.homeFinalDDayTextView.text = "D-" + finalResultValue!!
-        }
-    }
+//    private fun changeMidTextView(){
+//
+//        if (midDateValue.length == 7){
+//            midDateValue = midDateValue.substring(0,6) + "0" + midDateValue.substring(6,7)
+//            midYear = midDateValue.substring(0,4).toInt()
+//            midMonth = midDateValue.substring(4,6).toInt() - 1
+//            midDay = midDateValue.substring(6,7).toInt()
+//        }
+//        else{
+//            midYear = midDateValue.substring(0,4).toInt()
+//            midMonth = midDateValue.substring(4,6).toInt() - 1
+//            midDay = midDateValue.substring(6,8).toInt()
+//        }
+//        dDayMidCal.set(midYear, midMonth, midDay)
+//        val today = todayMidCal.timeInMillis / 86400000
+//        val dDay = dDayMidCal.timeInMillis / 86400000
+//        val count = dDay - today
+//
+//
+//        if(count < 0){
+//            binding.homeMidDDayTextView.visibility = View.VISIBLE
+//            binding.homeMidDayTextView.visibility = View.INVISIBLE
+//            binding.homeMidDDayTextView.text = "D+" + abs(count)
+//        }
+//        else{
+//            binding.homeMidDDayTextView.visibility = View.VISIBLE
+//            binding.homeMidDayTextView.visibility = View.INVISIBLE
+//            binding.homeMidDDayTextView.text = "D-" + abs(count)
+//        }
+//    }
+//
+//    private fun changeFinalTextView(){
+//
+//        if (finalDateValue.length == 7){
+//            finalDateValue = finalDateValue.substring(0,6) + "0" + finalDateValue.substring(6,7)
+//            finalYear = finalDateValue.substring(0,4).toInt()
+//            finalMonth = finalDateValue.substring(4,6).toInt() - 1
+//            finalDay = finalDateValue.substring(6,7).toInt()
+//        }
+//        else{
+//            finalYear = finalDateValue.substring(0,4).toInt()
+//            finalMonth = finalDateValue.substring(4,6).toInt() - 1
+//            finalDay = finalDateValue.substring(6,8).toInt()
+//        }
+//        dDayFinalCal.set(finalYear, finalMonth, finalDay)
+//        val today = todayFinalCal.timeInMillis / 86400000
+//        val dDay = dDayFinalCal.timeInMillis / 86400000
+//        val count = dDay - today
+//
+//
+//        if(count < 0){
+//            binding.homeFinalDDayTextView.visibility = View.VISIBLE
+//            binding.homeFinalDayTextView.visibility = View.INVISIBLE
+//            binding.homeFinalDDayTextView.text = "D+" + abs(count)
+//        }
+//        else{
+//            binding.homeFinalDDayTextView.visibility = View.VISIBLE
+//            binding.homeFinalDayTextView.visibility = View.INVISIBLE
+//            binding.homeFinalDDayTextView.text = "D-" + abs(count)
+//        }
+//    }
 
     private fun changeFirebaseMidTextView(){
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
@@ -135,22 +176,34 @@ class HomeFragment : Fragment() {
                     try {
                         val dateInfo = firebaseManager.readDDayDateInfoData(tokenInfo.id.toString())
                         if (dateInfo != null) {
-                            val midDateText = dateInfo["midDay"].toString()
-                            todayDateValue = loadTodayDate(currentDate)
-                            midResultValue = (midDateText.toInt() - todayDateValue!!.toInt()).toString()
-                            if(midResultValue!!.toInt() < 0){
+                            var midDateText = dateInfo["midDay"].toString()
+                            if (midDateText.length == 7){
+                                midDateText = midDateText.substring(0,6) + "0" + midDateText.substring(6,7)
+                                midYear = midDateText.substring(0,4).toInt()
+                                midMonth = midDateText.substring(4,6).toInt() - 1
+                                midDay = midDateText.substring(6,8).toInt()
+                            }
+                            else{
+                                midYear = midDateText.substring(0,4).toInt()
+                                midMonth = midDateText.substring(4,6).toInt() - 1
+                                midDay = midDateText.substring(6,8).toInt()
+                            }
+                            dDayMidCal.set(midYear, midMonth, midDay)
+                            val today = todayMidCal.timeInMillis / 86400000
+                            val dDay = dDayMidCal.timeInMillis / 86400000
+                            val count = dDay - today
+                            
+
+                            if(count < 0){
                                 binding.homeMidDDayTextView.visibility = View.VISIBLE
                                 binding.homeMidDayTextView.visibility = View.INVISIBLE
-                                binding.homeMidDDayTextView.text = "D+" + abs(midResultValue!!.toInt())
+                                binding.homeMidDDayTextView.text = "D+" + abs(count)
                             }
                             else{
                                 binding.homeMidDDayTextView.visibility = View.VISIBLE
                                 binding.homeMidDayTextView.visibility = View.INVISIBLE
-                                binding.homeMidDDayTextView.text = "D-" + midResultValue!!
+                                binding.homeMidDDayTextView.text = "D-" + abs(count)
                             }
-
-
-                            Log.d(TAG, midResultValue!!)
                         }
 
                     } catch (e: Exception) {
@@ -173,21 +226,35 @@ class HomeFragment : Fragment() {
                     try {
                         val dateInfo = firebaseManager.readDDayDateInfoData(tokenInfo.id.toString())
                         if (dateInfo != null) {
-                            val finalDateText = dateInfo["finalDay"].toString()
-                            todayDateValue = loadTodayDate(currentDate)
-                            finalResultValue = (finalDateText.toInt() - todayDateValue!!.toInt()).toString()
-                            if(finalResultValue!!.toInt() < 0){
+                            var finalDateText = dateInfo["finalDay"].toString()
+                            if (finalDateText.length == 7){
+                                finalDateText = finalDateText.substring(0,6) + "0" + finalDateText.substring(6,7)
+                                finalYear = finalDateText.substring(0,4).toInt()
+                                finalMonth = finalDateText.substring(4,6).toInt() - 1
+                                finalDay = finalDateText.substring(6,8).toInt()
+                            }
+                            else{
+                                finalYear = finalDateText.substring(0,4).toInt()
+                                finalMonth = finalDateText.substring(4,6).toInt() - 1
+                                finalDay = finalDateText.substring(6,8).toInt()
+                            }
+                            Log.d(TAG, finalDateText)
+                            dDayFinalCal.set(finalYear, finalMonth, finalDay)
+                            val today = todayFinalCal.timeInMillis / 86400000
+                            val dDay = dDayFinalCal.timeInMillis / 86400000
+                            val count = dDay - today
+
+
+                            if(count < 0){
                                 binding.homeFinalDDayTextView.visibility = View.VISIBLE
                                 binding.homeFinalDayTextView.visibility = View.INVISIBLE
-                                binding.homeFinalDDayTextView.text = "D+" + abs(finalResultValue!!.toInt())
+                                binding.homeFinalDDayTextView.text = "D+" + abs(count)
                             }
                             else{
                                 binding.homeFinalDDayTextView.visibility = View.VISIBLE
                                 binding.homeFinalDayTextView.visibility = View.INVISIBLE
-                                binding.homeFinalDDayTextView.text = "D-" + finalResultValue!!
+                                binding.homeFinalDDayTextView.text = "D-" + abs(count)
                             }
-
-                            Log.d(TAG, finalResultValue!!)
                         }
 
                     } catch (e: Exception) {
@@ -221,25 +288,17 @@ class HomeFragment : Fragment() {
     }
 
     private fun showMidCalendar(){
-        binding.homeIcMidToCalendar.setOnClickListener {
+        binding.homeMidLayout.setOnClickListener {
             val bottomSheet = HomeCalendarFragment("중간고사",0)
             bottomSheet.show(requireActivity().supportFragmentManager, bottomSheet.tag)
         }
     }
 
     private fun showFinalCalendar(){
-        binding.homeIcFinalToCalendar.setOnClickListener {
+        binding.homeFinalLayout.setOnClickListener {
             val bottomSheet = HomeCalendarFragment("기말고사",1)
             bottomSheet.show(requireActivity().supportFragmentManager, bottomSheet.tag)
         }
-    }
-
-    private fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager){
-
-
-        val ft : FragmentTransaction = fragmentManager.beginTransaction()
-        ft.detach(fragment).attach(fragment).commit()
-
     }
 
     // 유저 정보를 입력시키는 함수
