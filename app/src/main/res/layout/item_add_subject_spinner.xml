@@ -3,7 +3,7 @@
     android:layout_height="40dp"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:background="@color/background_color">
+    android:background="@color/dialog_background_color">
 
     <!-- 스피너 색상 이미지 -->
     <ImageView
