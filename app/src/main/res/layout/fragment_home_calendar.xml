@@ -13,7 +13,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/dialog_background_color">
 
             <!-- 화면 슬라이드를 위한 바-->
             <ImageView
@@ -154,7 +155,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="월"
-                    android:textColor="@color/black"
+                    android:textColor="@color/calendar_black_color"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -165,7 +166,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="화"
-                    android:textColor="@color/black"
+                    android:textColor="@color/calendar_black_color"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -176,7 +177,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="수"
-                    android:textColor="@color/black"
+                    android:textColor="@color/calendar_black_color"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -187,7 +188,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="목"
-                    android:textColor="@color/black"
+                    android:textColor="@color/calendar_black_color"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -198,7 +199,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="금"
-                    android:textColor="@color/black"
+                    android:textColor="@color/calendar_black_color"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 

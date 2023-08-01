@@ -12,7 +12,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/dialog_background_color">
 
             <ImageView
                 android:id="@+id/bottomSheetIc"
@@ -61,7 +62,7 @@
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/pretendard"
                     android:text=""
-                    android:textColor="@color/main_color"
+                    android:textColor="@color/text_color_main_to_dark_main"
                     android:textStyle="bold"
                     android:textSize="18sp" />
             </RelativeLayout>
@@ -71,7 +72,7 @@
                 android:id="@+id/deleteSubjectArea"
                 android:layout_width="103dp"
                 android:layout_height="38dp"
-                android:background="@drawable/radius_white_rectangle"
+                android:background="@drawable/border_gray_radius_white_rectangle"
                 android:layout_marginTop="48dp"
                 android:layout_marginLeft="20dp"
                 app:layout_constraintTop_toTopOf="parent"
@@ -91,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/subject_delete_text"
                     android:textSize="14sp"
-                    android:textColor="@color/main_color"
+                    android:textColor="@color/text_color_main_to_white"
                     android:fontFamily="@font/pretendard"
                     android:layout_marginStart="35dp"
                     android:layout_gravity="center_vertical|start" />
@@ -105,7 +106,7 @@
                 android:layout_marginTop="27dp"
                 android:layout_marginLeft="20dp"
                 android:text="@string/edit_subject_text"
-                android:textColor="@color/black"
+                android:textColor="@color/ic_color_black"
                 android:textSize="18sp"
                 android:fontFamily="@font/pretendard_extrabold"
                 app:layout_constraintTop_toBottomOf="@id/subjectArea"
@@ -118,7 +119,7 @@
                 android:layout_height="50dp"
                 android:hint="@string/edit_subject_hint_text"
                 android:fontFamily="@font/pretendard"
-                android:textColor="@color/black"
+                android:textColor="@color/ic_color_black"
                 android:textColorHint="#C0C0C0"
                 android:textSize="20sp"
                 android:layout_marginLeft="20dp"
@@ -136,7 +137,7 @@
                 android:layout_marginTop="27dp"
                 android:layout_marginLeft="20dp"
                 android:text="@string/add_subject_background_text"
-                android:textColor="@color/black"
+                android:textColor="@color/ic_color_black"
                 android:textSize="18sp"
                 android:fontFamily="@font/pretendard_extrabold"
                 app:layout_constraintTop_toBottomOf="@id/editSubjectNameEdit"

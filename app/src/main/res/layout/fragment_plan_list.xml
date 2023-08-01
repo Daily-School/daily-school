@@ -12,7 +12,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/dialog_background_color">
 
             <!-- 닫기 아이콘 -->
             <ImageView
@@ -31,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textColor="@color/black"
+                android:textColor="@color/ic_color_black"
                 android:textSize="24sp"
                 android:fontFamily="@font/pretendard"
                 app:layout_constraintTop_toBottomOf="@id/planListIcBack"

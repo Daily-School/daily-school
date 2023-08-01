@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.search.SchoolInfoActivity"
-    android:background="@color/white">
+    android:background="@color/background_color">
 
     <!--    학교 정보 입력 텍스트뷰-->
     <TextView

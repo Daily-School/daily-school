@@ -18,7 +18,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/dialog_background_color">
 
                 <!-- 화면을 닫는 아이콘-->
                 <ImageView

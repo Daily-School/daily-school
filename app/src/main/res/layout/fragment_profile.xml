@@ -9,10 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.ProfileFragment">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white">
+            android:background="@color/background_color">
 
             <!--    프로필 메인 텍스트뷰-->
             <TextView
@@ -48,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
                 android:layout_marginTop="15dp"
-                android:background="@color/gray_8"
+                android:background="@color/linear_border_line_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/profileMainTextView"
@@ -61,7 +62,7 @@
                 android:id="@+id/profileGrayRectangle"
                 android:layout_width="match_parent"
                 android:layout_height="190dp"
-                android:background="@color/gray_8"
+                android:background="@color/profile_background_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profileFirstLine">

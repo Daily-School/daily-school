@@ -19,7 +19,7 @@
                 android:id="@+id/homeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white">
+                android:background="@color/background_color">
 
                 <!--    프로필 메인 텍스트뷰-->
                 <TextView
@@ -31,7 +31,7 @@
                     android:fontFamily="@font/pretendard_extrabold"
                     android:gravity="center"
                     android:text=""
-                    android:textColor="@color/gray_2"
+                    android:textColor="@color/text_color_gray_2"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -55,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="5dp"
                     android:layout_marginTop="15dp"
-                    android:background="@color/gray_8"
+                    android:background="@color/linear_border_line_color"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -128,7 +128,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
                     android:layout_marginTop="21dp"
-                    android:background="@color/white"
+                    android:background="@color/background_color"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -150,7 +150,7 @@
                             android:layout_marginTop="8dp"
                             android:fontFamily="@font/pretendard"
                             android:text="중간고사"
-                            android:textColor="@color/gray_1"
+                            android:textColor="@color/ic_color_gray_1"
                             android:textSize="14sp"
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
@@ -164,7 +164,7 @@
                             android:layout_marginTop="4dp"
                             android:fontFamily="@font/pretendard"
                             android:text="디데이 설정하기"
-                            android:textColor="@color/gray_2"
+                            android:textColor="@color/text_color_gray_2"
                             android:textSize="14sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/homeMidTextView" />
@@ -189,7 +189,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
-                            android:layout_marginTop="3dp"
+                            android:layout_marginTop="5dp"
                             android:src="@drawable/ic_home_d_day_right"
                             app:layout_constraintStart_toEndOf="@+id/homeMidDayTextView"
                             app:layout_constraintTop_toTopOf="@+id/homeMidDayTextView" />
@@ -226,7 +226,7 @@
                             android:layout_marginTop="4dp"
                             android:fontFamily="@font/pretendard"
                             android:text="디데이 설정하기"
-                            android:textColor="@color/gray_2"
+                            android:textColor="@color/text_color_gray_2"
                             android:textSize="14sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/homeFinalTextView" />
@@ -251,7 +251,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
-                            android:layout_marginTop="3dp"
+                            android:layout_marginTop="5dp"
                             android:src="@drawable/ic_home_d_day_right"
                             app:layout_constraintStart_toEndOf="@+id/homeFinalDayTextView"
                             app:layout_constraintTop_toTopOf="@+id/homeFinalDayTextView" />
@@ -283,7 +283,7 @@
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/pretendard"
                     android:text="오늘의 할 일"
-                    android:textColor="@color/gray_1"
+                    android:textColor="@color/ic_color_gray_1"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/homeToDoLayout"
@@ -295,7 +295,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/pretendard"
                     android:text="오늘의 할 일이 없어요"
-                    android:textColor="@color/gray_5"
+                    android:textColor="@color/ic_color_gray_5"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/homeToDoLayout"
                     app:layout_constraintEnd_toEndOf="@+id/homeToDoLayout"

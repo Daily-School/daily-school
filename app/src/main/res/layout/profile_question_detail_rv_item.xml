@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="#F8F8FF">
+        android:background="@color/profile_detail_color">
 
         <!-- 질문에 대한 대답 내용 텍스트뷰-->
         <TextView

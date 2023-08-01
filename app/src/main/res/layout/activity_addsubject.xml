@@ -7,7 +7,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/background_color"
         tools:context=".ui.schedule.AddSubjectActivity">
 
         <!-- 시간표 프래그먼트로 이동하는 아이콘-->
@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="5dp"
             android:layout_marginTop="15dp"
-            android:background="@color/gray_8"
+            android:background="@color/linear_border_line_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/AddSubjectMainTextView"

@@ -13,7 +13,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/dialog_background_color">
 
             <!-- 화면 슬라이드를 위한 바-->
             <ImageView
@@ -55,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard"
                 android:text="선택된 날짜"
-                android:textColor="@color/main_color"
+                android:textColor="@color/text_color_main_to_dark_main"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/mealCalendarRadiusGrayRectangle"
                 app:layout_constraintEnd_toEndOf="@+id/mealCalendarRadiusGrayRectangle"
@@ -152,7 +153,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="월"
-                    android:textColor="@color/black"
+                    android:textColor="@color/calendar_black_color"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -163,7 +164,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="화"
-                    android:textColor="@color/black"
+                    android:textColor="@color/calendar_black_color"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -174,7 +175,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="수"
-                    android:textColor="@color/black"
+                    android:textColor="@color/calendar_black_color"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -185,7 +186,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="목"
-                    android:textColor="@color/black"
+                    android:textColor="@color/calendar_black_color"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -196,7 +197,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="금"
-                    android:textColor="@color/black"
+                    android:textColor="@color/calendar_black_color"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 

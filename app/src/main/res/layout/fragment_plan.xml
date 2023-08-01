@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/background_color"
         tools:context=".ui.page.PlanFragment">
 
         <!-- 달력 이전 이동 아이콘 -->
@@ -53,13 +53,14 @@
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:layout_marginTop="10dp"
-            android:background="@color/gray_8"
+            android:background="@color/linear_border_line_color"
             app:layout_constraintTop_toBottomOf="@+id/planMainTextView" />
 
         <LinearLayout
             android:id="@+id/planCalendarDayArea"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:background="@color/background_color"
             android:layout_marginTop="0dp"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
@@ -84,7 +85,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="월"
-                android:textColor="@color/black"
+                android:textColor="@color/ic_color_black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -95,7 +96,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="화"
-                android:textColor="@color/black"
+                android:textColor="@color/ic_color_black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -106,7 +107,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="수"
-                android:textColor="@color/black"
+                android:textColor="@color/ic_color_black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -117,7 +118,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="목"
-                android:textColor="@color/black"
+                android:textColor="@color/ic_color_black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -128,7 +129,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="금"
-                android:textColor="@color/black"
+                android:textColor="@color/ic_color_black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:animateLayoutChanges="true"
-    android:background="@color/white"
+    android:background="@color/background_color"
     android:orientation="vertical">
 
     <!-- 카드 뷰 영역-->

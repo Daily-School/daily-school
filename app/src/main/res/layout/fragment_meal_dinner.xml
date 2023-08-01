@@ -22,7 +22,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white">
+                    android:background="@color/background_color">
 
                     <!--    날짜 감싸는 박스-->
                     <ImageView
