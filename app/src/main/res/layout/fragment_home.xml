@@ -135,6 +135,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/homeNameTextView">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/homeMidLayout"
                         android:layout_width="0dp"
                         android:layout_height="64dp"
                         android:layout_marginLeft="20dp"
@@ -197,6 +198,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/homeFinalLayout"
                         android:layout_width="0dp"
                         android:layout_height="64dp"
                         android:layout_marginLeft="6dp"
