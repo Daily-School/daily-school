@@ -16,6 +16,7 @@ import com.daily_school.daily_school.ui.AccountActivity
 import com.daily_school.daily_school.ui.LoginActivity
 import com.daily_school.daily_school.ui.search.SchoolInfoActivity
 import com.daily_school.daily_school.ui.profile.QuestionActivity
+import com.daily_school.daily_school.ui.profile.ThemeActivity
 import com.daily_school.daily_school.utils.KakaoRef
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.user.UserApiClient
@@ -52,6 +53,9 @@ class ProfileFragment : Fragment() {
         // QuestionActivity 화면 이동 함수 호출
         profileToQuestionActivity()
 
+        // ThemeActivity 화면 이동 함수 호출
+        profileToThemeActivity()
+
         // 유저 정보를 입력시키는 함수 호출
         getSchoolInfoData()
 
@@ -70,6 +74,14 @@ class ProfileFragment : Fragment() {
     private fun profileToQuestionActivity(){
         binding.profileIcToQuestion.setOnClickListener {
             var intent = Intent(context, QuestionActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    // ThemeActivity 화면 이동 함수
+    private fun profileToThemeActivity(){
+        binding.profileIcToTheme.setOnClickListener {
+            var intent = Intent(context, ThemeActivity::class.java)
             startActivity(intent)
         }
     }
