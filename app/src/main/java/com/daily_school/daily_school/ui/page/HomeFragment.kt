@@ -1,6 +1,7 @@
 package com.daily_school.daily_school.ui.page
 
 import FirebaseManager
+import android.graphics.Paint
 import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -20,6 +24,7 @@ import com.daily_school.daily_school.utils.KakaoRef
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.user.UserApiClient
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -99,6 +104,9 @@ class HomeFragment : Fragment() {
         showMidCalendar()
 
         showFinalCalendar()
+
+        // // 할 일 목록을 보여주는 함수 호출
+        showTodoList()
 
         return binding.root
 
@@ -342,4 +350,64 @@ class HomeFragment : Fragment() {
 
     }
 
+    // 할 일 목록을 보여주는 함수
+    private fun showTodoList() {
+        KakaoSdk.init(requireContext(), KakaoRef.APP_KEY)
+        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
+            if (error != null) {
+                Log.e(TAG, "토큰 정보 보기 실패", error)
+            } else if (tokenInfo != null) {
+                val getCurrentDate = currentDate.toString()
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+                val date = dateFormat.parse(getCurrentDate)
+                val getDate = SimpleDateFormat("yyyy-MM-d").format(date)
+
+                lifecycleScope.launch {
+                    try {
+                        val todoList = firebaseManager.readTodoListData(tokenInfo.id.toString())
+                        if (todoList != null) {
+                            Log.d(TAG, "TodoList : $todoList")
+
+                            binding.homeToDoDetailTextView.visibility = View.INVISIBLE
+
+                            val filteredTodoList = todoList.filter { todoItem ->
+                                getDate == todoItem["todoDate"]
+                            }
+
+                            val planTodoLayout = binding.planTodoLayout
+                            val inflater = LayoutInflater.from(requireContext())
+                            planTodoLayout.removeAllViews()
+
+                            for (i in filteredTodoList.indices) {
+                                val todoItem = filteredTodoList[i]
+                                val todoName = todoItem["todoName"].toString()
+                                val todoComplete = todoItem["todoComplete"]
+
+                                val planTodoItem = inflater.inflate(R.layout.plan_todo_check_item, planTodoLayout, false)
+                                val planTodoColorImageView = planTodoItem.findViewById<ImageView>(R.id.planTodoCheckImageView)
+                                val planTodoTextView = planTodoItem.findViewById<TextView>(R.id.planTodoTextView)
+
+                                if(todoComplete == true) {
+                                    val textColorResourceId = R.color.gray_6
+                                    val textColor = ContextCompat.getColor(requireContext(), textColorResourceId)
+
+                                    planTodoTextView.paintFlags = planTodoTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                                    planTodoTextView.setTextColor(textColor)
+                                    planTodoColorImageView.setBackgroundResource(R.drawable.ic_todo_check_disable)
+                                }
+
+                                planTodoTextView.text = todoName
+                                planTodoLayout.addView(planTodoItem)
+                            }
+
+                        } else {
+                            Log.d(TAG, "TodoList is Null")
+                        }
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Failed to Read", e)
+                    }
+                }
+            }
+        }
+    }
 }

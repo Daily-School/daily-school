@@ -291,6 +291,22 @@
                     app:layout_constraintStart_toStartOf="@+id/homeToDoLayout"
                     app:layout_constraintTop_toTopOf="@+id/homeToDoLayout" />
 
+                <LinearLayout
+                    android:id="@+id/planTodoLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="21dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="@+id/homeToDoLayout"
+                    app:layout_constraintEnd_toEndOf="@+id/homeToDoLayout"
+                    app:layout_constraintStart_toStartOf="@+id/homeToDoLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/homeToDoTextView">
+
+
+                </LinearLayout>
+
                 <TextView
                     android:id="@+id/homeToDoDetailTextView"
                     android:layout_width="wrap_content"
