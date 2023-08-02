@@ -19,14 +19,25 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.FragmentScheduleBinding
+import com.daily_school.daily_school.model.network.RetrofitApi
+import com.daily_school.daily_school.ui.meal.dinner.MealDinnerTodayDialogRvAdapter
+import com.daily_school.daily_school.ui.meal.dinner.MealDinnerTodayModel
 import com.daily_school.daily_school.ui.schedule.AddSubjectActivity
 import com.daily_school.daily_school.ui.schedule.EditSubjectFragment
 import com.daily_school.daily_school.utils.KakaoRef
+import com.daily_school.daily_school.utils.NeisRef
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.user.UserApiClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.time.DayOfWeek
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class ScheduleFragment : Fragment() {
     private val TAG = ScheduleFragment::class.java.simpleName
@@ -422,6 +433,63 @@ class ScheduleFragment : Fragment() {
         subjectArray.add(Pair("영어", ""))
         subjectArray.add(Pair("국어", ""))
         subjectArray.add(Pair("진로", ""))
+
+        val service = RetrofitApi.scheduleService
+        KakaoSdk.init(requireContext(), KakaoRef.APP_KEY)
+
+        UserApiClient.instance.accessTokenInfo{ tokenInfo, error ->
+            if (error != null){
+                Log.e(TAG, "토큰 정보 보기 실패", error)
+            }
+            else if (tokenInfo != null){
+                lifecycleScope.launch{
+                    try {
+                        val userInfo = firebaseManager.readSchoolInfoData(tokenInfo.id.toString())
+                        if (userInfo != null) {
+                            val userCityCode = userInfo["cityCode"]
+                            val userSchoolCode = userInfo["schoolCode"]
+
+                            val datesForCurrentWeek = getCurrentWeekDates()
+                            datesForCurrentWeek.forEach { date ->
+                                UserApiClient.instance.me { user, error ->
+                                    if (error != null) {
+                                        Log.e(TAG, "사용자 정보 요청 실패 $error")
+                                    } else if (user != null) {
+                                        Log.e(TAG, "사용자 정보 요청 성공 : $user")
+
+                                        CoroutineScope(Dispatchers.IO).launch {
+                                            val response = service.misScheduleData(NeisRef.api_key, "json", 1,8, userCityCode.toString(), userSchoolCode.toString(), date)
+                                            withContext(Dispatchers.Main) {
+                                                if(response.isSuccessful) {
+                                                    val scheduleInfo = response.body()?.scheduleInfo?.get(1)?.row
+
+                                                    if (scheduleInfo != null) {
+                                                        for (row in scheduleInfo) {
+                                                            val period = row.pERIO
+                                                            val subject = row.iTRTCNTNT
+                                                        }
+                                                    }
+                                                }
+                                                else {
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+
+                        } else {
+                            Log.d(TAG, "TodoList is Null")
+                        }
+                    }
+                    catch (e: Exception) {
+                        Log.e(TAG, "Failed to Read", e)
+                    }
+                }
+
+            }
+        }
     }
 
     // 과목 색상 셋업 함수
@@ -489,5 +557,22 @@ class ScheduleFragment : Fragment() {
         bundle.putString("subject", subject)
         bottomSheet.arguments = bundle
         bottomSheet.show(requireActivity().supportFragmentManager, bottomSheet.tag)
+    }
+
+    fun getCurrentWeekDates(): List<String> {
+        val formatter = DateTimeFormatter.ofPattern("yyMMdd")
+        //val currentDate = LocalDate.now()
+        val currentDate = LocalDate.of(2023, 7, 3)
+        val startOfWeek = currentDate.with(DayOfWeek.MONDAY)
+        val endOfWeek = currentDate.with(DayOfWeek.SUNDAY)
+
+        val dates = mutableListOf<String>()
+        var date = startOfWeek
+        while (!date.isAfter(endOfWeek)) {
+            dates.add(date.format(formatter))
+            date = date.plusDays(1)
+        }
+
+        return dates
     }
 }
