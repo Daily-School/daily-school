@@ -60,19 +60,6 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        setFragmentResultListener("MidDateKey") { _, bundle ->
-//            midDateValue = bundle.getString("MidDateKey1")!!
-//            Log.e(TAG, midDateValue)
-//            changeMidTextView()
-//
-//        }
-//
-//        setFragmentResultListener("FinalDateKey") { _, bundle ->
-//            finalDateValue = bundle.getString("FinalDateKey1")!!
-//            Log.e(TAG, finalDateValue)
-//
-//            changeFinalTextView()
-//        }
     }
 
     override fun onCreateView(
@@ -85,24 +72,31 @@ class HomeFragment : Fragment() {
         val swipe = binding.homeSwipeLayout
         swipe.setOnRefreshListener {
 
+            // 중간고사 디데이 설정 함수 호출
             changeFirebaseMidTextView()
 
+            // 기말고사 디데이 설정 함수 호출
             changeFirebaseFinalTextView()
 
             swipe.isRefreshing = false
         }
 
+        // 중간고사 디데이 설정 함수 호출
         changeFirebaseMidTextView()
 
+        // 기말고사 디데이 설정 함수 호출
         changeFirebaseFinalTextView()
 
         // 유저 정보를 입력시키는 함수 호출
         getSchoolInfoData()
 
+        // 날짜 텍스트뷰에 현재 날짜를 연결하는 함수 호출
         setCurrentDate()
 
+        // 중간고사 캘린더 이동 함수 호출
         showMidCalendar()
 
+        // 중간고사 캘린더 이동 함수 호출
         showFinalCalendar()
 
         // // 할 일 목록을 보여주는 함수 호출
@@ -112,68 +106,7 @@ class HomeFragment : Fragment() {
 
     }
 
-//    private fun changeMidTextView(){
-//
-//        if (midDateValue.length == 7){
-//            midDateValue = midDateValue.substring(0,6) + "0" + midDateValue.substring(6,7)
-//            midYear = midDateValue.substring(0,4).toInt()
-//            midMonth = midDateValue.substring(4,6).toInt() - 1
-//            midDay = midDateValue.substring(6,7).toInt()
-//        }
-//        else{
-//            midYear = midDateValue.substring(0,4).toInt()
-//            midMonth = midDateValue.substring(4,6).toInt() - 1
-//            midDay = midDateValue.substring(6,8).toInt()
-//        }
-//        dDayMidCal.set(midYear, midMonth, midDay)
-//        val today = todayMidCal.timeInMillis / 86400000
-//        val dDay = dDayMidCal.timeInMillis / 86400000
-//        val count = dDay - today
-//
-//
-//        if(count < 0){
-//            binding.homeMidDDayTextView.visibility = View.VISIBLE
-//            binding.homeMidDayTextView.visibility = View.INVISIBLE
-//            binding.homeMidDDayTextView.text = "D+" + abs(count)
-//        }
-//        else{
-//            binding.homeMidDDayTextView.visibility = View.VISIBLE
-//            binding.homeMidDayTextView.visibility = View.INVISIBLE
-//            binding.homeMidDDayTextView.text = "D-" + abs(count)
-//        }
-//    }
-//
-//    private fun changeFinalTextView(){
-//
-//        if (finalDateValue.length == 7){
-//            finalDateValue = finalDateValue.substring(0,6) + "0" + finalDateValue.substring(6,7)
-//            finalYear = finalDateValue.substring(0,4).toInt()
-//            finalMonth = finalDateValue.substring(4,6).toInt() - 1
-//            finalDay = finalDateValue.substring(6,7).toInt()
-//        }
-//        else{
-//            finalYear = finalDateValue.substring(0,4).toInt()
-//            finalMonth = finalDateValue.substring(4,6).toInt() - 1
-//            finalDay = finalDateValue.substring(6,8).toInt()
-//        }
-//        dDayFinalCal.set(finalYear, finalMonth, finalDay)
-//        val today = todayFinalCal.timeInMillis / 86400000
-//        val dDay = dDayFinalCal.timeInMillis / 86400000
-//        val count = dDay - today
-//
-//
-//        if(count < 0){
-//            binding.homeFinalDDayTextView.visibility = View.VISIBLE
-//            binding.homeFinalDayTextView.visibility = View.INVISIBLE
-//            binding.homeFinalDDayTextView.text = "D+" + abs(count)
-//        }
-//        else{
-//            binding.homeFinalDDayTextView.visibility = View.VISIBLE
-//            binding.homeFinalDayTextView.visibility = View.INVISIBLE
-//            binding.homeFinalDDayTextView.text = "D-" + abs(count)
-//        }
-//    }
-
+    // 중간고사 디데이 설정 함수
     private fun changeFirebaseMidTextView(){
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
             if (error != null) {
@@ -223,6 +156,7 @@ class HomeFragment : Fragment() {
         }
     }
 
+    // 기말고사 디데이 설정 함수
     private fun changeFirebaseFinalTextView(){
 
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
@@ -295,6 +229,7 @@ class HomeFragment : Fragment() {
         return date.format(formatter)
     }
 
+    // 중간고사 캘린더 이동 함수
     private fun showMidCalendar(){
         binding.homeMidLayout.setOnClickListener {
             val bottomSheet = HomeCalendarFragment("중간고사",0)
@@ -302,6 +237,7 @@ class HomeFragment : Fragment() {
         }
     }
 
+    // 기말고사 캘린더 이동 함수
     private fun showFinalCalendar(){
         binding.homeFinalLayout.setOnClickListener {
             val bottomSheet = HomeCalendarFragment("기말고사",1)
