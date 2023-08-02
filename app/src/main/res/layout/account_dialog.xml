@@ -9,7 +9,6 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         tools.context=".ui.Profile.AccountDialog">
 
-        <!-- 회원탈퇴 경고 아이콘 마크-->
         <ImageView
             android:id="@+id/accountIcExclamationMark"
             android:layout_width="wrap_content"
@@ -20,7 +19,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- 회원탈퇴 경고 텍스트뷰-->
         <TextView
             android:id="@+id/accountDeleteMainTextView"
             android:layout_width="wrap_content"
@@ -35,7 +33,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/accountIcExclamationMark" />
 
-        <!-- 회원탈퇴 경고 문구 텍스트뷰-->
         <TextView
             android:id="@+id/accountDeleteSecondTextView"
             android:layout_width="wrap_content"
@@ -50,7 +47,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/accountDeleteMainTextView" />
 
-        <!-- 회원탈퇴 선택 영역-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="62dp"
@@ -58,7 +54,6 @@
             app:layout_constraintTop_toBottomOf="@+id/accountDeleteSecondTextView"
             android:orientation="horizontal">
 
-            <!-- 회원 탈퇴 취소 버튼-->
             <Button
                 android:id="@+id/accountCancelBtn"
                 android:background="@drawable/radius_border_blue_button"
@@ -72,7 +67,6 @@
                 android:textColor="@color/main_color"
                 android:textSize="16sp"/>
 
-            <!-- 회원 탈퇴 버튼-->
             <Button
                 android:id="@+id/accountDeleteBtn"
                 android:background="@drawable/radius_blue_button"

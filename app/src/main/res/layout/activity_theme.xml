@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <!--  화면 테마 메인 텍스트뷰-->
+        <!--   자주 묻는 질문 메인 텍스트뷰-->
         <TextView
             android:id="@+id/themeMainTextView"
             android:layout_width="wrap_content"
@@ -51,7 +51,6 @@
 
         </LinearLayout>
 
-        <!-- 라이트 모드 영역-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/lightModeLayout"
             android:layout_width="match_parent"
@@ -59,7 +58,6 @@
             android:layout_marginTop="24dp"
             app:layout_constraintTop_toBottomOf="@+id/themeFirstLine">
 
-            <!-- 라이트 모드 텍스트뷰-->
             <TextView
                 android:id="@+id/themeLightModeTextView"
                 android:layout_width="wrap_content"
@@ -73,7 +71,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/lightModeLayout" />
 
-            <!-- 라이트 모드임을 확인하는 아이콘-->
             <ImageView
                 android:id="@+id/themeIcLightMode"
                 android:layout_width="wrap_content"
@@ -100,14 +97,12 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- 다크 모드 영역-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/darkModeLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:layout_constraintTop_toBottomOf="@+id/lightModeLayout">
 
-            <!-- 다크 모드 텍스트뷰-->
             <TextView
                 android:id="@+id/themeDarkModeTextView"
                 android:layout_width="wrap_content"
@@ -121,7 +116,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/darkModeLayout" />
 
-            <!-- 다크 모드임을 확인하는 아이콘-->
             <ImageView
                 android:id="@+id/themeIcDarkMode"
                 android:layout_width="wrap_content"
