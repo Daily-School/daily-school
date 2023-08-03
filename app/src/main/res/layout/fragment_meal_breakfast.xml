@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!--    스크롤뷰-->
-    <androidx.core.widget.NestedScrollView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        tools:context=".ui.page.MealBreakfastFragment">
 
-        <FrameLayout
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/breakfastSwipe"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".ui.page.MealBreakfastFragment">
+            android:layout_height="match_parent">
 
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/breakfastSwipe"
+            <!--    스크롤뷰-->
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:fillViewport="true">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -49,7 +49,6 @@
                         android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="@+id/mealBreakfastDateRectangle"
                         app:layout_constraintTop_toTopOf="@+id/mealBreakfastDateRectangle" />
-
 
 
                     <!--    날짜 다이어로그로 가는 아이콘-->
@@ -94,8 +93,8 @@
                         android:id="@+id/mealBreakfastCalorieRectangle"
                         android:layout_width="77dp"
                         android:layout_height="22dp"
-                        android:layout_marginTop="76dp"
                         android:layout_marginLeft="9dp"
+                        android:layout_marginTop="76dp"
                         android:src="@drawable/radius_gray8_rectangle"
                         app:layout_constraintStart_toEndOf="@+id/mealBreakfastTodayIc"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -172,10 +171,10 @@
                     <!--    오늘의 급식 리사이클러뷰-->
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/todayBreakfastMealRv"
-                        android:layout_marginTop="22dp"
-                        android:layout_marginLeft="24dp"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginTop="22dp"
                         android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@+id/mealBreakfastPlanRectangle"
                         app:layout_constraintEnd_toEndOf="@+id/mealBreakfastPlanRectangle"
@@ -210,10 +209,10 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            </androidx.core.widget.NestedScrollView>
 
-        </FrameLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    </FrameLayout>
 
 </layout>
