@@ -368,8 +368,6 @@ class HomeFragment : Fragment() {
                         if (todoList != null) {
                             Log.d(TAG, "TodoList : $todoList")
 
-                            binding.homeToDoDetailTextView.visibility = View.INVISIBLE
-
                             val filteredTodoList = todoList.filter { todoItem ->
                                 getDate == todoItem["todoDate"]
                             }
@@ -379,6 +377,8 @@ class HomeFragment : Fragment() {
                             planTodoLayout.removeAllViews()
 
                             for (i in filteredTodoList.indices) {
+                                binding.homeToDoDetailTextView.visibility = View.INVISIBLE
+
                                 val todoItem = filteredTodoList[i]
                                 val todoName = todoItem["todoName"].toString()
                                 val todoComplete = todoItem["todoComplete"]
@@ -402,6 +402,8 @@ class HomeFragment : Fragment() {
 
                         } else {
                             Log.d(TAG, "TodoList is Null")
+
+                            binding.homeToDoDetailTextView.visibility = View.VISIBLE
                         }
                     } catch (e: Exception) {
                         Log.e(TAG, "Failed to Read", e)
