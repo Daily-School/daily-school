@@ -75,6 +75,7 @@
                 android:id="@+id/themeIcLightMode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="12dp"
                 android:layout_marginRight="20dp"
                 android:src="@drawable/profile_theme_check"
