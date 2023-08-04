@@ -1,4 +1,4 @@
-package com.daily_school.daily_school.home
+package com.daily_school.daily_school.ui.home
 
 import FirebaseManager
 import android.app.Activity
@@ -26,7 +26,8 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
-class HomeCalendarFragment(text: String, id: Int) : BottomSheetDialogFragment(), HomeOnItemListener{
+class HomeCalendarFragment(text: String, id: Int) : BottomSheetDialogFragment(),
+    HomeOnItemListener {
 
     private var TAG = HomeCalendarFragment::class.java.simpleName
 

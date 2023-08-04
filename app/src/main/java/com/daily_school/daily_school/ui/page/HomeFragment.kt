@@ -19,7 +19,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import com.daily_school.daily_school.R
 import com.daily_school.daily_school.databinding.FragmentHomeBinding
-import com.daily_school.daily_school.home.HomeCalendarFragment
+import com.daily_school.daily_school.ui.home.HomeCalendarFragment
 import com.daily_school.daily_school.utils.KakaoRef
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.user.UserApiClient

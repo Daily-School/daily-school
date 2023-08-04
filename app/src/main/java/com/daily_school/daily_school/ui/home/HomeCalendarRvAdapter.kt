@@ -1,4 +1,4 @@
-package com.daily_school.daily_school.home
+package com.daily_school.daily_school.ui.home
 
 import android.content.Context
 import android.view.LayoutInflater
