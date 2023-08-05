@@ -34,6 +34,7 @@ class FirebaseManager {
     private val classKey = "class"
     private val cityCodeKey = "cityCode"
     private val schoolCodeKey = "schoolCode"
+    private val schoolTypeKey = "schoolType"
 
     // 날짜 정조 DB 모델
     private val dateInfoDocument = "dateInfo"
@@ -276,7 +277,7 @@ class FirebaseManager {
     }
 
     // schoolInfo 저장하는 함수
-    fun saveSchoolInfoData(uid: String, schoolName : String, gradeInfo : String, classInfo : String, cityCodeInfo : String, schoolCodeInfo : String){
+    fun saveSchoolInfoData(uid: String, schoolName : String, gradeInfo : String, classInfo : String, cityCodeInfo : String, schoolCodeInfo : String, schoolType : String){
 
         // uid가 존재할 때
         if(uid.isNotEmpty()){
@@ -292,6 +293,7 @@ class FirebaseManager {
             schoolInfoData[classKey] = classInfo
             schoolInfoData[cityCodeKey] = cityCodeInfo
             schoolInfoData[schoolCodeKey] = schoolCodeInfo
+            schoolInfoData[schoolTypeKey] = schoolType
 
             schoolInfoRef.get()
                 .addOnCompleteListener { task ->

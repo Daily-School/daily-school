@@ -30,5 +30,7 @@ data class Row(
     @SerializedName("ATPT_OFCDC_SC_CODE")
     val aTPTOFCDCSCCODE : String,
     @SerializedName("SD_SCHUL_CODE")
-    val sDSCHULCODE : String
+    val sDSCHULCODE : String,
+    @SerializedName("SCHUL_KND_SC_NM")
+    val sCHULKNDSCNM : String
 )

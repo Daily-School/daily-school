@@ -135,12 +135,13 @@ class SchoolNameFragment : BottomSheetDialogFragment() {
                     itemData: String,
                     cityCode: String,
                     schoolCode: String,
+                    schoolType: String,
                     binding: SchoolNameRvItemBinding
                 ) {
                     sNm.setText(itemData)
                     val mActivity = activity as SchoolInfoActivity
                     mActivity.receiveData(sNm.text.toString())
-                    mActivity.receiveSchoolData(cityCode, schoolCode)
+                    mActivity.receiveSchoolData(cityCode, schoolCode, schoolType)
                     dismiss()
                 }
             })

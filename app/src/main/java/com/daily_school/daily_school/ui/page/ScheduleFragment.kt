@@ -25,8 +25,7 @@ import com.daily_school.daily_school.databinding.FragmentScheduleBinding
 import com.daily_school.daily_school.model.network.RetrofitApi
 import com.daily_school.daily_school.ui.meal.dinner.MealDinnerTodayDialogRvAdapter
 import com.daily_school.daily_school.ui.meal.dinner.MealDinnerTodayModel
-import com.daily_school.daily_school.ui.schedule.AddSubjectActivity
-import com.daily_school.daily_school.ui.schedule.EditSubjectFragment
+import com.daily_school.daily_school.ui.schedule.*
 import com.daily_school.daily_school.utils.KakaoRef
 import com.daily_school.daily_school.utils.NeisRef
 import com.kakao.sdk.common.KakaoSdk
@@ -35,6 +34,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.Response
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -57,8 +57,12 @@ class ScheduleFragment : Fragment() {
     private val weekDays = listOf("월", "화", "수", "목", "금")
     private val subjectList = ArrayList<ArrayList<String>>()
 
-    private val subjectArray = ArrayList<Pair<String, Any>>()
     private lateinit var subjectColors: Array<String>
+
+    private val elementarySchoolType = "초등학교"
+    private val middleSchoolType = "중학교"
+    private val highSchoolType = "고등학교"
+    private val specialSchoolType = "특수학교"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -155,6 +159,7 @@ class ScheduleFragment : Fragment() {
         }
     }
 
+    // 요일에 맞는 시간표를 그려 주는 함수
     private fun dayScheduleInit(width: Int, height: Int) {
         clearDayLayouts()
 
@@ -242,6 +247,7 @@ class ScheduleFragment : Fragment() {
         return consecutiveIndexes
     }
 
+    // 각 시간표 클리어 함수
     private fun clearDayLayouts() {
         mondayLayout.removeAllViews()
         tuesdayLayout.removeAllViews()
@@ -250,6 +256,7 @@ class ScheduleFragment : Fragment() {
         fridayLayout.removeAllViews()
     }
 
+    // 요일에 맞는 시간표를 가져 오는 함수
     private fun subjectInit() {
         val service = RetrofitApi.scheduleService
         KakaoSdk.init(requireContext(), KakaoRef.APP_KEY)
@@ -265,6 +272,19 @@ class ScheduleFragment : Fragment() {
                         if (userInfo != null) {
                             val userCityCode = userInfo["cityCode"]
                             val userSchoolCode = userInfo["schoolCode"]
+                            val userSchoolType = userInfo["schoolType"]
+                            val userGradeInfo = userInfo["grade"]
+                            val userClassInfo = userInfo["class"]
+
+                            val userGrade = userGradeInfo?.toString()?.let {
+                                val numericPart = it.replace(Regex("[^0-9]"), "")
+                                numericPart.toIntOrNull() ?: 0
+                            } ?: 0
+
+                            val userClass = userClassInfo?.toString()?.let {
+                                val numericPart = it.replace(Regex("[^0-9]"), "")
+                                numericPart.toIntOrNull() ?: 0
+                            } ?: 0
 
                             val datesForCurrentWeek = getCurrentWeekDates()
 
@@ -284,10 +304,25 @@ class ScheduleFragment : Fragment() {
                                         Log.e(TAG, "사용자 정보 요청 성공 : $user")
 
                                         CoroutineScope(Dispatchers.IO).launch {
-                                            val response = service.misScheduleData(NeisRef.api_key, "json", 1, 8, userCityCode.toString(), userSchoolCode.toString(), date)
+                                            val response = when (userSchoolType) {
+                                                elementarySchoolType -> service.elsTimetable(NeisRef.api_key, "json", 1, 8, userCityCode.toString(), userSchoolCode.toString(), userGrade.toString(), userClass.toString(), date)
+                                                middleSchoolType -> service.misTimetable(NeisRef.api_key, "json", 1, 8, userCityCode.toString(), userSchoolCode.toString(), userGrade.toString(), userClass.toString(), date)
+                                                highSchoolType -> service.hisTimetable(NeisRef.api_key, "json", 1, 8, userCityCode.toString(), userSchoolCode.toString(), userGrade.toString(), userClass.toString(), date)
+                                                specialSchoolType -> service.spsTimetable(NeisRef.api_key, "json", 1, 8, userCityCode.toString(), userSchoolCode.toString(), userGrade.toString(), userClass.toString(), date)
+                                                else -> throw IllegalArgumentException("Invalid userSchoolType") // 사용자 학교 유형이 맞지 않는 경우 예외 처리
+                                            }
+
                                             withContext(Dispatchers.Main) {
                                                 if (response.isSuccessful) {
-                                                    val scheduleInfo = response.body()?.scheduleInfo?.get(1)?.row
+
+                                                    val scheduleInfo = when (val scheduleInfoResponse = response.body()) {
+                                                        is ElsScheduleInfoResponse -> scheduleInfoResponse.scheduleInfo
+                                                        is MisScheduleInfoResponse -> scheduleInfoResponse.scheduleInfo
+                                                        is HisScheduleInfoResponse -> scheduleInfoResponse.scheduleInfo
+                                                        is SpsScheduleInfoResponse -> scheduleInfoResponse.scheduleInfo
+                                                        else -> null
+                                                    }
+
                                                     var previousFlag = false
 
                                                     if (scheduleInfo != null) {
@@ -295,18 +330,23 @@ class ScheduleFragment : Fragment() {
                                                             subjectList.add(ArrayList())
                                                         }
 
-                                                        for (row in scheduleInfo) {
-                                                            val period = row.pERIO
-                                                            val subject = row.iTRTCNTNT
+                                                        scheduleInfo?.let {
+                                                            val scheduleInfoRow = it.getOrNull(1)?.row
 
-                                                            if (previousFlag && period == "1") {
-                                                                break
+                                                            scheduleInfoRow?.let {
+                                                                for (row in it) {
+                                                                    val perio = row.pERIO
+                                                                    val itrtCntnt = row.iTRTCNTNT
+
+                                                                    if (previousFlag && perio == "1") {
+                                                                        break
+                                                                    }
+
+                                                                    subjectList[i].add(itrtCntnt)
+                                                                    previousFlag = true
+                                                                }
                                                             }
-
-                                                            subjectList[i].add(subject)
-                                                            previousFlag = true
                                                         }
-
                                                         while (subjectList[i].size < 10) {
                                                             subjectList[i].add("")
                                                         }
@@ -314,6 +354,7 @@ class ScheduleFragment : Fragment() {
                                                         classScheduleInit()
                                                     }
                                                 } else {
+                                                    Log.e(TAG, "API is Fail : $response")
                                                 }
                                             }
                                         }
@@ -384,6 +425,7 @@ class ScheduleFragment : Fragment() {
         }
     }
 
+    // 과목 클릭 시 색상 선택 함수
     private fun showEditSubjectSheet(subject: String) {
         val bottomSheet = EditSubjectFragment()
         val bundle = Bundle()
@@ -392,10 +434,10 @@ class ScheduleFragment : Fragment() {
         bottomSheet.show(requireActivity().supportFragmentManager, bottomSheet.tag)
     }
 
+    // 평일 날짜를 가져 오는 함수
     fun getCurrentWeekDates(): List<String> {
         val formatter = DateTimeFormatter.ofPattern("yyMMdd")
-        //val currentDate = LocalDate.now()
-        val currentDate = LocalDate.of(2023, 7, 14)
+        val currentDate = LocalDate.now()
         val startOfWeek = currentDate.with(DayOfWeek.MONDAY)
         val endOfWeek = currentDate.with(DayOfWeek.FRIDAY)
 

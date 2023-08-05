@@ -1,5 +1,6 @@
 package com.daily_school.daily_school.ui.search
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import com.daily_school.daily_school.databinding.SchoolNameRvItemBinding
 // RecyclerView를 학교 정보 api와 연결하는 adapter
 class SchoolInfoAdapter : ListAdapter<Row, SchoolInfoAdapter.SchoolInfoViewHolder>(DiffCallback) {
     interface OnItemClickListener{
-        fun setOnItemClickListener(itemData: String, cityCode : String, schoolCode : String, binding : SchoolNameRvItemBinding)
+        fun setOnItemClickListener(itemData: String, cityCode : String, schoolCode : String, schoolType : String, binding : SchoolNameRvItemBinding)
     }
 
     private lateinit var onClickListener : OnItemClickListener
@@ -32,22 +33,22 @@ class SchoolInfoAdapter : ListAdapter<Row, SchoolInfoAdapter.SchoolInfoViewHolde
     inner class SchoolInfoViewHolder(val binding : SchoolNameRvItemBinding) :
         RecyclerView.ViewHolder(binding.root){
 
-            fun bind(item : Row) {
-                with(binding) {
-                    schoolNameInfoTextView.text = item.sCHULNM
-                    schoolNameAddressTextView.text = item.oRGRDNMA
-                }
-                // 학교 정보를 눌렀을 때 그 학교의 이름을 전달함
-                if(adapterPosition!=RecyclerView.NO_POSITION){
-                    binding.schoolNameInfoRvArea.setOnClickListener {
-                        onClickListener.setOnItemClickListener(binding.schoolNameInfoTextView.text.toString(), item.aTPTOFCDCSCCODE, item.sDSCHULCODE, binding)
+        fun bind(item : Row) {
+            with(binding) {
+                schoolNameInfoTextView.text = item.sCHULNM
+                schoolNameAddressTextView.text = item.oRGRDNMA
+            }
+            // 학교 정보를 눌렀을 때 그 학교의 이름을 전달함
+            if(adapterPosition!=RecyclerView.NO_POSITION){
+                binding.schoolNameInfoRvArea.setOnClickListener {
+                    onClickListener.setOnItemClickListener(binding.schoolNameInfoTextView.text.toString(), item.aTPTOFCDCSCCODE, item.sDSCHULCODE, item.sCHULKNDSCNM, binding)
 
-                    }
                 }
             }
-
-
         }
+
+
+    }
 
     companion object{
         private val DiffCallback = object :DiffUtil.ItemCallback<Row>(){
