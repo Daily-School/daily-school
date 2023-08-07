@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_color"
+        tools:context=".ui.page.ScheduleFragment">
+
+        <!-- 메인 텍스트뷰-->
+        <TextView
+            android:id="@+id/scheduleMainTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="58dp"
+            android:fontFamily="@font/pretendard_extrabold"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/gray_2"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <!--   프로필 수정 아이콘-->
+        <ImageView
+            android:id="@+id/scheduleIcFilter"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="60dp"
+            android:src="@drawable/ic_profile_filter"
+            app:layout_constraintStart_toEndOf="@+id/scheduleMainTextView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <!--   첫번째 선-->
+        <LinearLayout
+            android:id="@+id/scheduleFirstLine"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/linear_border_line_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/scheduleIcFilter"
+            android:orientation="vertical">
+        </LinearLayout>
+
+        <!-- 인용구 이미지 -->
+        <ImageView
+            android:id="@+id/scheduleQuoteImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="31dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/ic_schedule_quote"
+            app:layout_constraintTop_toBottomOf="@id/scheduleFirstLine"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- 학년/반 텍스트뷰 -->
+        <TextView
+            android:id="@+id/scheduleClassText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="10dp"
+            android:text="1학년 2반 1학기"
+            android:textSize="22sp"
+            android:textColor="@color/text_color_main_to_white"
+            android:fontFamily="@font/pretendard"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/scheduleFirstLine"
+            app:layout_constraintStart_toEndOf="@id/scheduleQuoteImage" />
+
+        <!-- 과목 추가 영역 -->
+        <FrameLayout
+            android:id="@+id/scheduleAddArea"
+            android:layout_width="103dp"
+            android:layout_height="38dp"
+            android:background="@drawable/radius_white_rectangle_draw"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="22dp"
+            app:layout_constraintTop_toBottomOf="@id/scheduleFirstLine"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- 과목 추가 이미지 -->
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_schedule_add"
+                android:layout_marginStart="13dp"
+                android:layout_gravity="center_vertical|start" />
+
+            <!-- 과목 추가 텍스트 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="과목 추가"
+                android:textSize="14sp"
+                android:textColor="@color/text_color_main_to_white"
+                android:fontFamily="@font/pretendard"
+                android:layout_marginStart="35dp"
+                android:layout_gravity="center_vertical|start" />
+        </FrameLayout>
+
+        <!-- 요일 영역 -->
+        <LinearLayout
+            android:id="@+id/scheduleLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="185dp"
+            android:layout_marginLeft="10dp"
+
+            android:layout_marginBottom="34dp"
+            app:layout_constraintTop_toBottomOf="@id/scheduleClassText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:id="@+id/titleLayout"
+                android:layout_width="56dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mondayLayout"
+                android:layout_width="62dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tuesdayLayout"
+                android:layout_width="62dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/wednesdayLayout"
+                android:layout_width="62dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/thursdayLayout"
+                android:layout_width="62dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fridayLayout"
+                android:layout_width="62dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

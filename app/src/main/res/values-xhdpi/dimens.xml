@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    activity_login layout-->
+    <dimen name="login_background_height">420dp</dimen>
+    <dimen name="login_logo_weight">138dp</dimen>
+    <dimen name="login_margin_bottom">76dp</dimen>
+
+    <!--    activity_schoolInfo layout-->
+    <dimen name="schoolInfo_margin_bottom">15dp</dimen>
+</resources>

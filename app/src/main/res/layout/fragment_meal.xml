@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <FrameLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.page.MealFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background_color">
+
+            <!--    프로필 메인 텍스트뷰-->
+            <TextView
+                android:id="@+id/mealMainTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="58dp"
+                android:fontFamily="@font/pretendard_extrabold"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/gray_1"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <!--   프로필 수정 아이콘-->
+            <ImageView
+                android:id="@+id/mealIcFilter"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="60dp"
+                android:src="@drawable/ic_profile_filter"
+                app:layout_constraintStart_toEndOf="@+id/mealMainTextView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <!--   첫번째 선-->
+            <LinearLayout
+                android:id="@+id/mealFirstLine"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/linear_border_line_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mealMainTextView"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+
+            <!--   탭 레이아웃-->
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabTextColor="@color/gray_7"
+                app:tabSelectedTextColor="@color/main_color"
+                app:tabIndicatorColor="@color/main_color"
+                app:tabIndicatorHeight="3dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mealFirstLine" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="중식"
+                android:textSize="16sp"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="조식"
+                    android:textSize="16sp"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="석식"
+                    android:textSize="16sp"/>
+
+
+
+            <!--   급식표 뷰페이저-->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/mealViewPager"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</layout>

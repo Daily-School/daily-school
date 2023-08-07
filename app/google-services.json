@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "365799237264",
+    "project_id": "daily-school-c4256",
+    "storage_bucket": "daily-school-c4256.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365799237264:android:49e8d92648cbda0b4d1a15",
+        "android_client_info": {
+          "package_name": "com.daily_school.daily_school"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "365799237264-ld77pmeqd5bpkakusd4v6pb7sjmo3i40.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbio5r8JKkuN1HHgoimLLG8V-6QPThDKs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "365799237264-ld77pmeqd5bpkakusd4v6pb7sjmo3i40.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/homeFragment">
+
+
+    <!--    홈 프래그먼트-->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.daily_school.daily_school.ui.page.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home"
+        >
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_mealFragment"
+            app:destination="@id/mealFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_planFragment"
+            app:destination="@id/planFragment" />
+    </fragment>
+
+
+    <!--    급식표 프래그먼트-->
+    <fragment
+        android:id="@+id/mealFragment"
+        android:name="com.daily_school.daily_school.ui.page.MealFragment"
+        android:label="fragment_meal"
+        tools:layout="@layout/fragment_meal" >
+        <action
+            android:id="@+id/action_mealFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_mealFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_mealFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
+        <action
+            android:id="@+id/action_mealFragment_to_planFragment"
+            app:destination="@id/planFragment" />
+        <action
+            android:id="@+id/action_mealFragment_to_profileFragment2"
+            app:destination="@id/profileFragment" />
+    </fragment>
+
+
+    <!--    일정표 프래그먼트-->
+    <fragment
+        android:id="@+id/planFragment"
+        android:name="com.daily_school.daily_school.ui.page.PlanFragment"
+        android:label="fragment_plan"
+        tools:layout="@layout/fragment_plan" >
+        <action
+            android:id="@+id/action_planFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_planFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_planFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
+        <action
+            android:id="@+id/action_planFragment_to_mealFragment"
+            app:destination="@id/mealFragment" />
+        <action
+            android:id="@+id/action_planFragment_to_profileFragment2"
+            app:destination="@id/profileFragment" />
+    </fragment>
+
+
+    <!--    마이 페이지 프래그먼트-->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.daily_school.daily_school.ui.page.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_mealFragment"
+            app:destination="@id/mealFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_planFragment"
+            app:destination="@id/planFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_scheduleFragment2"
+            app:destination="@id/scheduleFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_mealFragment2"
+            app:destination="@id/mealFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_planFragment2"
+            app:destination="@id/planFragment" />
+    </fragment>
+
+
+    <!--    시간표 프래그먼트-->
+    <fragment
+        android:id="@+id/scheduleFragment"
+        android:name="com.daily_school.daily_school.ui.page.ScheduleFragment"
+        android:label="fragment_schedule"
+        tools:layout="@layout/fragment_schedule" >
+        <action
+            android:id="@+id/action_scheduleFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_scheduleFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_scheduleFragment_to_mealFragment"
+            app:destination="@id/mealFragment" />
+        <action
+            android:id="@+id/action_scheduleFragment_to_planFragment"
+            app:destination="@id/planFragment" />
+        <action
+            android:id="@+id/action_scheduleFragment_to_profileFragment2"
+            app:destination="@id/profileFragment" />
+    </fragment>
+
+</navigation>

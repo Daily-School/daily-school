@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -9,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.daily_school.daily_school"
-        minSdk 24
+        minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -30,6 +31,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    // dataBinding 설정
+    // viewBinding 설정
+    buildFeatures{
+        dataBinding = true
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -38,7 +45,44 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+    implementation 'com.google.firebase:firebase-database-ktx:20.0.4'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.6.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // kakao dependency 추가
+    implementation 'com.kakao.sdk:v2-user:2.13.0'
+    // naver dependency 추가
+    implementation 'com.navercorp.nid:oauth:5.5.0'
+
+    // material design dependency 추가
+    implementation "com.google.android.material:material:1.9.0"
+
+    // Firebase SDK 추가
+    implementation platform('com.google.firebase:firebase-bom:32.1.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-core:20.0.1'
+    implementation 'com.google.firebase:firebase-firestore:24.0.0'
+    implementation 'com.google.firebase:firebase-auth:21.0.1'
+
+    // Corutine dependecy 추가
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    // OkHttp
+    implementation 'com.squareup.okhttp3:okhttp:4.9.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+
+    // gson
+    implementation 'com.google.code.gson:gson:2.8.8'
+
+    // 당겨서 새로고침 dependency 추가
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 }

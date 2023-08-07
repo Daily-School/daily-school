@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <!-- 인터넷 사용 권한 -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,14 +14,57 @@
         android:theme="@style/Theme.Daily_school"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.profile.ThemeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.mockup.MockUpActivity"
+            android:exported="false" /> <!-- 자주 묻는 질문 Activity -->
+        <activity
+            android:name=".ui.profile.QuestionActivity"
+            android:exported="false" /> <!-- 계정 관리 Activity -->
+        <activity
+            android:name=".ui.AccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.plan.AddTodoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.schedule.AddSubjectActivity"
+            android:exported="false" /> <!-- OnboardingActivity 추가 -->
+        <activity
+            android:name=".ui.OnboardingActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> <!-- schoolInfoActivity 추가 -->
+        <!-- 각 스크린 Activity 추가 -->
+        <activity
+            android:name=".ui.search.SchoolInfoActivity"
+            android:exported="false" /> <!-- 카카오 sdk 설정 -->
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" -->
+                <data
+                    android:host="oauth"
+                    android:scheme="kakaoe0bce995a4b6a49cd0afa8804b335f7f" />
+            </intent-filter>
+        </activity> <!-- LoginActivity 추가 -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

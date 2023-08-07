@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/mealDinnerWeekRv"
+        android:layout_width="match_parent"
+        android:layout_height="255dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/border_blue_transparency_30">
+
+        <!--   이번주 급식 개별 날짜 텍스트뷰-->
+        <TextView
+            android:id="@+id/dinnerWeekDayTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/pretendard"
+            android:text=""
+            android:textColor="@color/main_color"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--   이번주 급식 다이어로그로 가는 아이콘-->
+        <ImageView
+            android:id="@+id/dinnerWeekIcToMealDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/ic_profile_right"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--    급식이 제공되지 않을 때 나오는 아이콘-->
+        <ImageView
+            android:id="@+id/dinnerWeekNotionIc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:src="@drawable/ic_meal_notion"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--    급식이 나오지 않을 때 나오는 텍스트뷰-->
+        <TextView
+            android:id="@+id/dinnerWeekMealInfoTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/pretendard"
+            android:gravity="center"
+            android:text="급식이 제공되지\n않는 날이에요."
+            android:textColor="@color/gray_5"
+            android:textSize="14sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dinnerWeekNotionIc" />
+
+        <!--   이번주 날짜별 급식 리사이클러뷰-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/dinnerMealWeekEachInfoRv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dinnerWeekDayTextView" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

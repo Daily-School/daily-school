@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.search.SchoolInfoActivity"
+    android:background="@color/background_color">
+
+    <!--    학교 정보 입력 텍스트뷰-->
+    <TextView
+        android:id="@+id/schoolInfoTxt1"
+        android:text="학교 정보 입력"
+        android:fontFamily="@font/pretendard"
+        android:textColor="@color/gray_1"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="78dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--    학교 정보 입력 설명 텍스트뷰-->
+    <TextView
+        android:id="@+id/schoolInfoTxt2"
+        android:text="학교 정보를 입력하고 데일리스쿨을 이용해보세요"
+        android:fontFamily="@font/pretendard"
+        android:textSize="14sp"
+        android:textColor="@color/gray_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="21dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/schoolInfoTxt1" />
+
+    <!--    학교 이름 텍스트뷰-->
+    <TextView
+        android:id="@+id/schoolInfoNameTxt"
+        android:fontFamily="@font/pretendard"
+        android:text="학교 이름"
+        android:textStyle="bold"
+        android:textColor="@color/gray_1"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/schoolInfoTxt2" />
+
+    <!--    학교 이름 에딧 텍스트-->
+    <EditText
+        android:id="@+id/schoolInfoNameEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:backgroundTint="@color/school_info_gray_color"
+        android:fontFamily="@font/pretendard"
+        android:hint="학교를 선택해 주세요."
+        android:textColor="@color/gray_1"
+        android:textColorHint="@color/school_info_gray_color"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/schoolInfoNameTxt" />
+
+    <ImageView
+        android:id="@+id/schoolInfoIcDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_school_info_x"
+        android:layout_marginRight="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/schoolInfoNameEdit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/schoolInfoNameEdit" />
+
+    <!--    학년 선택 텍스트뷰-->
+    <TextView
+        android:id="@+id/schoolInfoGradeTxt"
+        android:fontFamily="@font/pretendard"
+        android:text="학년 선택"
+        android:textStyle="bold"
+        android:textColor="@color/gray_1"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/schoolInfoNameEdit" />
+
+    <!--    학년 선택 스피너-->
+    <Spinner
+        android:id="@+id/schoolInfoGradeSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:background="@drawable/bg_spinner_gray7"
+        android:overlapAnchor="false"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/schoolInfoGradeTxt" />
+
+    <!--    반 선택 텍스트뷰-->
+    <TextView
+        android:id="@+id/schoolInfoClassTxt"
+        android:fontFamily="@font/pretendard"
+        android:text="반 선택"
+        android:textStyle="bold"
+        android:textColor="#212121"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/schoolInfoGradeSpinner" />
+
+    <!--    반 선택 에딧 텍스트-->
+    <Spinner
+        android:id="@+id/schoolInfoClassSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:background="@drawable/bg_spinner_gray7"
+        android:overlapAnchor="false"
+        android:textAlignment="textStart"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/schoolInfoClassTxt" />
+
+    <!--    선택 완료 버튼-->
+    <Button
+        android:id="@+id/schoolInfoSelectBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/radius_blue_button_transparency_30"
+        android:text="선택완료"
+        android:fontFamily="@font/pretendard"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="@dimen/schoolInfo_margin_bottom"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

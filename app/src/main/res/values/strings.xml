@@ -1,3 +1,97 @@
 <resources>
     <string name="app_name">daily_school</string>
+    <string name="login_text">지금 가입하고<b> 편리한 학교생활</b>을 누려보세요.</string>
+
+    <string name="bottom_menu_home_text">홈</string>
+    <string name="bottom_menu_schedule_text">시간표</string>
+    <string name="bottom_menu_meal_plan_text">급식표</string>
+    <string name="bottom_menu_plan_text">일정표</string>
+    <string name="bottom_menu_profile_text">마이</string>
+
+    <string name="add_subject_main_text">과목 추가하기</string>
+    <string name="add_subject_input_text">과목명 입력</string>
+    <string name="add_subject_hint_text">과목명을 입력해주세요.</string>
+    <string name="add_subject_background_text">배경색 지정</string>
+
+    <string name="subject_delete_text">과목 삭제</string>
+    <string name="subject_delete_guide_text">정말 과목을 삭제하시겠어요?</string>
+    <string name="edit_subject_text">과목명 수정</string>
+    <string name="edit_subject_hint_text">과목명을 수정해주세요.</string>
+    <string name="edit_subject_button_text">완료</string>
+
+    <string name="delete_dialog_button_no_text">아니요</string>
+    <string name="delete_dialog_button_yes_text">네, 삭제할래요</string>
+
+    <string name="add_todo_main_text">추가하기</string>
+    <string name="add_todo_plan_name_text">일정 제목</string>
+    <string name="add_todo_plan_hint_text">제목을 입력해 주세요.</string>
+    <string name="add_todo_repeat_text">반복</string>
+    <string name="add_todo_color_choose_text">색상 선택</string>
+    <string name="add_todo_repeat_none_text">안 해요</string>
+    <string name="add_todo_repeat_day_text">매일</string>
+    <string name="add_todo_repeat_week_text">매주</string>
+    <string name="add_todo_repeat_month_text">매월</string>
+    <string name="add_todo_repeat_year_text">매년</string>
+
+    <string name="todo_complete_guide_text">할일을 클릭하면 달성 여부를 체크할 수 있어요.</string>
+    <string name="todo_complete_dialog_guide_text">할일을 달성하셨나요?</string>
+    <string name="complete_dialog_button_no_text">아니요</string>
+    <string name="complete_dialog_button_yes_text">네, 달성했어요</string>
+
+    <string name="never_show_again">다시 보지 않기</string>
+
+    <!-- 자주 묻는 질문 질문 내용 String-->
+    <string name="question_rv_1">학교 변경은 어떻게 하나요?</string>
+    <string name="question_rv_2">로그인 된 계정 확인은 어떻게 하나요?</string>
+    <string name="question_rv_3">회원 탈퇴는 어떻게 하나요?</string>
+
+    <!-- 자주 묻는 질문 질문 내용에 대한 대답 String-->
+    <string name="question_detail_1">1. 학교 정보가 나와있는 상단바에서 설정 아이콘을\n클릭하여 변경이 가능합니다.\n2. \'마이\' 메뉴를 클릭하여 현재 학교 정보에서\n더보기 버튼을 클릭하여 변경이 가능합니다.</string>
+    <string name="question_detail_2">마이페이지 > 계정관리에서 로그인된 계정 확인이\n가능합니다.</string>
+    <string name="question_detail_3">마이페이지 > 계정관리에서 회원 탈퇴가 가능합니다.\n단, 탈퇴 시 계정 복구가 불가능합니다.</string>
+
+    <!--    스피너 학년 배열-->
+    <string-array name="spinner_grade">
+        <item>1학년</item>
+        <item>2학년</item>
+        <item>3학년</item>
+        <item>4학년</item>
+        <item>5학년</item>
+        <item>6학년</item>
+        <item>학년을 선택해 주세요.</item>
+    </string-array>
+
+    <!--    스피너 반 배열반-->
+    <string-array name="spinner_class">
+        <item>1반</item>
+        <item>2반</item>
+        <item>3반</item>
+        <item>4반</item>
+        <item>5반</item>
+        <item>6반</item>
+        <item>7반</item>
+        <item>8반</item>
+        <item>9반</item>
+        <item>10반</item>
+        <item>11반</item>
+        <item>12반</item>
+        <item>13반</item>
+        <item>14반</item>
+        <item>15반</item>
+        <item>반을 선택해 주세요.</item>
+    </string-array>
+
+    <!-- 과목 추가 색상 배열-->
+    <string-array name="subject_color_spinner_grade">
+        <item>배경색을 지정해주세요.</item>
+        <item>기본 색상</item>
+        <item>라이트 블루</item>
+        <item>라이트 핑크</item>
+        <item>라이트 레몬</item>
+        <item>라이트 바이올렛</item>
+        <item>라이트 퍼플</item>
+        <item>라이트 샐몬</item>
+        <item>라이트 그린</item>
+    </string-array>
+
 </resources>

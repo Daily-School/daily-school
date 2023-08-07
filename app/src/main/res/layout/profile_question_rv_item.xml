@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 자주 묻는 질문 리사이클러 뷰 구성 레이아웃 화면-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:animateLayoutChanges="true"
+    android:background="@color/background_color"
+    android:orientation="vertical">
+
+    <!-- 카드 뷰 영역-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/questionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="0dp"
+        android:layout_marginBottom="12dp">
+
+        <!-- 질문 내용 텍스트뷰-->
+        <TextView
+            android:id="@+id/questionEachTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/pretendard"
+            android:text=""
+            android:textColor="@color/gray_1"
+            android:textSize="18sp" />
+
+        <!-- 내용 펼치는 이미지 버튼-->
+        <ImageButton
+            android:id="@+id/questionIcDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="right"
+            android:background="@android:color/transparent"
+            android:clickable="false"
+            android:src="@drawable/ic_question_down" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- 질문에 대한 대답 내용 리사이클러 뷰-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/questionDetailRv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:visibility="gone" />
+
+</LinearLayout>

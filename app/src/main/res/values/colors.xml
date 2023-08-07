@@ -7,4 +7,72 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="main_color">#005AFF</color>
+    <color name="gray_1">#FF212121</color>
+    <color name="gray_2">#FF424242</color>
+    <color name="gray_3">#FF616161</color>
+    <color name="gray_4">#FF757575</color>
+    <color name="gray_5">#FF9E9E9E</color>
+    <color name="gray_6">#FFBDBDBD</color>
+    <color name="gray_7">#FFE0E0E0</color>
+    <color name="gray_8">#FFFAFAFA</color>
+    <color name="focus_text">#005AFF</color>
+    <color name="disable_text">#D7D7D7</color>
+    <color name="sunday_color">#FF0000</color>
+    <color name="saturday_color">#005AFF</color>
+    <color name="red_color">#FF0000</color>
+    <color name="yellow_color">#FFE500</color>
+    <color name="orange_color">#FF9900</color>
+    <color name="light_green_color">#47DE00</color>
+    <color name="pink_color">#FF51EE</color>
+
+    <color name="background_color">#FFFFFF</color>
+    <color name="dialog_background_color">#FFFFFF</color>
+    <color name="linear_border_line_color">#FFFAFAFA</color>
+    <color name="calendar_black_color">#FF000000</color>
+
+    <color name="ic_color_black">#000000</color>
+    <color name="ic_color_gray_1_to_main">#212121</color>
+    <color name="ic_color_gray_1">#212121</color>
+    <color name="ic_color_gray_5">#9E9E9E</color>
+
+    <color name="bg_blue_color">#005AFF</color>
+
+    <color name="spinner_gray_5_color">#E0E0E0</color>
+
+    <color name="text_color_gray_2">#FF424242</color>
+    <color name="text_color_main_to_white">#005AFF</color>
+    <color name="text_color_main_to_dark_main">#005AFF</color>
+
+    <color name="border_gray_to_tran_10_color">#FFFAFAFA</color>
+    <color name="border_gray7_to_gray3_color">#FFE0E0E0</color>
+
+    <color name="school_info_gray_color">#C0C0C0</color>
+    <color name="school_info_transparency_blue">#4D005AFF</color>
+
+    <color name="meal_border_gray_color">#BDBDBD</color>
+    <color name="meal_border_blue_color">#4D005AFF</color>
+
+    <color name="plan_gray8_to_dialog_background_color">#FFFAFAFA</color>
+
+    <color name="profile_light_blue">#EDF3FF</color>
+    <color name="profile_background_color">#FFFAFAFA</color>
+    <color name="profile_detail_color">#F8F8FF</color>
+
+    <color name="login_gray_color">#24282b</color>
+
+    <color name="naver_green_color">#03C75A</color>
+
+    <color name="home_border_gray_color">#F1F1F1</color>
+    <color name="home_border_white_color">#FFFFFF</color>
+
+    <color name="subject_default_color">#FFE0E0E0</color>
+    <color name="subject_light_blue_color">#C8DBFF</color>
+    <color name="subject_light_pink_color">#FFF2FC</color>
+    <color name="subject_light_lemon_color">#FDFF84</color>
+    <color name="subject_light_violet_color">#A55EFF</color>
+    <color name="subject_light_purple_color">#F0C6FF</color>
+    <color name="subject_light_salmon_color">#FFA07A</color>
+    <color name="subject_light_green_color">#90EE90</color>
 </resources>
+
